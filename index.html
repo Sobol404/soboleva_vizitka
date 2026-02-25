@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Эксперт по визам США | Safe Case</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              accent: {
+                DEFAULT: '#E5484D', // Red from photo
+                hover: '#C13D42',
+              },
+              primary: {
+                DEFAULT: '#5AAAE5',
+              },
+              dark: {
+                DEFAULT: '#324F5C',
+                deep: '#0F172A',
+                card: '#1E293B',
+              },
+              light: {
+                DEFAULT: '#F4F7F9',
+                200: '#F0F7FD',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            animation: {
+              'fade-in': 'fadeIn 0.3s ease-out',
+              'zoom-in': 'zoomIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              'float-subtle': 'floatSubtle 3s ease-in-out infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              zoomIn: {
+                '0%': { opacity: '0', transform: 'scale(0.95)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              floatSubtle: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-5px)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      .hide-scrollbar::-webkit-scrollbar { display: none; }
+      .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+      
+      .button-glint { position: relative; overflow: hidden; }
+      .button-glint::after {
+        content: ''; position: absolute; top: -50%; left: -50%; width: 20px; height: 200%;
+        background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+        transform: rotate(20deg); transition: left 0.6s ease-in-out; opacity: 0;
+      }
+      .button-glint:hover::after { left: 150%; opacity: 1; transition: left 0.8s ease-in-out; }
+
+      .glass-quote {
+        background-color: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        border-radius: 1rem; padding: 1rem; font-style: italic;
+      }
+      .dark .glass-quote { background-color: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); }
+
+      .timeline-item { position: relative; padding-left: 5rem; }
+      .timeline-item:not(:last-child) { padding-bottom: 2.5rem; }
+      .timeline-item::before {
+        content: ''; position: absolute; left: 39px; top: 40px; bottom: -1.25rem; width: 2px;
+        background-color: #e5e7eb;
+      }
+      .dark .timeline-item::before { background-color: #334155; }
+      .timeline-item:last-child::before { display: none; }
+
+      @keyframes blob {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(30px, -50px) scale(1.1); }
+        66% { transform: translate(-20px, 20px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+      .animate-blob { animation: blob 7s infinite; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-light dark:bg-dark-deep text-dark dark:text-slate-100 antialiased selection:bg-accent selection:text-white transition-colors duration-300">
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
