@@ -9,7 +9,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <Section className="pt-32 pb-16 lg:pt-48 lg:pb-24 relative overflow-hidden min-h-[80vh] flex items-center">
+    <Section className="pt-20 pb-8 lg:pt-24 lg:pb-12 relative overflow-hidden min-h-[80vh] flex items-center">
       <div className="flex flex-col lg:grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         
         {/* Text Content */}

@@ -40,28 +40,28 @@ export const Socials: React.FC = () => {
               />
              </div>
 
-             <p className="text-xl md:text-3xl text-dark font-semibold">Присоединяйтесь к сообществу из <span className="text-accent font-bold">60 000+</span> подписчиков!</p>
-             <p className="text-slate-600 text-lg">Каждую неделю я делюсь ценными материалами, которые помогают тысячам людей лучше понять процесс получения визы США.</p>
+             <p className="text-xl md:text-3xl text-dark dark:text-white font-semibold">Присоединяйтесь к сообществу из <span className="text-accent font-bold">60 000+</span> подписчиков!</p>
+             <p className="text-slate-600 dark:text-slate-300 text-lg">Каждую неделю я делюсь ценными материалами, которые помогают тысячам людей лучше понять процесс получения визы США.</p>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 border-t border-b border-slate-100 py-6">
+          <div className="grid grid-cols-3 gap-4 border-t border-b border-slate-100 dark:border-slate-700 py-6">
             {[
               { val: "1M+", lbl: "Ежемесячных просмотров" },
               { val: "100+", lbl: "Полезных видео и статей" },
               { val: "300+", lbl: "Ответов на вопросы" }
             ].map((s, i) => (
               <div key={i}>
-                <div className="text-2xl font-bold text-dark">{s.val}</div>
-                <div className="text-xs text-slate-500 font-medium mt-1">{s.lbl}</div>
+                <div className="text-2xl font-bold text-dark dark:text-white">{s.val}</div>
+                <div className="text-xs text-slate-500 dark:text-slate-300 font-medium mt-1">{s.lbl}</div>
               </div>
             ))}
           </div>
 
           <div className="space-y-4">
-            <h4 className="font-semibold text-dark">В моих социальных сетях вы найдете:</h4>
+            <h4 className="font-semibold text-dark dark:text-white">В моих социальных сетях вы найдете:</h4>
             <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-left">
               {contentTypes.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-3 text-slate-700">
+                <li key={idx} className="flex items-start gap-3 text-slate-700 dark:text-slate-200">
                   <div className="w-2 h-2 rounded-full bg-accent mt-2 flex-shrink-0" />
                   <span>{item}</span>
                 </li>

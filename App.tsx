@@ -158,15 +158,19 @@ const App: React.FC = () => {
             <Socials />
             
             {/* Блог / Статьи */}
-            <Section id="blog" className="bg-light-200 dark:bg-slate-900/80">
-               <div className="text-center mb-12">
-                  <h2 className="text-4xl md:text-5xl font-bold text-dark dark:text-white uppercase">Блог</h2>
-                  <p className="mt-4 text-slate-600 dark:text-slate-400 text-lg md:text-xl">
-                    Полезные статьи и разборы актуальных новостей
-                  </p>
+            <Section id="blog">
+               <div className="bg-dark rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
+                 <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-16 -mt-16 blur-2xl pointer-events-none"></div>
+                 <div className="text-center mb-12 relative z-10">
+                    <h2 className="text-4xl md:text-6xl font-bold text-white uppercase">Блог</h2>
+                    <p className="mt-4 text-slate-300 text-xl md:text-3xl">
+                      Полезные статьи и разборы актуальных новостей
+                    </p>
+                 </div>
+                 <div className="relative z-10">
+                   <BlogSlider articles={Object.values(ARTICLE_REGISTRY)} darkContainer />
+                 </div>
                </div>
-               
-               <BlogSlider articles={Object.values(ARTICLE_REGISTRY)} />
             </Section>
 
             <Services />

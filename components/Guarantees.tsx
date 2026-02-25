@@ -6,8 +6,8 @@ export const Guarantees: React.FC = () => {
   return (
     <Section id="guarantees">
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-6xl font-bold text-dark mb-2 uppercase">Гарантии</h2>
-        <p className="text-xl md:text-3xl text-slate-600 mb-8">Вот что я гарантирую на 100%</p>
+        <h2 className="text-4xl md:text-6xl font-bold text-dark dark:text-white mb-2 uppercase">Гарантии</h2>
+        <p className="text-xl md:text-3xl text-slate-600 dark:text-slate-300 mb-8">Вот что я гарантирую на 100%</p>
         
         <div className="grid md:grid-cols-3 gap-8 text-left">
           {[
@@ -27,12 +27,12 @@ export const Guarantees: React.FC = () => {
               desc: "Я остаюсь на связи с вами до результата и даже после! После получения визы вы можете обращаться ко мне за консультацией по первой поездке, включая рекомендации по прохождению границы."
             }
           ].map((item, idx) => (
-            <div key={idx} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-light flex items-center justify-center text-dark mb-6">
+            <div key={idx} className="bg-white dark:bg-dark-card p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-14 h-14 rounded-2xl bg-light dark:bg-slate-800 flex items-center justify-center text-dark dark:text-white mb-6">
                 <item.icon className="w-7 h-7" />
               </div>
-              <h3 className="text-xl font-bold text-dark mb-3">{item.title}</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">{item.desc}</p>
+              <h3 className="text-xl font-bold text-dark dark:text-white mb-3">{item.title}</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{item.desc}</p>
             </div>
           ))}
         </div>

@@ -90,14 +90,14 @@ export const SafeCase: React.FC = () => {
       </div>
 
       {/* Complex Cases */}
-      <div className="bg-white dark:bg-dark-card rounded-[2.5rem] p-4 sm:p-8 md:p-12 shadow-lg max-w-5xl mx-auto border border-slate-100 dark:border-slate-800">
+      <div className="bg-white dark:bg-dark-card rounded-[2.5rem] p-4 sm:p-8 md:p-12 shadow-lg border border-slate-100 dark:border-slate-800">
         <div className="text-center mb-10">
           <h4 className="text-3xl md:text-5xl font-bold text-dark dark:text-white">
             Метод эффективен даже в самых сложных ситуациях:
           </h4>
         </div>
-        
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
           {complexCases.map((item, idx) => (
             <div key={idx} className="flex flex-col items-center gap-3">
               <div className="w-full aspect-square rounded-3xl overflow-hidden shadow-md relative group">
