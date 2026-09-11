@@ -39,12 +39,12 @@ export const Hero: React.FC = () => {
               </div>
             </div>
 
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-dark dark:text-white leading-[1.1] relative z-10">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-dark dark:text-white leading-[1.1] relative z-10">
               Виза под ключ
             </h1>
           </div>
           
-          <h2 className="text-2xl md:text-3xl text-accent font-bold max-w-xl mx-auto lg:mx-0 relative z-10">
+          <h2 className="text-xl sm:text-2xl md:text-3xl text-accent font-bold max-w-xl mx-auto lg:mx-0 relative z-10">
             По системе *Safe Case
           </h2>
           
@@ -56,17 +56,12 @@ export const Hero: React.FC = () => {
                     "С методом «Safe Case» мои клиенты получают визы даже после 6 отказов"
                   </p>
                 </div>
-                <div className="w-full sm:w-auto">
-                    <Button onClick={scrollToServices} fullWidth className="md:w-auto text-lg px-10 py-5 uppercase tracking-wide">
-                        ОЦЕНИТЬ ШАНСЫ
-                    </Button>
-                </div>
                 <div className="grid grid-cols-2 gap-3 w-full max-w-lg text-left">
                     {[
                     { icon: Star, title: "87% успешных одобрений", subtitle: "Даже после нескольких отказов", color: "text-yellow-500" },
-                    { icon: CheckCircle, title: "300+ успешных кейсов", subtitle: "За 2,5 года работы", color: "text-green-500" },
+                    { icon: CheckCircle, title: "600+ успешных кейсов", subtitle: "Работаю с 2022 года", color: "text-green-500" },
                     { icon: Globe, title: "Клиенты из 12 стран", subtitle: "Работаем дистанционно", color: "text-blue-500" },
-                    { icon: RefreshCcw, title: "Гарантия переподачи", subtitle: "Бесплатно в случае отказа", color: "text-purple-500" },
+                    { icon: RefreshCcw, title: "Повторное сопровождение", subtitle: "По условиям тарифа после отказа", color: "text-purple-500" },
                     ].map((stat, idx) => (
                     <div key={idx} className="flex flex-col sm:flex-row items-start text-left gap-2 sm:gap-3 bg-white dark:bg-dark-card p-3 rounded-xl shadow-sm border border-slate-100 dark:border-slate-800">
                         <stat.icon className={`w-5 h-5 ${stat.color} flex-shrink-0 mt-0.5`} />
@@ -76,6 +71,11 @@ export const Hero: React.FC = () => {
                         </div>
                     </div>
                     ))}
+                </div>
+                <div className="w-full max-w-lg">
+                    <Button onClick={scrollToServices} fullWidth className="text-lg px-10 py-5 uppercase tracking-wide">
+                        ОЦЕНИТЬ ШАНСЫ
+                    </Button>
                 </div>
             </div>
           </div>

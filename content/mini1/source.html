@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safe Case — Canvas</title>
+<meta name="description" content="Метод «Safe Case» — формула одобрения визы США, по которой консулы выдают визы россиянам в 9 из 10 случаев.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --brand-slate: #324F5C; --accent: #E5484D; --blue-400: #5AAAE5;
+    --green-500: #22C55E; --yellow-500: #EAB308; --slate-500: #64748B;
+    --slate-600: #475569; --surface-page: #F4F7F9; --surface-card: #FFFFFF;
+    --surface-soft: #F0F7FD; --surface-inverse: #324F5C;
+    --border-hairline: rgba(50,79,92,.1); --border-default: rgba(50,79,92,.15);
+    --shadow-sm: 0 1px 3px rgba(50,79,92,.08), 0 1px 2px rgba(50,79,92,.05);
+    --shadow-lg: 0 12px 40px rgba(50,79,92,.18);
+  }
+
+  html, body { background: #e8edf2; font-family: 'Inter', system-ui, sans-serif; color: var(--brand-slate); }
+  .page { display: flex; justify-content: center; padding: 32px 0; min-height: 100vh; }
+  .frame { width: 100%; max-width: 1280px; background: var(--surface-page); overflow: hidden; }
+  section { padding: 72px 48px; }
+  .inner { max-width: 1100px; margin: 0 auto; }
+  .hero { position: relative; overflow: hidden; background: var(--surface-page); }
+  .hero-blob1 { position: absolute; top: -80px; right: -80px; width: 360px; height: 360px; border-radius: 50%; background: rgba(90,170,229,.16); filter: blur(100px); pointer-events: none; }
+  .hero-blob2 { position: absolute; bottom: -60px; left: -60px; width: 280px; height: 280px; border-radius: 50%; background: rgba(229,72,77,.10); filter: blur(90px); pointer-events: none; }
+  .hero-wrap { display: flex; gap: 52px; align-items: center; padding: 72px 48px; max-width: 1100px; margin: 0 auto; }
+  .hero-text { flex: 1 1 auto; min-width: 0; }
+  .hero-video-col { flex-shrink: 0; width: 260px; }
+  .trust-chip { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,.72); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,.07); border-radius: 9999px; padding: 7px 15px; font-size: .8rem; font-weight: 700; color: var(--brand-slate); box-shadow: var(--shadow-sm); margin-bottom: 20px; }
+  .trust-chip .accent { color: var(--accent); }
+  h1.hero-h1 { font-size: 45px; font-weight: 800; line-height: 1.12; margin: 0 0 18px; letter-spacing: -.02em; text-wrap: balance; }
+  .mark { background: linear-gradient(transparent 58%, rgba(234,179,8,.55) 58%); padding: 0 .1em; }
+  .blue { color: var(--blue-400); }
+  .hero-sub { font-size: 1.0625rem; line-height: 1.65; color: var(--slate-600); margin: 0 0 22px; }
+  .check-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
+  .check-item { display: flex; gap: 12px; align-items: center; background: var(--surface-soft); border: 1px solid #DBEAFE; border-radius: 14px; padding: 13px 16px; }
+  .check-icon { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--green-500); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .78rem; }
+  .check-text { font-size: .975rem; font-weight: 600; line-height: 1.35; }
+  .cta-btn { margin-top: 28px; width: 100%; max-width: 520px; padding: 18px 40px; background: var(--blue-400); color: #fff; font-family: 'Inter', sans-serif; font-size: 1.0625rem; font-weight: 800; letter-spacing: .04em; border: none; border-radius: 9999px; cursor: pointer; box-shadow: 0 8px 28px rgba(90,170,229,.5); text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 12px; transition: background .2s, transform .1s; }
+  .cta-btn:hover { background: #4898d2; transform: translateY(-1px); }
+  .cta-btn:active { transform: translateY(0); }
+  .video-placeholder { aspect-ratio: 9/16; border-radius: 20px; background: linear-gradient(160deg,#1e3a5f,#2d1b3d); border: 2px dashed rgba(255,255,255,.2); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 16px 48px rgba(0,0,0,.25); gap: 10px; }
+  .play-btn { width: 72px; height: 72px; border-radius: 50%; background: var(--accent); box-shadow: 0 8px 32px rgba(229,72,77,.5); display: flex; align-items: center; justify-content: center; }
+  .play-triangle { width: 0; height: 0; border-style: solid; border-width: 13px 0 13px 22px; border-color: transparent transparent transparent #fff; margin-left: 4px; }
+  .video-label { font-size: .9rem; font-weight: 700; color: #fff; }
+  .video-sub { font-size: .8rem; color: rgba(255,255,255,.6); }
+  .screen-inside { background: var(--surface-inverse); color: #fff; }
+  .eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--blue-400); margin-bottom: 10px; }
+  h2.section-title { font-size: 2.4rem; font-weight: 800; margin: 0; line-height: 1.12; }
+  .section-head { text-align: center; margin-bottom: 36px; }
+  .banner-placeholder { aspect-ratio: 16/9; border-radius: 24px; overflow: hidden; border: 2px dashed rgba(255,255,255,.22); background: rgba(255,255,255,.06); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; margin-bottom: 28px; box-shadow: 0 16px 48px rgba(0,0,0,.25); }
+  .banner-placeholder .ph-label { font-size: 1rem; font-weight: 700; color: #fff; }
+  .banner-placeholder .ph-sub { font-size: .82rem; color: rgba(255,255,255,.5); text-align: center; max-width: 24ch; }
+  .contents-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .contents-item { display: flex; gap: 12px; align-items: center; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 12px; padding: 11px 14px; }
+  .contents-num { flex-shrink: 0; font-size: 1rem; font-weight: 900; color: var(--yellow-500); line-height: 1; min-width: 26px; }
+  .contents-text { font-size: .9rem; line-height: 1.4; color: rgba(255,255,255,.88); }
+  .screen-about { background: var(--surface-page); }
+  .about-layout { display: flex; gap: 44px; align-items: center; }
+  .about-photo-col { flex-shrink: 0; width: 320px; }
+  .photo-placeholder { aspect-ratio: 1/1; border-radius: 28px; background: linear-gradient(135deg, var(--surface-soft), #dce6ed); border: 2px dashed var(--border-default); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; }
+  .photo-placeholder .ph-name { font-size: .95rem; font-weight: 700; color: var(--brand-slate); }
+  .photo-placeholder .ph-hint { font-size: .8rem; color: var(--slate-500); }
+  .about-eyebrow { font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  h2.about-name { font-size: 2.4rem; font-weight: 800; margin: 0 0 18px; line-height: 1.15; }
+  .about-bio { font-size: 1.0625rem; line-height: 1.7; color: var(--slate-600); }
+  .about-bio strong { color: var(--brand-slate); }
+  .about-bio .method { color: var(--accent); font-weight: 700; }
+  .stats-row, .stats-row2 { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 36px; }
+  .stats-row2 { margin-top: 16px; justify-content: center; }
+  .stat-card { flex: 1 1 calc(33.33% - 11px); max-width: calc(33.33% - 11px); background: var(--surface-card); border: 1px solid var(--border-hairline); border-radius: 20px; padding: 22px; box-shadow: var(--shadow-sm); }
+  .stat-value { font-size: 2.4rem; font-weight: 900; color: var(--accent); line-height: 1; }
+  .stat-label { font-size: 1rem; font-weight: 700; margin-top: 9px; color: var(--brand-slate); }
+  .stat-sub { font-size: .85rem; color: var(--slate-500); margin-top: 4px; line-height: 1.4; }
+  .screen-cta { background: var(--surface-inverse); color: #fff; text-align: center; }
+  .cta-title { font-size: 2.4rem; font-weight: 800; margin: 0 0 16px; line-height: 1.15; }
+  .cta-sub { font-size: 1.0625rem; color: rgba(255,255,255,.7); margin: 0 auto 32px; max-width: 48ch; }
+  .cta-center { display: flex; justify-content: center; }
+  footer { background: var(--surface-inverse); color: rgba(255,255,255,.6); padding: 28px 24px; text-align: center; border-top: 1px solid rgba(255,255,255,.07); }
+  .footer-brand { font-size: 1.15rem; font-weight: 700; color: #fff; letter-spacing: -.02em; }
+  .footer-brand span { color: var(--accent); }
+  .footer-sub { margin: 6px 0 0; font-size: .85rem; }
+  @media (max-width: 1024px) { section { padding: 56px 32px; } .hero-wrap { padding: 56px 32px; gap: 36px; } .hero-video-col { width: 200px; } h1.hero-h1 { font-size: 36px; } h2.section-title, h2.about-name, .cta-title { font-size: 2rem; } .about-photo-col { width: 240px; } .stat-card { flex: 1 1 calc(50% - 8px); max-width: calc(50% - 8px); } }
+  @media (max-width: 640px) { .page { padding: 0; } section { padding: 44px 20px; } .hero-wrap { flex-direction: column-reverse; padding: 44px 20px; gap: 28px; align-items: stretch; } .hero-video-col { width: 100%; max-width: 220px; margin: 0 auto; } h1.hero-h1 { font-size: 28px; } .hero-sub { font-size: .975rem; } .check-grid, .contents-grid { grid-template-columns: 1fr; } .cta-btn { max-width: 100%; font-size: .95rem; padding: 16px 24px; } h2.section-title, h2.about-name, .cta-title { font-size: 1.7rem; } .banner-placeholder { aspect-ratio: 4/3; } .about-layout { flex-direction: column; gap: 28px; } .about-photo-col { width: 100%; max-width: 240px; margin: 0 auto; } .stats-row, .stats-row2 { gap: 12px; } .stat-card { flex: 1 1 calc(50% - 6px); max-width: calc(50% - 6px); padding: 16px; } .stat-value { font-size: 1.9rem; } }
+  @media (max-width: 380px) { h1.hero-h1 { font-size: 24px; } .stat-card { flex: 1 1 100%; max-width: 100%; } }
+</style>
+</head>
+<body>
+<div class="page"><div class="frame">
+  <section class="hero" style="padding:0;"><div class="hero-blob1"></div><div class="hero-blob2"></div><div class="hero-wrap">
+    <div class="hero-text"><div class="trust-chip">🇺🇸 Метод <span class="accent">«Safe&nbsp;Case»</span></div>
+      <h1 class="hero-h1">Раскрыта формула одобрения визы США <span class="mark">«Safe&nbsp;Case»</span>, по которой консулы вручают визы россиянам в&nbsp;<span class="blue">9&nbsp;из&nbsp;10</span> случаев</h1>
+      <p class="hero-sub">Метод основан на <strong>1000+ консультаций</strong>, протестирован на <strong>700 реальных анкетах</strong> и подкреплён опытом лучших экспертов РФ.</p>
+      <div class="check-grid"><div class="check-item"><span class="check-icon">✓</span><span class="check-text">После 5 отказов подряд</span></div><div class="check-item"><span class="check-icon">✓</span><span class="check-text">После отказа с приглашением родственников в США</span></div><div class="check-item"><span class="check-icon">✓</span><span class="check-text">При отсутствии истории поездок</span></div><div class="check-item"><span class="check-icon">✓</span><span class="check-text">Со сложной семейной ситуацией</span></div><div class="check-item"><span class="check-icon">✓</span><span class="check-text">После аннулирования предыдущих виз</span></div><div class="check-item"><span class="check-icon">✓</span><span class="check-text">Подходит для «нестандартных» кейсов</span></div></div>
+      <div style="margin-top:28px;"><button class="cta-btn">→&nbsp;&nbsp;Забрать в Telegram&nbsp;&nbsp;→</button></div>
+    </div><div class="hero-video-col"><div class="video-placeholder"><div class="play-btn"><div class="play-triangle"></div></div><span class="video-label">Видеo-скринкаст</span><span class="video-sub">9:16 · плейсхолдер</span></div></div>
+  </div></section>
+  <section class="screen-inside"><div class="inner"><div class="section-head"><div class="eyebrow">Динамичная статья</div><h2 class="section-title">Что внутри статьи</h2></div><div class="banner-placeholder"><span style="font-size:3.5rem;line-height:1;">🖼</span><span class="ph-label">Картинка-заглушка</span><span class="ph-sub">Вставьте сюда скриншот или баннер статьи</span></div><div class="contents-grid"><div class="contents-item"><span class="contents-num">01</span><span class="contents-text">Полный алгоритм системы «Safe Case», по которому наши клиенты получают визы</span></div><div class="contents-item"><span class="contents-num">02</span><span class="contents-text">Что делать после нескольких отказов подряд</span></div><div class="contents-item"><span class="contents-num">03</span><span class="contents-text">Топ ошибок в DS-160, которые делают 90% заявителей</span></div><div class="contents-item"><span class="contents-num">04</span><span class="contents-text">6 мифов о визах США, которые будут стоить вам поездки</span></div><div class="contents-item"><span class="contents-num">05</span><span class="contents-text">Как именно мы превращаем отказы в одобрения</span></div><div class="contents-item"><span class="contents-num">06</span><span class="contents-text">Как «упаковать» сложный кейс в убедительную историю</span></div><div class="contents-item"><span class="contents-num">07</span><span class="contents-text">8 конкретных этапов до поездки в США</span></div><div class="contents-item"><span class="contents-num">08</span><span class="contents-text">Реальные кейсы превращения отказов в одобрения</span></div></div></div></section>
+  <section class="screen-about"><div class="inner"><div class="about-layout"><div class="about-photo-col"><div class="photo-placeholder"><span style="font-size:3rem;">📷</span><span class="ph-name">Фото Ирины</span><span class="ph-hint">Плейсхолдер · 1:1</span></div></div><div><div class="about-eyebrow">Обо мне</div><h2 class="about-name">Ирина Соболева</h2><p class="about-bio">Эксперт по визам США с опытом более <strong>600 успешных кейсов</strong>. За последние 4 года я разработала систему <span class="method">«Safe&nbsp;Case»</span>, которая помогает получить визу даже после нескольких отказов с вероятностью <strong>87%</strong>.</p></div></div><div class="stats-row"><div class="stat-card"><div class="stat-value">600+</div><div class="stat-label">Успешных визовых кейсов</div><div class="stat-sub">Включая сложные ситуации с отказами</div></div><div class="stat-card"><div class="stat-value">1000+</div><div class="stat-label">Проведённых консультаций</div><div class="stat-sub">Индивидуальный подход к каждому</div></div><div class="stat-card"><div class="stat-value">87%</div><div class="stat-label">Успешных одобрений</div><div class="stat-sub">Даже после предыдущих отказов</div></div></div><div class="stats-row2"><div class="stat-card" style="max-width:calc(33.33% - 11px);"><div class="stat-value">12</div><div class="stat-label">Стран</div><div class="stat-sub">Работаю с клиентами из 12 стран</div></div><div class="stat-card" style="max-width:calc(33.33% - 11px);"><div class="stat-value">60 000+</div><div class="stat-label">Подписчиков</div><div class="stat-sub">Аудитория в соцсетях</div></div></div></div></section>
+  <section class="screen-cta"><div class="inner"><h2 class="cta-title">Узнайте реальные шансы на визу США</h2><p class="cta-sub">Бесплатный разбор кейса — без ложных обещаний 100%</p><div class="cta-center"><button class="cta-btn">→&nbsp;&nbsp;Получить статью в Telegram&nbsp;&nbsp;→</button></div></div></section>
+  <footer><div class="footer-brand">Safe&nbsp;Visa<span>.</span></div><p class="footer-sub">Ирина Соболева — эксперт по визам США · метод «Safe Case»</p></footer>
+</div></div>
+</body>
+</html>

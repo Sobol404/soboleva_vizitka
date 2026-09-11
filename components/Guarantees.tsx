@@ -6,15 +6,15 @@ export const Guarantees: React.FC = () => {
   return (
     <Section id="guarantees">
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-6xl font-bold text-dark dark:text-white mb-2 uppercase">Гарантии</h2>
-        <p className="text-xl md:text-3xl text-slate-600 dark:text-slate-300 mb-8">Вот что я гарантирую на 100%</p>
+        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-dark dark:text-white mb-2 uppercase">Гарантии</h2>
+        <p className="text-base sm:text-lg md:text-3xl text-slate-600 dark:text-slate-300 mb-8">Вот что я гарантирую на 100%</p>
         
         <div className="grid md:grid-cols-3 gap-8 text-left">
           {[
             {
-              title: "Гарантия результата",
+              title: "Повторное сопровождение",
               icon: RefreshCw,
-              desc: "Если вы получите отказ при подаче с нами, то мы переподаемся повторно абсолютно бесплатно. Оплачиваются только консульский сбор и услуги бота для записи (если требуется)."
+              desc: "Для тарифов «Расширенный» и «Личное сопровождение» повторное сопровождение после отказа входит в оплаченный объём один раз. Это не гарантия выдачи визы."
             },
             {
               title: "Гарантия безопасности",
@@ -22,15 +22,13 @@ export const Guarantees: React.FC = () => {
               desc: "Все наши договоренности фиксируются в официальном договоре. Ваши персональные данные находятся под надежной защитой и используются исключительно для подготовки к получению визы."
             },
             {
-              title: "Гарантия поддержки",
+              title: "Поддержка по тарифу",
               icon: FileText,
-              desc: "Я остаюсь на связи с вами до результата и даже после! После получения визы вы можете обращаться ко мне за консультацией по первой поездке, включая рекомендации по прохождению границы."
+              desc: "Состав, сроки и каналы связи определяются выбранным тарифом. Дополнительные консультации после завершения услуг согласуются отдельно."
             }
           ].map((item, idx) => (
-            <div key={idx} className="bg-white dark:bg-dark-card p-8 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
-              <div className="w-14 h-14 rounded-2xl bg-light dark:bg-slate-800 flex items-center justify-center text-dark dark:text-white mb-6">
-                <item.icon className="w-7 h-7" />
-              </div>
+            <div key={idx} className="relative overflow-hidden bg-white dark:bg-dark-card p-7 pr-16 md:p-8 md:pr-20 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-md transition-shadow">
+              <item.icon className="pointer-events-none absolute right-6 top-6 h-7 w-7 text-dark/20 dark:text-white/20" />
               <h3 className="text-xl font-bold text-dark dark:text-white mb-3">{item.title}</h3>
               <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">{item.desc}</p>
             </div>
@@ -43,15 +41,15 @@ export const Guarantees: React.FC = () => {
         <div className="relative z-10 flex flex-col md:flex-row gap-12">
           
           <div className="flex-1 space-y-6">
-             <h3 className="text-2xl font-bold">Почему я могу давать такие гарантии?</h3>
+             <h3 className="text-2xl font-bold">Что можно обещать честно</h3>
              <ul className="space-y-3 opacity-90">
                <li className="flex items-start gap-2">
                  <span className="text-primary font-bold">•</span>
-                 <span>9 из 10 моих клиентов получают визу с первой попытки</span>
+                 <span>Решение о выдаче визы принимает только консульство</span>
                </li>
                <li className="flex items-start gap-2">
                  <span className="text-primary font-bold">•</span>
-                 <span>Более 300 успешных одобрений за 2,5 года работы</span>
+                 <span>Более 600 успешных кейсов с 2022 года</span>
                </li>
                <li className="flex items-start gap-2">
                  <span className="text-primary font-bold">•</span>
@@ -59,7 +57,7 @@ export const Guarantees: React.FC = () => {
                </li>
                <li className="flex items-start gap-2">
                  <span className="text-primary font-bold">•</span>
-                 <span>Моя система учитывает все возможные риски еще до подачи, минимизируя вероятность отказа</span>
+                 <span>Система помогает заранее разобрать риски и подготовить документы по выбранному тарифу</span>
                </li>
              </ul>
           </div>

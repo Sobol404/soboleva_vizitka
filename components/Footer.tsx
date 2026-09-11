@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, Mail } from 'lucide-react';
+import { links } from '../config/links';
 
 export const Footer: React.FC = () => {
   return (
@@ -11,9 +12,10 @@ export const Footer: React.FC = () => {
                 Safe Visa<span className="text-accent">.</span>
             </div>
             <div className="text-sm text-slate-400 leading-relaxed">
-              ИП Соболева Ирина Александровна<br />
-              ИНН: 772806543210<br />
-              ОГРНИП: 314774600012345
+              ИП Соболева Ирина Андреевна<br />
+              ИНН: 343523500039<br />
+              ОГРНИП: 325774600606207<br />
+              г. Москва, 117628, Новоясеневский проспект, д. 12, корп. 1, кв. 293
             </div>
           </div>
           
@@ -34,9 +36,11 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <h4 className="text-white font-bold uppercase text-xs tracking-widest">Соцсети</h4>
             <div className="flex gap-6 text-sm">
-              <a href="https://t.me/+70mVsQp7SOFiYTE6" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Telegram</a>
-              <a href="https://instagram.com/irene_sa" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Instagram</a>
-              <a href="https://www.youtube.com/@irene_sa" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">YouTube</a>
+              <a href={links.telegram.channel} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Telegram</a>
+              <a href={links.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Instagram</a>
+              <a href={links.social.threads} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Threads</a>
+              <a href={links.social.tiktok} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">TikTok</a>
+              <a href={links.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">YouTube</a>
             </div>
           </div>
         </div>
@@ -46,8 +50,8 @@ export const Footer: React.FC = () => {
              <span>&copy; {new Date().getFullYear()} Safe Visa. Все права защищены.</span>
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-slate-300 transition-colors">Политика конфиденциальности</a>
-            <a href="#" className="hover:text-slate-300 transition-colors">Договор оферты</a>
+            <a href="#/policy" className="hover:text-slate-300 transition-colors">Согласие на обработку ПДн</a>
+            <a href="#/offer" className="hover:text-slate-300 transition-colors">Договор оферты</a>
           </div>
         </div>
       </div>

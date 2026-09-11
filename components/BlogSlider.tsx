@@ -1,9 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Calendar, ArrowRight } from 'lucide-react';
-import { Article } from '../articles/types';
+import { ArticleData } from '../articles/types';
 
 interface BlogSliderProps {
-  articles: Article[];
+  articles: ArticleData[];
   darkContainer?: boolean;
 }
 
@@ -93,7 +93,7 @@ export const BlogSlider: React.FC<BlogSliderProps> = ({ articles, darkContainer 
         {allArticles.map((art, idx) => (
           <a
             key={`${art.id}-${idx}`}
-            href={`#/article/${art.id}`}
+            href={art.href || `#/article/${art.id}`}
             className="flex-shrink-0 w-[85vw] md:w-[400px] group/card flex flex-col bg-white dark:bg-dark-card rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-100 dark:border-slate-800"
             draggable="false"
           >

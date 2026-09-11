@@ -13,7 +13,7 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
   const navLinks = [
     { name: 'Обо мне', href: '#about' },
     { name: 'Услуги', href: '#services' },
-    { name: 'Блог', href: '#blog' },
+    { name: 'Блог', href: '#/blog', route: true },
     { name: 'Отзывы', href: '#reviews' },
     { name: 'Контакты', href: '#contact' },
   ];
@@ -34,11 +34,29 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.substring(1);
+    const openPage = window.location.hash.startsWith('#/');
+
+    if (openPage) {
+      window.location.hash = '';
+      window.setTimeout(() => {
+        const target = targetId === 'root' ? document.getElementById('root') : document.getElementById(targetId);
+        target?.scrollIntoView({ behavior: 'smooth' });
+      }, 0);
+      setIsOpen(false);
+      return;
+    }
+
     const targetElement = targetId === 'root' ? document.getElementById('root') : document.getElementById(targetId);
     
     if (targetElement) {
         targetElement.scrollIntoView({ behavior: 'smooth' });
     }
+    setIsOpen(false);
+  };
+
+  const navigateToRoute = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+    window.location.hash = href;
     setIsOpen(false);
   };
 
@@ -60,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
               <a 
                 key={link.name} 
                 href={link.href} 
-                onClick={(e) => scrollToSection(e, link.href)}
+                onClick={(e) => link.route ? navigateToRoute(e, link.href) : scrollToSection(e, link.href)}
                 className="text-sm font-semibold text-dark dark:text-slate-300 hover:text-accent dark:hover:text-accent transition-colors"
               >
                 {link.name}
@@ -82,10 +100,16 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
             <button 
               onClick={toggleDarkMode}
               className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-dark dark:text-white mr-2"
+              aria-label="Переключить тему"
             >
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
-            <button onClick={() => setIsOpen(!isOpen)} className="text-dark dark:text-white p-2">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="text-dark dark:text-white p-2"
+              aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
+              aria-expanded={isOpen}
+            >
               {isOpen ? <X size={28} /> : <Menu size={28} />}
             </button>
           </div>
@@ -100,7 +124,7 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
               <a 
                 key={link.name} 
                 href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
+                onClick={(e) => link.route ? navigateToRoute(e, link.href) : scrollToSection(e, link.href)}
                 className="text-lg font-semibold text-dark dark:text-slate-200 hover:text-accent transition-colors"
               >
                 {link.name}

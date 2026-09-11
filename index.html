@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Эксперт по визам США | Safe Case</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,700&display=swap" rel="stylesheet">
     <script>
       tailwind.config = {
         darkMode: 'class',
@@ -30,7 +30,8 @@
               }
             },
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+              sans: ['Manrope', 'sans-serif'],
+              serif: ['Playfair Display', 'Georgia', 'serif'],
             },
             animation: {
               'fade-in': 'fadeIn 0.3s ease-out',
@@ -56,6 +57,7 @@
       }
     </script>
     <style>
+      h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', Georgia, serif; }
       .hide-scrollbar::-webkit-scrollbar { display: none; }
       .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       
@@ -75,14 +77,23 @@
       }
       .dark .glass-quote { background-color: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); }
 
-      .timeline-item { position: relative; padding-left: 5rem; }
-      .timeline-item:not(:last-child) { padding-bottom: 2.5rem; }
+      .timeline-item { position: relative; padding-left: 3.5rem; }
+      .timeline-item:not(:last-child) { padding-bottom: 2rem; }
       .timeline-item::before {
-        content: ''; position: absolute; left: 39px; top: 40px; bottom: -1.25rem; width: 2px;
+        content: ''; position: absolute; left: 27px; top: 50%; bottom: -50%; width: 2px;
         background-color: #e5e7eb;
       }
+      .timeline-item:not(:last-child)::before,
+      .timeline-item:not(:last-child) .timeline-icon { top: calc(50% - 1rem); }
       .dark .timeline-item::before { background-color: #334155; }
       .timeline-item:last-child::before { display: none; }
+      @media (min-width: 768px) {
+        .timeline-item { padding-left: 5rem; }
+        .timeline-item:not(:last-child) { padding-bottom: 2.5rem; }
+        .timeline-item::before { left: 39px; }
+        .timeline-item:not(:last-child)::before,
+        .timeline-item:not(:last-child) .timeline-icon { top: calc(50% - 1.25rem); }
+      }
 
       @keyframes blob {
         0% { transform: translate(0px, 0px) scale(1); }
@@ -102,9 +113,8 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
-  <body class="bg-light dark:bg-dark-deep text-dark dark:text-slate-100 antialiased selection:bg-accent selection:text-white transition-colors duration-300">
+  <body class="font-sans bg-light dark:bg-dark-deep text-dark dark:text-slate-100 antialiased selection:bg-accent selection:text-white transition-colors duration-300">
     <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>

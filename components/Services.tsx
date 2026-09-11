@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Section } from './ui/Section';
 import { Button } from './ui/Button';
-import { Check, Star } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { ServicePackage } from '../types';
+import { links } from '../config/links';
 
 export const Services: React.FC = () => {
   const [supportEnabled, setSupportEnabled] = useState(false);
   const [managerSupportEnabled, setManagerSupportEnabled] = useState(false);
+  const [activeService, setActiveService] = useState(0);
+  const servicesRef = useRef<HTMLDivElement>(null);
+  const dragStateRef = useRef({ pointerId: -1, startX: 0, startScrollLeft: 0 });
+  const didDragRef = useRef(false);
+  const initialPositionedRef = useRef(false);
+  const userInteractedRef = useRef(false);
 
   const scrollToContact = () => {
-     window.open('https://t.me/m/e1XHDdGVNDAy', '_blank');
+     window.open(links.telegram.consultation, '_blank', 'noopener,noreferrer');
   };
 
   const consultationFeatures = [
@@ -25,99 +32,239 @@ export const Services: React.FC = () => {
   ];
 
   const managerBaseFeatures = [
-    "Консультация и стратегия",
+    "Консультация по кейсу и разработка стратегии",
     "Заполнение формы DS-160",
     "Создание/перенос личного кабинета",
-    "Помощь с документами",
+    "Проверка и согласование внесенных данных",
+    "Помощь в подготовке пакета документов",
     "Запись вручную на собеседование",
-    "Материалы для подготовки",
-    "Консультация перед интервью (RU)",
-    "Поиск переводчика",
-    "Отслеживание статуса"
+    "Комплект материалов для подготовки к собеседованию.",
+    "Консультация по подготовке к собеседованию в Посольстве на русском языке",
+    "Поиск переводчика при необходимости",
+    "Отслеживание статуса готовности документов"
   ];
 
   const managerExtraFeatures = [
-    "Подготовка к админ. проверке",
-    "Гарантия повторной подачи бесплатно",
-    "Подготовка документов и переводов"
+    "Повторная подача в случае отказа",
+    "Перевод документов для подачи (не нотариальный)"
   ];
 
   const services: ServicePackage[] = [
     {
-        title: "Консультация с менеджером",
-        priceRub: supportEnabled ? "15 000₽" : "8 000₽",
-        priceUsd: "",
-        format: "1 час | Online",
-        features: [...consultationFeatures, ...consultationExtraFeatures], // Show all features to allow fading logic
-        result: supportEnabled 
-            ? "Работаем даже со сложными отказными кейсами" 
-            : "Результат: Четкое понимание ваших шансов, стратегия действий и уверенность в процессе получения визы",
-        isVip: false
-    },
-    {
       title: "Визовое сопровождение с персональным менеджером",
-      priceRub: managerSupportEnabled ? "40 000₽ (за взрослого)" : "30 000₽ (за взрослого)",
-      priceUsd: "10 000₽ (за ребенка)",
+      priceRub: managerSupportEnabled ? "40 000₽ / 500$ (за взрослого)" : "30 000₽ / 400$ (за взрослого)",
+      priceUsd: managerSupportEnabled ? "15 000₽ / 200$ (за ребёнка)" : "10 000₽ / 150$ (за ребёнка)",
       features: [...managerBaseFeatures, ...managerExtraFeatures],
       notes: "Бот и консульские сборы не включены",
-      isManager: true // Custom flag to identify this card
+      isManager: true,
+      isPopular: true,
+      layoutClass: "md:order-2",
     },
     {
       title: "VIP Сопровождение с экспертом Ириной Соболевой",
-      priceRub: "55 000₽ (за взрослого)",
-      priceUsd: "15 000₽ (за ребенка)",
+      priceRub: "55 000₽ / 650$ (за взрослого)",
+      priceUsd: "15 000₽ / 200$ (за ребёнка)",
       features: [
-        "Личное ведение экспертом",
-        "Профессиональное заполнение DS-160",
+        "Все, что входит в тариф «Визовое сопровождение с персональным менеджером»",
+        "Личное ведение",
+        "Заполнение DS-160",
         "Подготовка документов и переводы",
-        "Консультация перед интервью (RU/EN)",
+        "Консультация по подготовке к собеседованию в Посольстве на русском языке",
         "Персональные записи консультаций",
         "Подготовка к админ. проверке",
-        "Гарантия повторной подачи бесплатно"
+        "Повторное сопровождение после отказа"
       ],
-      notes: "Бот и консульские сборы не включены. Гарантия результата.",
-      result: "Максимальные шансы с персональной поддержкой эксперта на всех этапах",
-      isVip: true
+      notes: "Бот и консульские сборы не включены. Решение принимает консульство.",
+      result: "Рекомендуется для кейсов после отказов и других сложных случаев",
+      isVip: true,
+      layoutClass: "md:order-3",
+    },
+    {
+      title: "Консультация с менеджером",
+      priceRub: supportEnabled ? "15 000₽" : "8 000₽",
+      priceUsd: "",
+      format: "1 час | Online",
+      features: [...consultationFeatures, ...consultationExtraFeatures], // Show all features to allow fading logic
+      result: supportEnabled
+        ? "Работаем даже со сложными отказными кейсами"
+        : "Результат: Четкое понимание ваших шансов, стратегия действий и уверенность в процессе получения визы",
+      isVip: false,
+      layoutClass: "md:order-1",
     }
   ];
 
+  const scrollToService = (index: number, behavior: ScrollBehavior = 'smooth') => {
+    const container = servicesRef.current;
+    const card = container?.querySelectorAll<HTMLElement>('[data-service-card]')[index];
+
+    if (!container || !card) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const cardRect = card.getBoundingClientRect();
+    const left = container.scrollLeft + cardRect.left - containerRect.left - (container.clientWidth - card.clientWidth) / 2;
+
+    container.scrollTo({ left, behavior });
+    setActiveService(index);
+  };
+
+  useEffect(() => {
+    if (!window.matchMedia('(max-width: 767px)').matches) return;
+
+    const container = servicesRef.current;
+    if (!container) return;
+
+    const positionPopularService = () => {
+      if (initialPositionedRef.current || userInteractedRef.current) return;
+      if (container.scrollWidth <= container.clientWidth + 20) return;
+
+      scrollToService(0, 'auto');
+      initialPositionedRef.current = true;
+    };
+
+    const observer = new ResizeObserver(positionPopularService);
+    observer.observe(container);
+    const frame = window.requestAnimationFrame(() => window.requestAnimationFrame(positionPopularService));
+    const timeout = window.setTimeout(positionPopularService, 500);
+    window.addEventListener('load', positionPopularService);
+
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timeout);
+      window.removeEventListener('load', positionPopularService);
+    };
+  }, []);
+
+  const selectService = (index: number) => {
+    userInteractedRef.current = true;
+    scrollToService(index);
+  };
+
+  const updateActiveService = () => {
+    const container = servicesRef.current;
+    if (!container) return;
+
+    const center = container.getBoundingClientRect().left + container.clientWidth / 2;
+    const cards = Array.from(container.querySelectorAll<HTMLElement>('[data-service-card]'));
+    const closestIndex = cards.reduce((bestIndex, card, index) => {
+      const rect = card.getBoundingClientRect();
+      const distance = Math.abs(rect.left + rect.width / 2 - center);
+      const bestRect = cards[bestIndex].getBoundingClientRect();
+      const bestDistance = Math.abs(bestRect.left + bestRect.width / 2 - center);
+      return distance < bestDistance ? index : bestIndex;
+    }, 0);
+
+    setActiveService(closestIndex);
+  };
+
+  const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (window.matchMedia('(min-width: 768px)').matches) return;
+
+    userInteractedRef.current = true;
+    dragStateRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startScrollLeft: event.currentTarget.scrollLeft,
+    };
+    didDragRef.current = false;
+  };
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    const { pointerId, startX, startScrollLeft } = dragStateRef.current;
+    if (pointerId !== event.pointerId) return;
+
+    const distance = event.clientX - startX;
+    if (Math.abs(distance) < 6 && !didDragRef.current) return;
+
+    didDragRef.current = true;
+    event.currentTarget.setPointerCapture(event.pointerId);
+    event.currentTarget.scrollLeft = startScrollLeft - distance;
+  };
+
+  const handlePointerEnd = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStateRef.current.pointerId !== event.pointerId) return;
+    dragStateRef.current.pointerId = -1;
+    updateActiveService();
+  };
+
   return (
     <Section className="bg-white dark:bg-dark-deep" id="services">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-6xl font-bold text-dark dark:text-white uppercase">Услуги</h2>
-        <p className="mt-4 text-slate-600 dark:text-slate-400 text-xl md:text-3xl">Выберите оптимальный вариант сопровождения</p>
+      <div className="text-center mb-10 md:mb-16">
+        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-dark dark:text-white uppercase">Услуги</h2>
+        <p className="mt-4 text-slate-600 dark:text-slate-400 text-base sm:text-lg md:text-3xl">Выберите оптимальный вариант сопровождения</p>
       </div>
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+      <div className="mb-4 flex items-center justify-between md:hidden">
+        <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Листайте тарифы свайпом</p>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => selectService(Math.max(0, activeService - 1))}
+            disabled={activeService === 0}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-dark shadow-sm disabled:opacity-30 dark:border-slate-700 dark:bg-dark-card dark:text-white"
+            aria-label="Предыдущий тариф"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={() => selectService(Math.min(services.length - 1, activeService + 1))}
+            disabled={activeService === services.length - 1}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-dark shadow-sm disabled:opacity-30 dark:border-slate-700 dark:bg-dark-card dark:text-white"
+            aria-label="Следующий тариф"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+        </div>
+      </div>
+
+      <div
+        ref={servicesRef}
+        className="flex touch-pan-y cursor-grab gap-4 overflow-x-auto overscroll-x-contain hide-scrollbar snap-x snap-mandatory -mx-4 px-4 pb-4 pt-5 active:cursor-grabbing md:grid md:grid-cols-2 md:touch-auto md:cursor-auto md:overflow-visible md:mx-0 md:px-0 md:pb-0 md:pt-0 lg:grid-cols-3 md:gap-6 max-w-7xl mx-auto"
+        aria-label="Тарифы: листайте карточки свайпом"
+        onScroll={updateActiveService}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerEnd}
+        onPointerCancel={handlePointerEnd}
+        onClickCapture={(event) => {
+          if (!didDragRef.current) return;
+          event.preventDefault();
+          event.stopPropagation();
+          didDragRef.current = false;
+        }}
+      >
         {services.map((service, idx) => (
           <div 
             key={idx} 
-            className={`
-              relative p-6 rounded-3xl flex flex-col h-full transition-transform hover:-translate-y-1 duration-300
-              ${service.isVip 
-                ? 'bg-light-200 dark:bg-dark-card shadow-xl ring-2 ring-accent scale-105 z-10 order-first md:order-last xl:order-none' 
+            data-service-card
+            className={`${service.layoutClass || ''}
+              relative w-[88%] flex-none snap-center p-6 rounded-3xl flex flex-col h-full transition-transform hover:-translate-y-1 duration-300 md:w-auto md:min-w-0
+              ${service.isPopular
+                ? 'bg-light-200 dark:bg-dark-card shadow-xl ring-2 ring-accent md:scale-[1.03] z-10'
                 : 'bg-white dark:bg-dark-card shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-md'
               }
             `}
           >
-            {service.isVip && (
-              <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1 w-max shadow-lg">
+            {service.isPopular && (
+              <div className="absolute -top-4 left-1/2 z-20 -translate-x-1/2 bg-accent text-white px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-1 w-max shadow-lg ring-2 ring-white dark:ring-dark-card">
                 <Star className="w-3 h-3 fill-current" />
                 Популярное
               </div>
             )}
 
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-dark dark:text-white mb-4 min-h-[3.5rem] flex items-center">{service.title}</h3>
+              <h3 className="text-base leading-tight font-bold text-dark dark:text-white mb-4 min-h-[3.5rem] flex items-center md:text-lg">{service.title}</h3>
               <div className="flex flex-col gap-1">
-                <div className="text-2xl font-bold text-accent">{service.priceRub}</div>
+                {(service.isManager || service.isVip) && <div className="text-sm font-semibold text-dark/80 dark:text-slate-300">Стоимость услуги:</div>}
+                <div className="whitespace-nowrap text-[clamp(1rem,4.2vw,1.5rem)] font-bold leading-tight text-accent">{service.priceRub}</div>
                 <div className="text-sm text-slate-500 dark:text-slate-400 font-medium">{service.priceUsd}</div>
                 {service.format && <div className="text-xs text-slate-400 dark:text-slate-500 mt-1">{service.format}</div>}
               </div>
             </div>
 
             {/* Toggle for Consultation (First Card) */}
-            {idx === 0 && (
+            {!service.isManager && !service.isVip && (
                 <div className="mb-6 bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                     <label className="flex items-center gap-3 cursor-pointer select-none">
                         <div className="relative">
@@ -137,7 +284,7 @@ export const Services: React.FC = () => {
 
             {/* Toggle for Manager Support (Second Card) */}
             {/* Using isManager flag or checking title/index */}
-            {idx === 1 && (
+            {service.isManager && (
                 <div className="mb-6 bg-slate-50 dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700">
                     <label className="flex items-center gap-3 cursor-pointer select-none">
                         <div className="relative">
@@ -164,7 +311,7 @@ export const Services: React.FC = () => {
                    let isFaded = false;
                    let isBold = false;
 
-                   if (idx === 0) { // Consultation card
+                   if (!service.isManager && !service.isVip) { // Consultation card
                      isExtraFeature = !consultationFeatures.includes(feature);
                      if (isExtraFeature) {
                        if (supportEnabled) {
@@ -173,7 +320,7 @@ export const Services: React.FC = () => {
                          isFaded = true;
                        }
                      }
-                   } else if (idx === 1) { // Manager card
+                   } else if (service.isManager) { // Manager card
                      isExtraFeature = managerExtraFeatures.includes(feature);
                      if (isExtraFeature) {
                        if (managerSupportEnabled) {
@@ -213,7 +360,7 @@ export const Services: React.FC = () => {
                 </div>
               )}
               <Button 
-                variant={service.isVip ? 'primary' : 'outline'} 
+                variant={service.isPopular ? 'primary' : 'outline'}
                 fullWidth 
                 onClick={scrollToContact}
               >
@@ -221,6 +368,18 @@ export const Services: React.FC = () => {
               </Button>
             </div>
           </div>
+        ))}
+      </div>
+
+      <div className="mt-3 flex justify-center gap-2 md:hidden" aria-label={`Тариф ${activeService + 1} из ${services.length}`}>
+        {services.map((service, index) => (
+          <button
+            key={service.title}
+            type="button"
+            onClick={() => selectService(index)}
+            className={`h-2.5 rounded-full transition-all ${index === activeService ? 'w-7 bg-accent' : 'w-2.5 bg-slate-300 dark:bg-slate-700'}`}
+            aria-label={`Показать тариф ${index + 1}: ${service.title}`}
+          />
         ))}
       </div>
     </Section>

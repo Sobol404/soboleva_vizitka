@@ -10,6 +10,7 @@ export const VisaSlider: React.FC = () => {
   const [isPaused, setIsPaused] = useState(false);
   const [modalSrc, setModalSrc] = useState<string | null>(null);
   const pauseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const hasDraggedRef = useRef(false);
 
   const baseImages = [
     "https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/19m-vSpiK0K4Mw6Fug0XEw.webp",
@@ -46,13 +47,17 @@ export const VisaSlider: React.FC = () => {
     animationFrameId = requestAnimationFrame(animate);
     return () => {
       cancelAnimationFrame(animationFrameId);
-      if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
     };
   }, [isDragging, isPaused, modalSrc]);
+
+  useEffect(() => () => {
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+  }, []);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
     setIsDragging(true);
+    hasDraggedRef.current = false;
     pauseAutoScroll();
     setStartX(e.pageX - scrollRef.current.offsetLeft);
     setScrollLeft(scrollRef.current.scrollLeft);
@@ -66,6 +71,7 @@ export const VisaSlider: React.FC = () => {
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
     const walk = (x - startX) * 2;
+    if (Math.abs(walk) > 8) hasDraggedRef.current = true;
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
 
@@ -78,14 +84,20 @@ export const VisaSlider: React.FC = () => {
   };
 
   const handleImageClick = (src: string) => {
-    if (!isDragging) { pauseAutoScroll(); setModalSrc(src); }
+    if (!hasDraggedRef.current) { pauseAutoScroll(); setModalSrc(src); }
+  };
+
+  const closeModal = () => {
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    setModalSrc(null);
+    setIsPaused(false);
   };
 
   return (
     <Section>
       <div className="text-center mb-12">
-        <h2 className="text-4xl md:text-6xl font-bold text-dark dark:text-white">Истории успеха</h2>
-        <p className="mt-4 text-slate-600 dark:text-slate-400 text-xl md:text-2xl">Каждая виза — это история успеха и результат нашей совместной работы.</p>
+        <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-dark dark:text-white">Истории успеха</h2>
+        <p className="mt-4 text-slate-600 dark:text-slate-400 text-base md:text-2xl">Каждая виза — это история успеха и результат нашей совместной работы.</p>
       </div>
       <div className="relative group">
         <div
@@ -99,7 +111,7 @@ export const VisaSlider: React.FC = () => {
           {visaImages.map((src, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-96 h-64 rounded-2xl overflow-hidden shadow-lg transform transition-transform hover:scale-105 bg-light dark:bg-dark-card border border-slate-100 dark:border-slate-800 cursor-pointer"
+              className="flex-shrink-0 w-[82vw] sm:w-80 md:w-96 h-52 sm:h-56 md:h-64 rounded-2xl overflow-hidden shadow-lg transform transition-transform hover:scale-[1.02] bg-light dark:bg-dark-card border border-slate-100 dark:border-slate-800 cursor-pointer"
               onClick={() => handleImageClick(src)}
             >
               <img
@@ -139,7 +151,7 @@ export const VisaSlider: React.FC = () => {
       {modalSrc && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 md:p-12"
-          onClick={() => setModalSrc(null)}
+          onClick={closeModal}
         >
           <div
             className="relative bg-white dark:bg-dark-card rounded-3xl shadow-2xl overflow-hidden max-w-3xl w-full"
@@ -147,7 +159,8 @@ export const VisaSlider: React.FC = () => {
           >
             <button
               className="absolute top-3 right-3 z-10 w-8 h-8 bg-black/40 hover:bg-black/60 text-white rounded-full flex items-center justify-center transition-colors"
-              onClick={() => setModalSrc(null)}
+              onClick={closeModal}
+              aria-label="Закрыть увеличенное изображение"
             >
               <X className="w-4 h-4" />
             </button>

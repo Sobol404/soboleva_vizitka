@@ -1,0 +1,8 @@
+[Unit]
+Description=Build and publish the current safevisa main branch
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/srv/apps/safevisa/deploy/deploy-safevisa.sh

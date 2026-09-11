@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { SafeCase } from './components/SafeCase';
+import { SafeCaseLanding } from './components/SafeCaseLanding';
 import { Socials } from './components/Socials';
 import { Services } from './components/Services';
 import { Reviews } from './components/Reviews';
@@ -12,142 +13,172 @@ import { Footer } from './components/Footer';
 import { VisaSlider } from './components/VisaSlider';
 import { ArticlePage } from './components/ArticlePage';
 import { ArticleData } from './articles/types';
-import { Section } from './components/ui/Section';
-import { ChevronRight, ArrowRight, Calendar } from 'lucide-react';
-import { BlogSlider } from './components/BlogSlider';
+import { markdownArticles } from './content/article-loader';
+import { PolicyPage } from './components/PolicyPage';
+import { OfferPage } from './components/OfferPage';
+import { BlogPreview } from './components/BlogPreview';
+import { BlogPage } from './components/BlogPage';
+import { MiniLanding } from './components/MiniLanding';
 
-// Пример данных первой статьи (тестовый реестр)
-const ARTICLE_REGISTRY: Record<string, ArticleData> = {
-  'kak-poluchit-vizu-2024': {
-    id: 'kak-poluchit-vizu-2024',
-    title: 'Как получить визу США в 2024 году: Полный гид',
-    description: 'Пошаговая инструкция по получению визы B1/B2 в текущих реалиях.',
-    date: '15 Октября 2023',
-    author: 'Safe Visa',
-    mainImage: 'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/EVy7zU2StUSPfvcr_UZ_3g.webp',
-    blocks: [
-      { type: 'text', content: 'Ситуация с выдачей виз США постоянно меняется, но метод Safe Case остается стабильно эффективным. В этой статье мы разберем основные шаги.' },
-      { type: 'heading', content: 'Шаг 1: Выбор посольства' },
-      { type: 'text', content: 'Сейчас важно учитывать очереди и наличие русскоговорящих офицеров. Популярные направления: Казахстан, Сербия, Армения.' },
-      { type: 'image', src: 'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/P61Gts5iKUyEkT7qAHHOEw.webp', alt: 'Пример заполненной анкеты' },
-      { type: 'heading', content: 'Шаг 2: Заполнение анкеты DS-160' },
-      { type: 'text', content: 'Это самый важный этап. Любая ошибка может привести к отказу. Вот примеры того, как выглядят одобренные кейсы:' },
-      { type: 'slider', images: [
-        'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/19m-vSpiK0K4Mw6Fug0XEw.webp',
-        'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/7GbeWqFRoki9bxqd88iT1A.webp',
-        'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/BxuwUkCT-UiukYeVEqR-Yw.webp'
-      ]}
-    ]
-  },
-  'kak-poluchit-vizu-posle-otkaza-2026': {
-    id: 'kak-poluchit-vizu-posle-otkaza-2026',
-    title: 'Как получить визу после отказа в 2026',
-    description: 'Разбираем основные причины отказов и как их исправить для успешной переподачи.',
-    date: '10 Января 2026',
-    author: 'Safe Visa',
-    mainImage: 'https://picsum.photos/seed/visa1/800/600',
-    blocks: [
-      { type: 'text', content: 'Отказ в визе — это не приговор. Главное — правильно проанализировать причины и подготовиться к следующему собеседованию.' }
-    ]
-  },
-  'visa-canada-2026': {
-    id: 'visa-canada-2026',
-    title: 'Гайд: Как получить визу в Канаду в 2026 году',
-    description: 'Пошаговое руководство по оформлению канадской визы.',
-    date: '15 Января 2026',
-    author: 'Safe Visa',
-    mainImage: 'https://picsum.photos/seed/canada/800/600',
-    blocks: [
-      { type: 'text', content: 'Процесс получения визы в Канаду имеет свои особенности. В этой статье мы подробно разберем каждый этап.' }
-    ]
-  },
-  'visa-uk-2026': {
-    id: 'visa-uk-2026',
-    title: 'Гайд: Как получить визу в Великобританию в 2026 году',
-    description: 'Все, что нужно знать для успешного получения британской визы.',
-    date: '20 Января 2026',
-    author: 'Safe Visa',
-    mainImage: 'https://picsum.photos/seed/uk/800/600',
-    blocks: [
-      { type: 'text', content: 'Британская виза требует тщательной подготовки документов. Узнайте, как избежать частых ошибок.' }
-    ]
-  },
-  'visa-australia-2026': {
-    id: 'visa-australia-2026',
-    title: 'Гайд: Как получить визу в Австралию в 2026 году',
-    description: 'Инструкция по оформлению визы на зеленый континент.',
-    date: '25 Января 2026',
-    author: 'Safe Visa',
-    mainImage: 'https://picsum.photos/seed/australia/800/600',
-    blocks: [
-      { type: 'text', content: 'Австралия привлекает многих, но визовый процесс может показаться сложным. Мы поможем разобраться.' }
-    ]
-  },
-  'visa-new-zealand-2026': {
-    id: 'visa-new-zealand-2026',
-    title: 'Гайд: Как получить визу в Новую Зеландию в 2026 году',
-    description: 'Полное руководство по визе в Новую Зеландию.',
-    date: '30 Января 2026',
-    author: 'Safe Visa',
-    mainImage: 'https://picsum.photos/seed/nz/800/600',
-    blocks: [
-      { type: 'text', content: 'Мечтаете о Новой Зеландии? Начните с правильного оформления визы.' }
-    ]
-  }
+const safeCaseCard: ArticleData = {
+  id: 'safe-case',
+  title: 'Safe Case: стратегия для сложного визового кейса',
+  description: 'Большой разбор метода, типичных ошибок, кейсов и пути подготовки к интервью.',
+  date: 'Спецпроект',
+  author: 'Ирина Соболева',
+  mainImage: '/media/safe-case/ленд%20виза%20картинка_превью%20safe%20case.jpeg',
+  href: '/usa-safecase',
 };
 
 const App: React.FC = () => {
-  const [darkMode, setDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return localStorage.getItem('theme') === 'dark';
-    }
-    return false;
-  });
-
+  const [darkMode, setDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
   const [currentArticle, setCurrentArticle] = useState<ArticleData | null>(null);
+  const [isSafeCaseOpen, setIsSafeCaseOpen] = useState(false);
+  const [isPolicyOpen, setIsPolicyOpen] = useState(false);
+  const [isOfferOpen, setIsOfferOpen] = useState(false);
+  const [isBlogOpen, setIsBlogOpen] = useState(false);
+  const [isMiniOpen, setIsMiniOpen] = useState(false);
 
-  // Нативный роутинг через hash
+  const articleRegistry = useMemo(
+    () => Object.fromEntries(markdownArticles.map((article) => [article.id, article])),
+    [],
+  );
+  const blogArticles = useMemo(() => [safeCaseCard, ...markdownArticles], []);
+
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#/article/', '');
-      if (hash && ARTICLE_REGISTRY[hash]) {
-        setCurrentArticle(ARTICLE_REGISTRY[hash]);
-      } else {
+    const handleLocationChange = () => {
+      const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
+      const hash = window.location.hash;
+
+      if (pathname === '/usa-safecase') {
         setCurrentArticle(null);
-        document.title = 'Эксперт по визам США | Safe Case';
+        setIsSafeCaseOpen(true);
+        setIsPolicyOpen(false);
+        setIsOfferOpen(false);
+        setIsBlogOpen(false);
+        setIsMiniOpen(false);
+        document.title = 'Safe Case | Ирина Соболева';
+        window.scrollTo(0, 0);
+        return;
       }
+
+      if (pathname === '/mini1') {
+        setCurrentArticle(null);
+        setIsSafeCaseOpen(false);
+        setIsPolicyOpen(false);
+        setIsOfferOpen(false);
+        setIsBlogOpen(false);
+        setIsMiniOpen(true);
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      if (hash === '#/safe-case') {
+        setCurrentArticle(null);
+        setIsSafeCaseOpen(true);
+        setIsPolicyOpen(false);
+        setIsOfferOpen(false);
+        setIsBlogOpen(false);
+        setIsMiniOpen(false);
+        document.title = 'Safe Case | Ирина Соболева';
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      if (hash === '#/policy') {
+        setCurrentArticle(null);
+        setIsSafeCaseOpen(false);
+        setIsPolicyOpen(true);
+        setIsOfferOpen(false);
+        setIsBlogOpen(false);
+        setIsMiniOpen(false);
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      if (hash === '#/offer') {
+        setCurrentArticle(null);
+        setIsSafeCaseOpen(false);
+        setIsPolicyOpen(false);
+        setIsOfferOpen(true);
+        setIsBlogOpen(false);
+        setIsMiniOpen(false);
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      if (hash === '#/blog') {
+        setCurrentArticle(null);
+        setIsSafeCaseOpen(false);
+        setIsPolicyOpen(false);
+        setIsOfferOpen(false);
+        setIsBlogOpen(true);
+        setIsMiniOpen(false);
+        document.title = 'Ира Соболева про визы | Блог';
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      const articleId = hash.replace('#/article/', '');
+      if (hash.startsWith('#/article/') && articleRegistry[articleId]) {
+        setIsSafeCaseOpen(false);
+        setIsPolicyOpen(false);
+        setIsOfferOpen(false);
+        setIsBlogOpen(false);
+        setIsMiniOpen(false);
+        setCurrentArticle(articleRegistry[articleId]);
+        return;
+      }
+
+      setCurrentArticle(null);
+      setIsSafeCaseOpen(false);
+      setIsPolicyOpen(false);
+      setIsOfferOpen(false);
+      setIsBlogOpen(false);
+      setIsMiniOpen(false);
+      document.title = 'Эксперт по визам США | Safe Case';
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    handleHashChange(); // Проверка при загрузке
-
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
+    handleLocationChange();
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, [articleRegistry]);
 
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
-    }
+    document.documentElement.classList.toggle('dark', darkMode);
+    localStorage.setItem('theme', darkMode ? 'dark' : 'light');
   }, [darkMode]);
 
-  const toggleDarkMode = () => setDarkMode(!darkMode);
-  const goBack = () => { window.location.hash = ''; };
+  const toggleDarkMode = () => setDarkMode((current) => !current);
+  const goBack = () => {
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
 
   return (
-    <div className="min-h-screen w-full overflow-x-hidden transition-colors duration-300">
+    <div className="min-h-screen w-full overflow-x-clip transition-colors duration-300">
       <div className="fixed inset-0 pointer-events-none z-0 opacity-40 dark:opacity-20">
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-200 dark:bg-purple-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-200 dark:bg-blue-900/30 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000" />
       </div>
 
-      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      
+      {!isMiniOpen && <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
       <main className="relative z-10">
-        {currentArticle ? (
+        {isPolicyOpen ? (
+          <PolicyPage onBack={goBack} />
+        ) : isOfferOpen ? (
+          <OfferPage onBack={goBack} />
+        ) : isSafeCaseOpen ? (
+          <SafeCaseLanding onBack={goBack} />
+        ) : isMiniOpen ? (
+          <MiniLanding />
+        ) : isBlogOpen ? (
+          <BlogPage articles={blogArticles} onBack={goBack} />
+        ) : currentArticle ? (
           <ArticlePage data={currentArticle} onBack={goBack} />
         ) : (
           <>
@@ -156,22 +187,7 @@ const App: React.FC = () => {
             <VisaSlider />
             <SafeCase />
             <Socials />
-            
-            {/* Блог / Статьи */}
-            <Section id="blog">
-               <div className="bg-dark rounded-[2.5rem] p-8 md:p-12 text-white relative overflow-hidden shadow-2xl">
-                 <div className="absolute top-0 right-0 w-64 h-64 bg-white opacity-5 rounded-full -mr-16 -mt-16 blur-2xl pointer-events-none"></div>
-                 <div className="text-center mb-12 relative z-10">
-                    <h2 className="text-4xl md:text-6xl font-bold text-white uppercase">Блог</h2>
-                    <p className="mt-4 text-slate-300 text-xl md:text-3xl">
-                      Полезные статьи и разборы актуальных новостей
-                    </p>
-                 </div>
-                 <div className="relative z-10">
-                   <BlogSlider articles={Object.values(ARTICLE_REGISTRY)} darkContainer />
-                 </div>
-               </div>
-            </Section>
+            <BlogPreview articles={blogArticles} />
 
             <Services />
             <Reviews />
@@ -180,7 +196,7 @@ const App: React.FC = () => {
           </>
         )}
       </main>
-      <Footer />
+      {!isSafeCaseOpen && !isMiniOpen && <Footer />}
     </div>
   );
 };

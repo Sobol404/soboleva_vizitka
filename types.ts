@@ -14,6 +14,9 @@ export interface ServicePackage {
   features: string[];
   result?: string;
   isVip?: boolean;
+  isPopular?: boolean;
+  isManager?: boolean;
+  layoutClass?: string;
   notes?: string;
 }
 

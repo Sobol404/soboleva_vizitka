@@ -1,6 +1,7 @@
 import React from 'react';
 import { Section } from './ui/Section';
-import { Instagram, Youtube, Send } from 'lucide-react';
+import { AtSign, Instagram, Music2, Youtube, Send } from 'lucide-react';
+import { links } from '../config/links';
 
 export const Socials: React.FC = () => {
   const contentTypes = [
@@ -12,10 +13,12 @@ export const Socials: React.FC = () => {
   ];
 
   const socialLinks = [
-    { name: 'Instagram', user: '@irene_sa', icon: Instagram, href: 'https://instagram.com/irene_sa', color: 'bg-gradient-to-br from-pink-500 to-rose-500' },
-    { name: 'Telegram', user: 'Про визы', icon: Send, href: 'https://t.me/+70mVsQp7SOFiYTE6', color: 'bg-gradient-to-br from-blue-400 to-blue-600' },
-    { name: 'YouTube', user: '@irene_sa', icon: Youtube, href: 'https://www.youtube.com/@irene_sa', color: 'bg-gradient-to-br from-red-500 to-red-600' },
-    { name: 'MAX', user: 'Бизнес чат', icon: () => <svg className="w-full h-full text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>, href: 'https://max.ru/id343523500039_biz', color: 'bg-gradient-to-br from-indigo-500 to-purple-600' }
+    { name: 'Instagram', user: '@irene_sa', icon: Instagram, href: links.social.instagram, color: 'bg-gradient-to-br from-pink-500 to-rose-500', mobileOrder: 'order-1 lg:order-none' },
+    { name: 'Telegram', user: 'Про визы', icon: Send, href: links.telegram.channel, color: 'bg-gradient-to-br from-blue-400 to-blue-600', mobileOrder: 'order-6 lg:order-none' },
+    { name: 'Threads', user: '@irene_sa', icon: AtSign, href: links.social.threads, color: 'bg-gradient-to-br from-slate-700 to-slate-950', mobileOrder: 'order-2 lg:order-none' },
+    { name: 'TikTok', user: '@irene..sa', icon: Music2, href: links.social.tiktok, color: 'bg-gradient-to-br from-slate-800 to-slate-950', mobileOrder: 'order-3 lg:order-none' },
+    { name: 'YouTube', user: '@irene_sa', icon: Youtube, href: links.social.youtube, color: 'bg-gradient-to-br from-red-500 to-red-600', mobileOrder: 'order-4 lg:order-none' },
+    { name: 'MAX', user: 'Бизнес чат', icon: () => <svg className="w-full h-full text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>, href: links.social.max, color: 'bg-gradient-to-br from-indigo-500 to-purple-600', mobileOrder: 'order-5 lg:order-none' }
   ];
 
   return (
@@ -23,11 +26,6 @@ export const Socials: React.FC = () => {
       <div className="flex flex-col lg:flex-row gap-16 items-center">
         
         <div className="flex-1 w-full lg:w-1/2 space-y-6 text-center lg:text-left">
-          <div className="text-center lg:text-left">
-             <h2 className="inline-block text-3xl md:text-5xl font-bold text-white px-8 py-3 rounded-2xl bg-gradient-to-r from-blue-500 to-blue-600 shadow-lg transform -rotate-2">
-               Подписывайтесь
-             </h2>
-          </div>
           <div className="flex flex-col gap-2 pt-4">
              {/* Mobile Image */}
              <div className="block lg:hidden w-full relative pb-[56.25%] rounded-3xl overflow-hidden shadow-lg border border-slate-100 mb-6">
@@ -40,15 +38,15 @@ export const Socials: React.FC = () => {
               />
              </div>
 
-             <p className="text-xl md:text-3xl text-dark dark:text-white font-semibold">Присоединяйтесь к сообществу из <span className="text-accent font-bold">60 000+</span> подписчиков!</p>
+             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-dark dark:text-white">Присоединяйтесь к сообществу из <span className="text-accent">60 000+</span> подписчиков!</h2>
              <p className="text-slate-600 dark:text-slate-300 text-lg">Каждую неделю я делюсь ценными материалами, которые помогают тысячам людей лучше понять процесс получения визы США.</p>
           </div>
 
           <div className="grid grid-cols-3 gap-4 border-t border-b border-slate-100 dark:border-slate-700 py-6">
             {[
-              { val: "1M+", lbl: "Ежемесячных просмотров" },
-              { val: "100+", lbl: "Полезных видео и статей" },
-              { val: "300+", lbl: "Ответов на вопросы" }
+              { val: "2 млн+", lbl: "Ежемесячных просмотров" },
+              { val: "200+", lbl: "Полезных видео и статей" },
+              { val: "∞", lbl: "Ответы на комментарии по визам" }
             ].map((s, i) => (
               <div key={i}>
                 <div className="text-2xl font-bold text-dark dark:text-white">{s.val}</div>
@@ -70,16 +68,16 @@ export const Socials: React.FC = () => {
           </div>
 
           {/* Mobile Links */}
-          <div className="grid grid-cols-2 gap-4 w-full mt-8 lg:hidden">
+          <div className="grid grid-cols-3 gap-2 w-full mt-7 lg:hidden">
               {socialLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className={`${link.color} p-4 rounded-2xl text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col items-center justify-center text-center h-24 group`}
+                  className={`${link.color} ${link.mobileOrder} p-2.5 rounded-2xl text-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center text-center h-[4.75rem] group`}
                 >
-                  <div className="w-8 h-8 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <link.icon className="w-full h-full" />
                   </div>
                   <div className="mt-2">
@@ -88,6 +86,9 @@ export const Socials: React.FC = () => {
                 </a>
               ))}
            </div>
+           <p className="text-center text-2xl font-serif font-bold uppercase tracking-wide text-accent lg:hidden">
+             Подписывайтесь
+           </p>
         </div>
 
         <div className="hidden lg:flex flex-1 w-full lg:w-1/2 flex-col items-center justify-center">
@@ -100,24 +101,27 @@ export const Socials: React.FC = () => {
               decoding="async"
             />
            </div>
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full mt-8">
+           <div className="grid grid-cols-6 gap-2 w-full mt-6">
               {socialLinks.map((link) => (
                 <a 
                   key={link.name} 
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className={`${link.color} p-4 rounded-2xl text-white shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all flex flex-col items-center justify-center text-center h-28 md:h-32 group`}
+                  className={`${link.color} ${link.mobileOrder} p-2.5 rounded-2xl text-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center text-center h-20 group`}
                 >
-                  <div className="w-1/2 h-1/2 flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <div className="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <link.icon className="w-full h-full" />
                   </div>
                   <div className="mt-2">
-                    <span className="font-bold text-sm block">{link.name}</span>
+                    <span className="font-bold text-xs block">{link.name}</span>
                   </div>
                 </a>
               ))}
            </div>
+           <p className="mt-6 text-center text-4xl font-serif font-bold uppercase tracking-wide text-accent">
+             Подписывайтесь
+           </p>
         </div>
 
       </div>

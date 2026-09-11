@@ -26,7 +26,8 @@ The design uses a high-contrast palette with a strong accent color.
 - **Accent Primary**: `#E5484D` (remains red)
 
 ## 3. Typography
-- **Font Family**: 'Inter', sans-serif (Weights: 300, 400, 500, 600, 700, 800).
+- **Body Font Family**: 'Manrope', sans-serif (Weights: 400, 500, 600, 700, 800).
+- **Heading Font Family**: 'Playfair Display', Georgia, serif (Weights: 600, 700, 800).
 - **Hero Title**: `text-5xl` to `text-7xl`, font-extrabold, leading-tight.
 - **Section Heading**: `text-4xl` to `text-6xl`, font-bold, uppercase, tracking-wide.
 - **Body Text**: `text-lg`, leading-relaxed.

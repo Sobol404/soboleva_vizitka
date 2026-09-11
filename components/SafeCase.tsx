@@ -22,19 +22,19 @@ export const SafeCase: React.FC = () => {
   ];
 
   const complexCases = [
-    { icon: FileX, label: "Предыдущие отказы в визе (даже 5+)", image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=400" },
-    { icon: Users, label: "Наличие родственников в США", image: "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&q=80&w=400" },
-    { icon: HeartCrack, label: "Сложная семейная ситуация", image: "https://images.unsplash.com/photo-1484820540004-14229fe36ca4?auto=format&fit=crop&q=80&w=400" },
-    { icon: AlertTriangle, label: "Отсутствие визовой истории", image: "https://images.unsplash.com/photo-1544016768-982d1554f0b9?auto=format&fit=crop&q=80&w=400" },
-    { icon: Briefcase, label: "Нестандартный тип занятости", image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=400" },
-    { icon: XCircle, label: "Аннулированные визы или ESTA", image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&q=80&w=400" },
+    { icon: FileX, label: "Предыдущие отказы в визе (даже 5+)", image: "/illustrations/complex-cases/previous-refusals.jpg" },
+    { icon: Users, label: "Наличие родственников в США", image: "/illustrations/complex-cases/relatives-in-usa.jpg" },
+    { icon: HeartCrack, label: "Сложная семейная ситуация", image: "/illustrations/complex-cases/complex-family.jpg" },
+    { icon: AlertTriangle, label: "Отсутствие визовой истории", image: "/illustrations/complex-cases/no-visa-history.jpg" },
+    { icon: Briefcase, label: "Нестандартный тип занятости", image: "/illustrations/complex-cases/nonstandard-employment.jpg" },
+    { icon: XCircle, label: "Аннулированные визы или ESTA", image: "/illustrations/complex-cases/cancelled-visa.jpg" },
   ];
 
   return (
     <Section id="safecase" className="bg-light-200 dark:bg-slate-900/50">
       <div className="text-center max-w-4xl mx-auto mb-16">
         <div className="relative inline-block mb-6">
-            <h2 className="text-4xl md:text-6xl font-bold text-dark dark:text-white uppercase tracking-wide">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold text-dark dark:text-white uppercase tracking-wide">
             Метод «SAFE CASE»
             </h2>
              <div className="absolute -top-6 -right-12 md:-right-24 transform rotate-[15deg] z-10 hidden sm:block">
@@ -64,12 +64,12 @@ export const SafeCase: React.FC = () => {
       </div>
 
       {/* 3 Pillars with Image */}
-      <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-        <div className="flex justify-center">
+      <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-stretch mb-20">
+        <div className="hidden md:flex h-full justify-center">
             <img 
                 src="https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/EVy7zU2StUSPfvcr_UZ_3g.webp" 
                 alt="Safe Case method visualization"
-                className="rounded-3xl shadow-xl w-full max-w-lg object-cover dark:opacity-80"
+                className="rounded-3xl shadow-xl w-full max-w-none object-cover dark:opacity-80 lg:min-h-[440px]"
                 loading="lazy"
                 decoding="async"
             />
@@ -77,10 +77,10 @@ export const SafeCase: React.FC = () => {
         <div className="space-y-0 pl-4 md:pl-0">
             {pillars.map((item, idx) => (
             <div key={idx} className="timeline-item">
-                <div className="absolute left-0 top-0 w-20 h-20 rounded-full bg-white dark:bg-dark-card shadow-md flex items-center justify-center text-accent mb-6 flex-shrink-0 z-10">
-                  <item.icon className="w-8 h-8" />
+                <div className="timeline-icon absolute left-0 top-1/2 -translate-y-1/2 w-14 h-14 md:w-20 md:h-20 rounded-full bg-white dark:bg-dark-card shadow-md flex items-center justify-center text-accent flex-shrink-0 z-10">
+                  <item.icon className="w-6 h-6 md:w-8 md:h-8" />
                 </div>
-                <div className="bg-white dark:bg-dark-card p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 ml-8">
+                <div className="bg-white dark:bg-dark-card p-5 md:p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 ml-4 md:ml-8">
                     <h4 className="text-xl font-bold text-dark dark:text-white mb-2">{item.title}</h4>
                     <p className="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">{item.text}</p>
                 </div>
@@ -92,26 +92,26 @@ export const SafeCase: React.FC = () => {
       {/* Complex Cases */}
       <div className="bg-white dark:bg-dark-card rounded-[2.5rem] p-4 sm:p-8 md:p-12 shadow-lg border border-slate-100 dark:border-slate-800">
         <div className="text-center mb-10">
-          <h4 className="text-3xl md:text-5xl font-bold text-dark dark:text-white">
+          <h4 className="text-2xl sm:text-3xl md:text-5xl font-bold text-dark dark:text-white">
             Метод эффективен даже в самых сложных ситуациях:
           </h4>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5">
           {complexCases.map((item, idx) => (
-            <div key={idx} className="flex flex-col items-center gap-3">
-              <div className="w-full aspect-square rounded-3xl overflow-hidden shadow-md relative group">
+            <div key={idx} className="overflow-hidden rounded-2xl md:rounded-3xl bg-light dark:bg-slate-900 border border-slate-100 dark:border-slate-700 shadow-sm group">
+              <div className="hidden md:block w-full aspect-square overflow-hidden">
                 <img 
                   src={item.image} 
                   alt={item.label} 
-                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500" 
+                  className="w-full h-full object-cover transform group-hover:scale-[1.025] transition-transform duration-500"
                   loading="lazy"
                   decoding="async"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-black/0"></div>
-                <div className="absolute bottom-2 left-2 right-2 md:bottom-4 md:left-4 md:right-4">
-                  <span className="text-xs md:text-base font-bold text-white text-center leading-tight block drop-shadow-md">{item.label}</span>
-                </div>
+              </div>
+              <div className="flex items-center gap-2.5 p-3.5 min-h-[6.5rem] text-left md:gap-3 md:p-4 md:min-h-20">
+                <item.icon className="w-4 h-4 md:w-5 md:h-5 text-accent flex-shrink-0" />
+                <span className="text-xs md:text-base font-bold text-dark dark:text-white leading-snug">{item.label}</span>
               </div>
             </div>
           ))}

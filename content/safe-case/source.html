@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Как 9 из 10 россиян получают визу США — метод «Safe Case»</title>
+<meta name="description" content="Метод Safe Case — пошаговый алгоритм получения визы США даже после нескольких отказов. Опыт 1000+ консультаций Ирины Соболевой.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+:root{
+  --brand-slate:#324F5C;
+  --accent:#E5484D;
+  --accent-hover:#C13D42;
+  --accent-soft:rgba(229,72,77,.1);
+  --blue-400:#5AAAE5;
+  --green-500:#22C55E;
+  --yellow-500:#EAB308;
+  --red-600:#DC2626;
+  --slate-500:#64748B;
+  --slate-600:#475569;
+  --slate-700:#334155;
+  --slate-300:#CBD5E1;
+  --danger-500:#E5484D;
+  --surface-page:#F4F7F9;
+  --surface-card:#FFFFFF;
+  --surface-soft:#F0F7FD;
+  --surface-inverse:#324F5C;
+  --border-hairline:rgba(50,79,92,.1);
+  --border-default:rgba(50,79,92,.15);
+  --shadow-sm:0 1px 3px rgba(50,79,92,.08),0 1px 2px rgba(50,79,92,.05);
+  --shadow-md:0 4px 12px rgba(50,79,92,.12),0 2px 6px rgba(50,79,92,.07);
+  --shadow-lg:0 12px 40px rgba(50,79,92,.18);
+  --shadow-xl:0 20px 60px rgba(50,79,92,.2);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --ease-smooth:cubic-bezier(.4,0,.2,1);
+}
+
+html,body{background:var(--surface-page);font-family:'Inter',system-ui,sans-serif;color:var(--brand-slate);line-height:1.6;}
+.sv-art p{margin:0 0 1rem;}
+.sv-art ul,.sv-art ol{margin:0 0 1rem;padding-left:1.25rem;}
+.sv-art li{margin:.4rem 0;line-height:1.6;}
+.mark{background:linear-gradient(transparent 55%,rgba(234,179,8,.55) 55%);padding:0 .12em;}
+.mark-red{background:rgba(229,72,77,.14);color:var(--accent);padding:.05em .3em;border-radius:4px;font-weight:800;}
+
+.sv-art h1,.sv-art h2,.sv-art h3{font-family:'Playfair Display',serif;}
+
+.sv-art{background:var(--surface-page);max-width:920px;margin:0 auto;}
+section{padding:56px 24px;}
+.narrow{max-width:880px;margin:0 auto;}
+
+.band{background:var(--surface-inverse);color:#fff;padding:20px 24px;text-align:center;}
+.band h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;max-width:880px;margin:0 auto;line-height:1.2;}
+
+.sv-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 36px;background:var(--accent);color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border:none;border-radius:9999px;cursor:pointer;box-shadow:0 8px 28px rgba(229,72,77,.4);text-decoration:none;transition:background .2s,transform .15s,box-shadow .2s;}
+.sv-btn:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 12px 32px rgba(229,72,77,.5);}
+.sv-btn.outline{background:transparent;border:2px solid #fff;box-shadow:none;}
+.sv-btn.outline:hover{background:rgba(255,255,255,.1);}
+.sv-btn-wrap{display:flex;justify-content:center;margin-top:24px;}
+
+.glass-quote{background:rgba(255,255,255,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:20px 24px;font-style:italic;font-size:1.0625rem;line-height:1.65;color:var(--brand-slate);box-shadow:var(--shadow-sm);}
+
+.bullet-list{display:grid;grid-template-columns:1fr;gap:10px;margin:20px 0 8px;}
+.bullet-item{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid #D1FAE5;border-left:3px solid var(--green-500);border-radius:14px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.bullet-icon{color:var(--green-500);font-weight:800;flex-shrink:0;}
+.bullet-text{font-size:1.0625rem;}
+
+.num-list{display:grid;grid-template-columns:1fr;gap:14px;margin:20px 0 24px;}
+.num-item{display:flex;gap:20px;align-items:flex-start;background:#EFF6FF;border:1px solid #BFDBFE;border-left:4px solid var(--blue-400);border-radius:16px;padding:20px 22px;box-shadow:var(--shadow-sm);}
+.num-n{font-size:2.2rem;font-weight:900;color:var(--blue-400);flex-shrink:0;line-height:1.1;}
+.num-text{font-size:1.1rem;font-style:italic;line-height:1.65;}
+
+.author-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
+.author-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#5AAAE5,#324F5C);border:3px solid var(--surface-soft);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#fff;}
+.author-name{font-weight:700;font-size:1rem;color:var(--brand-slate);}
+
+.myth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
+.myth-card{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:20px;padding:24px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:12px;}
+.myth-badge{align-self:center;color:#fff;font-weight:800;font-size:.75rem;letter-spacing:.05em;padding:.4rem .8rem;border-radius:9999px;background:var(--red-600);}
+.myth-title{font-weight:700;font-size:1.0625rem;margin:0;}
+.myth-divider{height:1px;background:var(--border-default);}
+.myth-text{margin:0;font-size:.95rem;color:var(--slate-600);}
+.myth-reality{color:var(--green-500);font-weight:800;}
+
+.flip{perspective:1200px;outline:none;}
+.flip-inner{position:relative;transition:transform .65s var(--ease-out);transform-style:preserve-3d;height:100%;}
+.flip:hover .flip-inner,.flip:focus-within .flip-inner{transform:rotateY(180deg);}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;}
+.flip-back{transform:rotateY(180deg);}
+.insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;}
+
+.expert-bio-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:flex-start;margin-bottom:32px;}
+
+.step-card{position:relative;overflow:hidden;background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:22px;padding:28px 30px;box-shadow:var(--shadow-sm);}
+.step-num-bg{position:absolute;top:12px;right:20px;font-size:7rem;font-weight:900;line-height:1;color:rgba(50,79,92,.07);pointer-events:none;font-family:'Inter',sans-serif;}
+.step-inner{position:relative;}
+.step-label{font-size:.8rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:4px;}
+.step-title{font-size:1.4rem;font-weight:800;margin:0 0 14px;}
+.step-list{margin:0 0 14px;padding-left:1.2rem;font-size:1.0625rem;line-height:1.55;}
+.step-result{background:rgba(90,170,229,.1);border:1px solid rgba(90,170,229,.3);border-radius:12px;padding:12px 16px;font-style:italic;font-size:.95rem;}
+.steps-grid{display:grid;grid-template-columns:1fr;gap:20px;}
+
+.stat-tile{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:18px;padding:20px;text-align:center;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:96px;}
+.stat-value{font-size:2rem;font-weight:900;color:var(--accent);line-height:1;}
+.stat-label{font-size:.875rem;color:var(--slate-500);margin-top:6px;text-align:center;}
+
+.results-dark{background:var(--surface-inverse);color:#fff;border-radius:28px;padding:36px 30px;margin:32px 0 8px;box-shadow:var(--shadow-xl);position:relative;overflow:hidden;}
+.results-dark::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:#fff;opacity:.05;filter:blur(40px);}
+.results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;}
+
+.sv-acc{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:20px;box-shadow:var(--shadow-sm);overflow:hidden;}
+.sv-acc summary{display:flex;align-items:center;gap:16px;padding:22px 26px;cursor:pointer;list-style:none;}
+.sv-acc summary::-webkit-details-marker{display:none;}
+.sv-acc-badge{background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:.8rem;padding:.4rem .8rem;border-radius:9999px;flex-shrink:0;}
+.sv-acc-title{flex:1;font-size:1.15rem;font-weight:700;}
+.sv-acc-chev{flex-shrink:0;color:var(--accent);font-size:1.4rem;line-height:1;transition:transform .3s var(--ease-smooth);}
+.sv-acc[open] .sv-acc-chev{transform:rotate(90deg);}
+.sv-acc-body{padding:0 26px 26px;font-size:1.0625rem;line-height:1.7;}
+
+@keyframes sv-marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.marq-wrap{overflow:hidden;background:var(--accent);color:#fff;}
+.marq-track{display:inline-flex;white-space:nowrap;animation:sv-marq 22s linear infinite;padding:12px 0;font-weight:800;font-size:.95rem;letter-spacing:.02em;}
+
+.offer-frame{border:2px solid var(--accent);border-radius:28px;overflow:hidden;box-shadow:var(--shadow-xl);background:var(--surface-card);}
+
+.blue-bullet-list{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0 24px;}
+.blue-bullet{background:#fff;border:1.5px solid #DBEAFE;border-left:4px solid var(--blue-400);border-radius:14px;padding:14px 18px;font-size:1rem;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+
+.check-list{display:grid;grid-template-columns:1fr;gap:10px;margin-bottom:24px;}
+.check-list-item{display:flex;gap:12px;align-items:flex-start;}
+.check-list-item .ci{color:var(--green-500);font-weight:800;flex-shrink:0;}
+
+.guarantee-list{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:28px;}
+.guarantee-item{display:flex;gap:14px;align-items:center;background:#fff;border:1.5px solid #D1FAE5;border-left:4px solid var(--green-500);border-radius:14px;padding:16px 18px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
+.guarantee-icon{color:var(--green-500);font-weight:800;flex-shrink:0;}
+
+.loss-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 32px;}
+.loss-card{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:18px;padding:16px;box-shadow:var(--shadow-sm);}
+.loss-title{font-weight:800;font-size:1rem;margin-bottom:8px;}
+.loss-list{margin:0;padding-left:1.1rem;font-size:.9rem;line-height:1.45;color:var(--slate-600);}
+
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
+.choice-no{background:rgba(229,72,77,.07);border:2px solid var(--accent);border-radius:18px;padding:22px 18px;text-align:center;}
+.choice-yes{background:rgba(90,170,229,.07);border:2px solid var(--blue-400);border-radius:18px;padding:22px 18px;text-align:center;}
+.choice-head-no{font-size:1.2rem;font-weight:900;color:var(--accent);margin-bottom:10px;}
+.choice-head-yes{font-size:1.2rem;font-weight:900;color:var(--blue-400);margin-bottom:10px;}
+
+.red-table{border:1px solid var(--danger-500);border-radius:20px;overflow:hidden;box-shadow:var(--shadow-md);margin:0 0 28px;}
+.red-table-head{background:var(--danger-500);color:#fff;padding:14px 22px;font-weight:800;font-size:1.05rem;}
+.red-table-body{padding:6px 22px;background:var(--surface-card);}
+.red-table-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--border-default);}
+.red-table-total{display:flex;justify-content:space-between;padding:16px 0;align-items:center;}
+.red-table-note{padding:14px 0;}
+.red-table-note-title{font-weight:800;color:var(--danger-500);}
+
+.factors-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0 28px;}
+.factor-chip{display:block;background:#fff;border:1.5px solid var(--border-default);border-radius:12px;padding:12px 16px;font-size:.95rem;font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,.07);}
+
+.story-quote{background:var(--surface-soft);border:1px solid var(--border-hairline);border-radius:18px;padding:22px 24px;margin:8px 0 24px;}
+.story-quote p{margin:0;font-size:1.0625rem;font-style:italic;}
+
+.dark-guarantee{background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px 30px;box-shadow:var(--shadow-lg);}
+.dark-guarantee-title{margin:0 0 .8rem;font-weight:800;text-align:center;font-size:1.25rem;}
+.dark-guarantee-body{margin:0 0 .8rem;font-size:1rem;line-height:1.7;color:rgba(255,255,255,.9);}
+.dark-guarantee-note{margin:0;font-size:.85rem;font-style:italic;color:rgba(255,255,255,.6);}
+
+.cta-disclaimer{border:2px dashed var(--accent);border-radius:18px;padding:24px 26px;background:var(--accent-soft);}
+.warn-box{background:var(--accent-soft);border:1px solid var(--accent);border-radius:16px;padding:18px 20px;margin-top:22px;}
+
+.final-cta{background:var(--surface-inverse);color:#fff;padding:80px 24px;text-align:center;}
+.final-cta h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin:0 0 16px;line-height:1.15;color:#fff;}
+.final-cta p{color:rgba(255,255,255,.8);margin:0 0 28px;font-size:1.0625rem;}
+
+footer{background:var(--surface-inverse);color:rgba(255,255,255,.7);padding:36px 24px;text-align:center;border-top:1px solid rgba(255,255,255,.07);}
+.footer-brand{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;color:#fff;}
+.footer-brand span{color:var(--accent);}
+footer p{margin:10px 0 0;font-size:.9rem;}
+
+/* ── TABLET (≤ 768px) ── */
+@media(max-width:768px){
+  section{padding:44px 20px;}
+  .band{padding:16px 20px;}
+  .band h2{font-size:clamp(1.5rem,4vw,2.2rem);}
+  .insights-grid{grid-template-columns:1fr;}
+  .expert-bio-grid{grid-template-columns:1fr;}
+  .flip{height:auto!important;}
+  .flip-inner{position:static;transform:none!important;transform-style:flat;}
+  .flip-face{position:static;backface-visibility:visible;-webkit-backface-visibility:visible;}
+  .flip-back{transform:none;display:none;}
+  .myth-grid{grid-template-columns:1fr;}
+  .results-grid{grid-template-columns:repeat(3,1fr);}
+  .steps-grid{grid-template-columns:1fr;}
+  .step-card{padding:22px 20px;}
+  .step-title{font-size:1.2rem;}
+}
+
+/* ── MOBILE (≤ 640px) ── */
+@media(max-width:640px){
+  .loss-grid{grid-template-columns:1fr;}
+  .choice-grid{grid-template-columns:1fr;}
+  .factors-grid{grid-template-columns:1fr;}
+
+  .sv-acc summary{padding:16px 18px;gap:10px;}
+  .sv-acc-title{font-size:1rem;}
+  .sv-acc-body{padding:0 18px 20px;}
+
+  .results-grid{grid-template-columns:1fr 1fr;}
+  .results-dark{padding:24px 20px;}
+
+  .offer-frame .sv-btn-wrap{padding:0 4px;}
+  .sv-btn{padding:14px 24px;font-size:.9rem;}
+
+  .num-item{gap:12px;padding:16px;}
+  .num-n{font-size:1.7rem;}
+
+  .stat-tile{padding:16px 12px;min-height:80px;}
+  .stat-value{font-size:1.6rem;}
+
+  .red-table-body{padding:4px 16px;}
+  .red-table-head{padding:12px 16px;}
+  .red-table-row{font-size:.9rem;}
+  .red-table-total{flex-direction:column;align-items:flex-start;gap:4px;}
+
+  .dark-guarantee{padding:22px 18px;}
+  .final-cta{padding:56px 20px;}
+}
+
+/* ── SMALL MOBILE (≤ 400px) ── */
+@media(max-width:400px){
+  .results-grid{grid-template-columns:1fr;}
+  .sv-acc-badge{display:none;}
+}
+</style>
+</head>
+<body>
+<article class="sv-art">
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<div style="border-radius:0;overflow:hidden;margin:0 0 0;box-shadow:var(--shadow-lg);">
+  <img src="assets/img/ленд виза картинка_превью safe case.jpeg" alt="Раскрыта формула получения визы США" style="width:100%;display:block;">
+</div>
+<section style="max-width:920px;margin:0 auto;padding:56px 24px 8px;">
+  <h1 style="font-size:clamp(2rem,5vw,3.1rem);font-weight:800;line-height:1.12;letter-spacing:-.02em;text-align:center;margin:0 0 18px;color:var(--brand-slate);">
+    Как 9 из 10 россиян получают&nbsp;<span style="color:var(--accent);">визу США</span> в 2025 с помощью метода <span class="mark">«Safe&nbsp;Case»</span>
+  </h1>
+  <p style="font-size:1.25rem;text-align:center;max-width:680px;margin:0 auto 32px;color:var(--slate-500);">
+    Это самый логичный способ получить визу и поехать в США, <strong style="color:var(--brand-slate);">даже если у вас было 5 отказов подряд</strong>.
+  </p>
+  <p style="font-size:1.125rem;line-height:1.7;">За последние 3 года я провела более 1000 консультаций и пришла к системе, которая помогает получить визу США с вероятностью 87%.</p>
+  <p style="font-size:1.125rem;line-height:1.7;">С помощью выверенной системы подготовки документов и вашей личной истории граждане России и СНГ получают визу в самых сложных случаях:</p>
+
+  <div class="bullet-list">
+    <div class="bullet-item"><span class="bullet-icon">✓</span><span class="bullet-text">После 5 отказов подряд</span></div>
+    <div class="bullet-item"><span class="bullet-icon">✓</span><span class="bullet-text">После отказа с приглашением родственников в США</span></div>
+    <div class="bullet-item"><span class="bullet-icon">✓</span><span class="bullet-text">При отсутствии истории поездок</span></div>
+    <div class="bullet-item"><span class="bullet-icon">✓</span><span class="bullet-text">Со сложной семейной ситуацией</span></div>
+    <div class="bullet-item"><span class="bullet-icon">✓</span><span class="bullet-text">После аннулирования предыдущих виз — подходит для «нестандартных» кейсов</span></div>
+  </div>
+
+  <div style="margin:28px 0 8px;">
+    <div class="author-row">
+      <div class="author-avatar" style="overflow:hidden;padding:0;background:none;"><img src="assets/img/аватарка ира флаг.png" alt="Ирина Соболева" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+      <span class="author-name">Ирина Соболева</span>
+    </div>
+    <blockquote class="glass-quote">В этой статье я детально расскажу, как вам перестать копаться в десятках ютуб-видео и не сжигать своё время на советах трёхлетней давности, которые вам не подойдут. Благодаря пошаговому алгоритму подачи я получаю в личку десятки благодарностей клиентов сразу после успешного интервью.</blockquote>
+  </div>
+  <div style="border-radius:20px;overflow:hidden;margin:24px 0 0;box-shadow:var(--shadow-md);">
+    <img src="assets/img/много отзывов.jpeg" alt="Отзывы клиентов" style="width:100%;display:block;">
+  </div>
+</section>
+
+<div class="band"><h2>…но часто визу дают не с первого раза</h2></div>
+
+<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+  <h2 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;margin:0 0 22px;line-height:1.2;"><span class="mark-red">«Section 214(b)»…</span></h2>
+  <div style="border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);">
+    <img src="assets/img/ленд виза картинка_отказ.jpeg" alt="Отказ в визе" style="width:100%;display:block;">
+  </div>
+  <p style="font-size:1.125rem;line-height:1.75;">Всего две секунды, чтобы прочитать эту фразу на отказном листе.</p>
+  <p style="font-size:1.125rem;line-height:1.75;">И вот вы уже стоите с паспортом в руках, пытаясь осознать, что месяцы подготовки, собранные документы и все ваши планы только что разбились о две строчки в отказном листе.</p>
+  <p style="font-size:1.125rem;line-height:1.75;">По статистике Посольства США в 2024–2025 году, <strong>каждый третий заявитель</strong> получает отказ.</p>
+
+  <div style="display:grid;grid-template-columns:1fr;gap:16px;margin:8px 0 28px;">
+    <div style="background:var(--surface-card);border:1px solid var(--border-hairline);border-left:4px solid var(--accent);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow-sm);"><strong>Елена Александровна</strong> — пенсионерка, которая хотела увидеть рождение первого внука в США. Отказ, потому что «не доказала связь с родиной», несмотря на честно заполненную DS-160 и приглашения от сына.</div>
+    <div style="background:var(--surface-card);border:1px solid var(--border-hairline);border-left:4px solid var(--accent);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow-sm);"><strong>Сергей</strong>, топ-менеджер IT-компании, потерял контракт на $200 000 из-за того, что не смог попасть на конференцию в Калифорнии.</div>
+    <div style="background:var(--surface-card);border:1px solid var(--border-hairline);border-left:4px solid var(--accent);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow-sm);">История <strong>семьи Ивановых</strong> с двумя детьми 8 и 11 лет, мечтавших о Диснейленде. Два месяца подготовки, 210 000 ₽ на билеты и отель — всё впустую после 3-минутного интервью.</div>
+  </div>
+
+  <p style="font-size:1.125rem;line-height:1.75;">Я вижу такие истории каждый день. Если у вас похожая ситуация и вы чувствуете, что произошла ошибка, которую нужно <strong>срочно</strong> исправить — не спешите! Решение внесено в электронную базу.</p>
+
+  <p style="font-size:2rem;font-weight:800;text-align:center;margin:36px 0 8px;line-height:1.2;">А теперь представьте:</p>
+  <p style="font-size:1.5rem;font-weight:800;text-align:center;margin:0 0 24px;"><span class="mark">Все эти люди всё же попали в США.</span></p>
+  <div style="border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);">
+    <img src="assets/img/получили_визы.png" alt="Клиенты получили визы США" style="width:100%;display:block;">
+  </div>
+  <p style="font-size:1.125rem;line-height:1.75;">Но прежде чем получить заветное одобрение, давайте разберёмся: <em>почему консул скажет вам «НЕТ» даже при идеальном выверенном кейсе?</em></p>
+</section>
+
+<div class="band"><h2>6 мифов о визах США, которые будут стоить вам поездки</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/ленд виза картинка_мифы.jpeg" alt="6 мифов о визах США" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:56px 24px 8px;">
+  <p style="font-size:1.125rem;line-height:1.75;">Знаете, что самое обидное, когда отказывают в визе? То, что часто блестящая карьера, высокая должность и внушительный счёт в банке играют… <strong>против вас.</strong></p>
+  <p style="font-size:1.125rem;line-height:1.75;">Вы изучили гору информации — YouTube, чаты в Telegram, две недели пыхтели над анкетой. Пришли в посольство — и получили отказ за 5 минут диалога с офицером.</p>
+  <p style="font-size:1.125rem;line-height:1.75;">Возможно, вы поверили в <strong>мифы</strong>, которыми щедро делятся в интернете.</p>
+</section>
+
+<section style="max-width:880px;margin:0 auto;padding:32px 24px 56px;">
+  <div class="myth-grid">
+    <div class="myth-card">
+      <span class="myth-badge">МИФ №1</span>
+      <p class="myth-title">«Приглашение от родственников гарантирует визу»</p>
+      <div class="myth-divider"></div>
+      <p class="myth-text"><span class="myth-reality">Реальность.</span> Консул даже не смотрит на приглашения — его больше интересуют ваши связи с родной страной.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-badge">МИФ №2</span>
+      <p class="myth-title">«Языковые курсы повышают шансы на визу»</p>
+      <div class="myth-divider"></div>
+      <p class="myth-text"><span class="myth-reality">Реальность.</span> Один из самых рискованных вариантов — офицеры понимают, что английский можно учить в странах с более простым визовым режимом.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-badge">МИФ №3</span>
+      <p class="myth-title">«После отказа шансов почти нет»</p>
+      <div class="myth-divider"></div>
+      <p class="myth-text"><span class="myth-reality">Реальность.</span> При правильной стратегии визу можно получить даже после 8 отказов подряд — главное проанализировать причины и правильно переподаться.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-badge">МИФ №4</span>
+      <p class="myth-title">«Нужен миллион рублей на счету»</p>
+      <div class="myth-divider"></div>
+      <p class="myth-text"><span class="myth-reality">Реальность.</span> В 90% случаев консул даже не смотрит финансовые документы — главное уметь объяснить источник дохода.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-badge">МИФ №5</span>
+      <p class="myth-title">«Россиянам сейчас визы не дают»</p>
+      <div class="myth-divider"></div>
+      <p class="myth-text"><span class="myth-reality">Реальность.</span> 80% наших клиентов — граждане РФ, и большинство успешно получают визы по алгоритму, о котором ниже.</p>
+    </div>
+    <div class="myth-card">
+      <span class="myth-badge">МИФ №6</span>
+      <p class="myth-title">«DS-160 легко заполнить по гайдам в интернете»</p>
+      <div class="myth-divider"></div>
+      <p class="myth-text"><span class="myth-reality">Реальность.</span> Дьявол в деталях! Каждый ответ в DS-160 — кирпичик в фундаменте вашего будущего интервью.</p>
+    </div>
+  </div>
+</section>
+
+<div class="band"><h2>Три инсайта о тёмной стороне собеседования</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/ленд виза картинка_темная сторона.jpeg" alt="Тёмная сторона собеседования" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+  <p style="text-align:center;color:var(--slate-500);margin:0 0 28px;font-size:1.0625rem;">Наведите на карточку, чтобы раскрыть</p>
+  <div class="insights-grid">
+
+    <div class="flip" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
+      <div class="flip-inner">
+        <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
+          <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">01</span>
+          <img src="assets/img/матрешка.png" alt="Матрёшка" style="height:100px;object-fit:contain;display:block;margin:0 auto;">
+          <div style="width:100%;text-align:left;">
+            <div style="font-size:.75rem;font-weight:800;letter-spacing:.12em;color:var(--yellow-500);text-transform:uppercase;margin-bottom:8px;">Инсайт #1</div>
+            <div style="font-size:1.5rem;font-weight:800;">«Эффект матрёшки»</div>
+          </div>
+        </div>
+        <div class="flip-face flip-back" style="background:var(--surface-card);color:var(--brand-slate);border:1px solid var(--border-hairline);border-radius:22px;padding:28px;justify-content:center;box-shadow:var(--shadow-lg);">
+          <p style="margin:0;font-size:1.0625rem;line-height:1.6;">То, что вы видите сразу в отказном листе, — обычно не главная причина. Каждый отказ имеет несколько слоёв.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
+      <div class="flip-inner">
+        <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
+          <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">02</span>
+          <img src="assets/img/очки.png" alt="Очки" style="height:100px;object-fit:contain;display:block;margin:0 auto;">
+          <div style="width:100%;text-align:left;">
+            <div style="font-size:.75rem;font-weight:800;letter-spacing:.12em;color:var(--yellow-500);text-transform:uppercase;margin-bottom:8px;">Инсайт #2</div>
+            <div style="font-size:1.5rem;font-weight:800;">«Правило трёх фильтров»</div>
+          </div>
+        </div>
+        <div class="flip-face flip-back" style="background:var(--surface-card);color:var(--brand-slate);border:1px solid var(--border-hairline);border-radius:22px;padding:28px;justify-content:center;box-shadow:var(--shadow-lg);">
+          <p style="margin:0;font-size:1.0625rem;line-height:1.6;">Консул смотрит на вас через три «фильтра». Если хотя бы один не пройден — вам откажут.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
+      <div class="flip-inner">
+        <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
+          <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">03</span>
+          <div style="font-size:5rem;text-align:center;line-height:1;margin:4px 0;">🧊</div>
+          <div style="width:100%;text-align:left;">
+            <div style="font-size:.75rem;font-weight:800;letter-spacing:.12em;color:var(--yellow-500);text-transform:uppercase;margin-bottom:8px;">Инсайт #3</div>
+            <div style="font-size:1.5rem;font-weight:800;">«Принцип айсберга»</div>
+          </div>
+        </div>
+        <div class="flip-face flip-back" style="background:var(--surface-card);color:var(--brand-slate);border:1px solid var(--border-hairline);border-radius:22px;padding:24px 26px;justify-content:center;box-shadow:var(--shadow-lg);">
+          <div style="font-size:.95rem;line-height:1.5;">
+            <div><strong>Видимая часть (20%):</strong> ответы, документы, поведение.</div>
+            <div style="margin-top:10px;"><strong>Скрытая часть (80%):</strong> визовая история, профиль риска, невербальные сигналы.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:36px;">
+    <div class="story-quote"><p>Евгения после трёх отказов буквально расплакалась с визой в руках — и наконец осознала, что сможет встретиться со своим ребёнком.</p></div>
+    <div style="border-radius:20px;overflow:hidden;margin:20px 0;box-shadow:var(--shadow-md);">
+      <img src="assets/img/отзыв на флаге_2.jpeg" alt="Отзыв клиента" style="width:100%;display:block;">
+    </div>
+    <p style="font-size:1.25rem;font-weight:700;text-align:center;margin:0;">А сейчас я готова презентовать мой авторский метод <span class="mark">«Safe Case»</span>, после которого получаю вот такие отзывы от клиентов.</p>
+  </div>
+</section>
+
+<div class="band"><h2>Как вам повысить шансы и получить визу таким же способом?</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/ленд виза картинка_safe case на доске.png" alt="Метод Safe Case на доске" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+  <p style="font-size:1.125rem;line-height:1.75;">Офицер принимает решение за 2–3 минуты! Дело не в вашем возрасте, не в размере счёта и даже не в знании английского.</p>
+  <p style="font-size:1.125rem;line-height:1.75;">В презентации своего кейса вы должны убедить его буквально в трёх тезисах:</p>
+
+  <div class="num-list">
+    <div class="num-item"><span class="num-n">1</span><span class="num-text">Действительно ли ваша цель поездки соответствует визе?</span></div>
+    <div class="num-item"><span class="num-n">2</span><span class="num-text">Точно ли вы вернётесь обратно домой?</span></div>
+    <div class="num-item"><span class="num-n">3</span><span class="num-text">Не несёте ли вы угрозу национальной безопасности США?</span></div>
+  </div>
+
+  <div style="display:flex;gap:20px;align-items:center;background:var(--surface-inverse);color:#fff;border-radius:24px;padding:28px 30px;margin:28px 0;box-shadow:var(--shadow-lg);flex-wrap:wrap;">
+    <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:2rem;">🏆</div>
+    <div style="flex:1;min-width:220px;font-size:1.5rem;font-weight:800;line-height:1.25;">Это и есть формула одобрения <span style="color:var(--yellow-500);">«Safe Case»</span></div>
+  </div>
+  <div style="border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);">
+    <img src="assets/img/много виз.jpeg" alt="Много виз США" style="width:100%;display:block;">
+  </div>
+
+  <p style="font-size:1.125rem;line-height:1.75;">Мы с клиентами даже в самых сложных случаях тщательно прорабатываем каждое убеждение офицера и создаём условия, при которых в его голове будет звучать только одна фраза:</p>
+  <p style="font-size:clamp(1.4rem,3.5vw,2rem);font-weight:800;font-style:italic;text-align:center;color:var(--blue-400);margin:28px 0;">«Welcome to United States of America!»</p>
+  <div style="border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);">
+    <img src="assets/img/еще отзывы.jpeg" alt="Ещё отзывы клиентов" style="width:100%;display:block;">
+  </div>
+
+  <p style="font-size:1.125rem;line-height:1.75;">Основываясь на более чем тысяче консультаций, анализе 700 анкет и более 300 счастливых обладателей виз США, я с уверенностью могу сказать, что вы получите визу <strong>с вероятностью 87%</strong>.</p>
+
+  <div class="cta-disclaimer">
+    <p style="font-size:1.0625rem;line-height:1.7;margin:0 0 .8rem;"><strong>Если кто-то обещает вам 100% получения визы США и вы им верите</strong> — смело закрывайте эту статью. Я не даю ложных надежд и не продаю золотые билеты!</p>
+    <p style="font-size:1.0625rem;line-height:1.7;margin:0;text-align:center;font-weight:800;">жмите кнопку ниже и получите пошаговый план к визе.</p>
+  </div>
+  <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka">Забронировать разбор</a></div>
+</section>
+
+<div class="band"><h2>Почему я имею право рассказывать вам о визах</h2></div>
+
+<section style="max-width:920px;margin:0 auto;padding:56px 24px;">
+  <div class="expert-bio-grid">
+    <div>
+      <img src="assets/img/ленд виза картинка_Ира с визой в руке.jpeg" alt="Ирина Соболева с визой" style="width:100%;border-radius:20px;box-shadow:var(--shadow-lg);">
+    </div>
+    <div>
+      <p style="font-size:1.25rem;line-height:1.65;margin:0 0 20px;"><strong>Я — Ирина Соболева</strong>, эксперт по визам США с опытом более 300 успешных кейсов. Ко мне обращаются клиенты из более чем 12 стран. Я создала команду экспертов, а ещё — счастливая жена и мама.</p>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
+        <div class="stat-tile"><div class="stat-value">600+</div><div class="stat-label">успешных кейсов</div></div>
+        <div class="stat-tile"><div class="stat-value">1 000+</div><div class="stat-label">консультаций</div></div>
+        <div class="stat-tile"><div class="stat-value">1 400+</div><div class="stat-label">анкет</div></div>
+        <div class="stat-tile"><div class="stat-value">60 000+</div><div class="stat-label">подписчиков в соцсетях</div></div>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size:1.125rem;line-height:1.75;">Мой путь начался в крупнейшем визовом агентстве России, где я отвечала за самые безнадёжные кейсы:</p>
+  <div class="blue-bullet-list">
+    <div class="blue-bullet">Восемь отказов подряд</div>
+    <div class="blue-bullet">Аннулированные визы</div>
+    <div class="blue-bullet">Проблемы с иммиграционной историей</div>
+    <div class="blue-bullet">Сложные семейные ситуации</div>
+  </div>
+
+  <p style="font-size:1.125rem;line-height:1.75;">За время работы я провела более 1000 консультаций, проанализировала 1400+ анкет и разработала системный подход — <strong>«Safe Case»</strong>.</p>
+
+  <div class="results-dark">
+    <h3 style="font-size:2.4rem;font-weight:800;text-align:center;margin:0 0 24px;position:relative;">Результаты</h3>
+    <div class="results-grid" style="position:relative;">
+      <div style="text-align:center;"><div style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">87%</div><div style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">успешных одобрений</div></div>
+      <div style="text-align:center;"><div style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">12</div><div style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">страны клиентов</div></div>
+      <div style="text-align:center;"><div style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">300+</div><div style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">благодарных отзывов</div></div>
+    </div>
+  </div>
+
+  <div class="sv-btn-wrap" style="margin-top:28px;"><a class="sv-btn" href="#zayavka">Забронировать разбор</a></div>
+</section>
+
+<div class="band"><h2>Конкретный путь к получению визы</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/ленд виза картинка_путь 8 шагов.jpeg" alt="8 шагов до визы США" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+  <div style="max-width:600px;margin:0 auto 28px;">
+    <blockquote class="glass-quote">Я просто хочу спокойно пройти интервью, без нервов и суеты. Чтобы чётко понимать каждый шаг.</blockquote>
+  </div>
+  <div class="sv-btn-wrap" style="margin-bottom:40px;"><a class="sv-btn outline" href="#zayavka" style="background:transparent;border:2px solid var(--accent);color:var(--accent);box-shadow:none;">Получить разбор кейса</a></div>
+
+  <div class="steps-grid">
+    <div class="step-card"><span class="step-num-bg">1</span><div class="step-inner"><div class="step-label">Шаг 1</div><h3 class="step-title">Анализ вашего кейса</h3><ul class="step-list"><li>Детально анализирую вашу ситуацию через личную консультацию</li><li>Оцениваю реальные шансы и скрытые риски</li><li>Отвечаю на горящие вопросы и развеиваю страхи</li><li>Определяю слабые места предыдущих попыток</li></ul><div class="step-result">Получаете чувство уверенности и контроля, понимание реальных причин предыдущих отказов.</div></div></div>
+    <div class="step-card"><span class="step-num-bg">2</span><div class="step-inner"><div class="step-label">Шаг 2</div><h3 class="step-title">Погружение в работу</h3><ul class="step-list"><li>Разрабатываю индивидуальную стратегию под тип визы, цели поездки и ваши особенности</li><li>Создаю чат со мной и вторым экспертом для молниеносных ответов</li><li>Готовлю чек-лист необходимых документов</li><li>Объясняю все этапы процесса и возможные риски</li></ul><div class="step-result">Получаете персональную стратегию и прямой доступ к эксперту — никаких долгих ожиданий ответа.</div></div></div>
+    <div class="step-card"><span class="step-num-bg">3</span><div class="step-inner"><div class="step-label">Шаг 3</div><h3 class="step-title">«Умное» заполнение анкеты</h3><ul class="step-list"><li>Проверяю все документы</li><li>Заполняю DS-160</li><li>Отправляю вам на обязательное согласование и проверку</li></ul><div class="step-result">Экономите время и нервы. Получаете уверенность в безупречности анкеты и документов.</div></div></div>
+    <div class="step-card"><span class="step-num-bg">4</span><div class="step-inner"><div class="step-label">Шаг 4</div><h3 class="step-title">Выбор подходящего консульства</h3><ul class="step-list"><li>Создаю ваш кабинет на сайте посольства</li><li>Записываю на интервью через системы мониторинга</li><li>Учитываем особенности вашего кейса при выборе</li></ul><div class="step-result">Получаете запись в оптимальном консульстве с помощью бота — не нужно самостоятельно мониторить окна.</div></div></div>
+    <div class="step-card"><span class="step-num-bg">5</span><div class="step-inner"><div class="step-label">Шаг 5</div><h3 class="step-title">Разработка вашей уникальной истории</h3><p style="margin:0 0 12px;font-size:1.0625rem;">Мы НЕ придумываем новую «легенду», а рассказываем вашу реальную историю правильным языком.</p><ul class="step-list"><li>Структурирую вашу историю</li><li>Усиливаю сильные стороны</li><li>Прорабатываю потенциальные вопросы</li><li>Готовлю «страховочные» ответы</li></ul><div class="step-result">Ваша реальная история становится убедительным рассказом — без выдуманных деталей.</div></div></div>
+    <div class="step-card"><span class="step-num-bg">6</span><div class="step-inner"><div class="step-label">Шаг 6</div><h3 class="step-title">Подготовка к интервью</h3><ul class="step-list"><li>Провожу репетицию интервью на русском и английском</li><li>Разбираем все возможные сценарии и сложные вопросы</li><li>Отрабатываем невербалику и уверенное поведение</li></ul><div class="step-result">Идёте на интервью с проверенными ответами и уверенным поведением — подготовленным как актёр к роли.</div></div></div>
+    <div class="step-card"><span class="step-num-bg">7</span><div class="step-inner"><div class="step-label">Шаг 7</div><h3 class="step-title">День Х — спокойствие и поддержка</h3><ul class="step-list"><li>Поддержка в Telegram / WhatsApp в день собеседования</li><li>Экстренная связь, если нужно</li></ul><div class="step-result">Идёте на интервью с ощущением надёжной поддержки рядом — не один на один с волнением.</div></div></div>
+    <div class="step-card"><span class="step-num-bg">8</span><div class="step-inner"><div class="step-label">Шаг 8</div><h3 class="step-title">Поддержка до получения паспорта</h3><ul class="step-list"><li>Мониторим статус вклейки визы</li><li>Помогаем с дополнительными документами, если нужны</li><li>Отвечаю на вопросы, связанные с поездкой и прохождением границы США</li></ul><div class="step-result">Главное, что вы получаете, — чувство защищённости и уверенность в поддержке профессионалов.</div></div></div>
+  </div>
+</section>
+
+<div class="band"><h2>Что вы получаете в итоге?</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/много виз 2.jpeg" alt="Клиенты с визами США" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:48px 24px 56px;">
+  <div style="display:grid;grid-template-columns:1fr;gap:14px;">
+    <div style="display:flex;gap:14px;align-items:center;background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-sm);"><span style="width:26px;height:26px;border-radius:50%;background:var(--green-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:.85rem;">✓</span><span style="font-size:1.0625rem;font-weight:600;">Виза в паспорте в оптимальные сроки</span></div>
+    <div style="display:flex;gap:14px;align-items:center;background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-sm);"><span style="width:26px;height:26px;border-radius:50%;background:var(--green-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:.85rem;">✓</span><span style="font-size:1.0625rem;font-weight:600;">Спокойствие и уверенность на каждом этапе</span></div>
+    <div style="display:flex;gap:14px;align-items:center;background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-sm);"><span style="width:26px;height:26px;border-radius:50%;background:var(--green-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:.85rem;">✓</span><span style="font-size:1.0625rem;font-weight:600;">Чёткое понимание процесса без суеты</span></div>
+    <div style="display:flex;gap:14px;align-items:center;background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-sm);"><span style="width:26px;height:26px;border-radius:50%;background:var(--green-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:.85rem;">✓</span><span style="font-size:1.0625rem;font-weight:600;">Экспертная поддержка до результата</span></div>
+  </div>
+</section>
+
+<div class="band"><h2>Получите бесплатный разбор вашего кейса</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/ленд виза картинка_оценка шансов.jpeg" alt="Оценка шансов на визу" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:48px 24px;">
+  <div class="offer-frame">
+    <div class="marq-wrap">
+      <div class="marq-track">
+        <span style="padding:0 2rem;">🔥 Предложение для тех, кто забронирует место прямо сейчас</span>
+        <span style="padding:0 2rem;">✦ Осталось мало мест</span>
+        <span style="padding:0 2rem;">🇺🇸 Бесплатный разбор вашего кейса</span>
+        <span style="padding:0 2rem;">★ Не закрывайте вкладку</span>
+        <span style="padding:0 2rem;">🔥 Предложение для тех, кто забронирует место прямо сейчас</span>
+        <span style="padding:0 2rem;">✦ Осталось мало мест</span>
+        <span style="padding:0 2rem;">🇺🇸 Бесплатный разбор вашего кейса</span>
+        <span style="padding:0 2rem;">★ Не закрывайте вкладку</span>
+      </div>
+    </div>
+    <div style="padding:32px 30px;">
+      <h3 style="text-align:center;font-size:1.4rem;font-weight:800;margin:0 0 18px;">Что происходит на разборе?</h3>
+      <div class="check-list">
+        <div class="check-list-item"><span class="ci">✓</span><span style="font-size:1.0625rem;">Проанализируем вашу ситуацию</span></div>
+        <div class="check-list-item"><span class="ci">✓</span><span style="font-size:1.0625rem;">Оценим реальные шансы</span></div>
+        <div class="check-list-item"><span class="ci">✓</span><span style="font-size:1.0625rem;">Выявим скрытые риски, которые могут повлиять на решение офицера</span></div>
+        <div class="check-list-item"><span class="ci">✓</span><span style="font-size:1.0625rem;">Ответим на все горящие вопросы</span></div>
+        <div class="check-list-item"><span class="ci">✓</span><span style="font-size:1.0625rem;">Объясним причины предыдущих отказов, если они были</span></div>
+      </div>
+      <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka">Забронировать разбор</a></div>
+      <div style="display:flex;justify-content:center;margin:16px 0;">
+        <span style="font-size:.95rem;font-weight:800;color:var(--accent);">⏳ Осталось 3 места из 10</span>
+      </div>
+      <p style="font-size:1.0625rem;line-height:1.7;font-style:italic;color:var(--slate-600);margin:0 0 1rem;">Вероятно, прочитав этот текст, вы думаете: <strong>«Звучит классно, но…»</strong></p>
+      <p style="font-size:1.0625rem;line-height:1.7;margin:0;"><span style="text-decoration:underline;">Разберу ваш кейс <strong>бесплатно</strong>, если вы оставите заявку прямо сейчас, не закрывая и не обновляя эту вкладку.</span></p>
+      <div class="warn-box"><p style="margin:0;font-size:1.0625rem;"><strong>❗ Важно.</strong> Количество слотов на консультации ограничено. Я выделяю <strong>не больше 10 записей в месяц</strong>, чтобы гарантировать качество работы и персональное внимание каждому.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="zayavka" style="background:var(--surface-inverse);color:#fff;padding:52px 24px;text-align:center;">
+  <h2 style="font-size:clamp(1.4rem,3.6vw,2.1rem);font-weight:800;max-width:760px;margin:0 auto 28px;line-height:1.25;">Чтобы <span style="background:var(--yellow-500);color:var(--brand-slate);padding:0 .25em;border-radius:6px;">оставить заявку</span>, пройдите короткий опрос</h2>
+  <div style="max-width:760px;margin:0 auto;background:var(--surface-card);border-radius:20px;padding:40px 30px;box-shadow:var(--shadow-xl);text-align:center;">
+    <p style="color:var(--slate-500);font-size:1.0625rem;margin:0 0 24px;">Опрос загружается на живой версии сайта.</p>
+    <a class="sv-btn" href="https://t.me/m/e1XHDdGVNDAy" target="_blank">Написать напрямую в Telegram</a>
+  </div>
+  <div style="max-width:480px;margin:28px auto 0;">
+    <h3 style="font-size:1.2rem;font-weight:800;margin:0 0 14px;">Что происходит после записи?</h3>
+    <ol style="margin:0;padding-left:1.2rem;font-size:1.0625rem;line-height:1.6;color:rgba(255,255,255,.9);text-align:left;"><li>Я свяжусь с вами в мессенджере</li><li>Выберем удобное время для звонка</li><li>Разберём вашу ситуацию</li></ol>
+  </div>
+</section>
+
+<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+  <h2 style="font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;text-align:center;margin:0 0 32px;line-height:1.2;">«А мне 100% визу другое агентство гарантировало!»</h2>
+  <div style="border:2px dashed var(--accent);border-radius:18px;padding:24px 26px;background:var(--accent-soft);text-align:center;margin:0 0 32px;">
+    <p style="margin:0;font-size:1rem;font-weight:800;line-height:1.5;color:var(--accent);">Ни одно агентство не может влиять на итоговое решение визового офицера, который рассматривает ваш кейс.</p>
+  </div>
+  <p style="font-size:1.125rem;line-height:1.75;"><strong>Получение визы зависит от множества факторов</strong>, например:</p>
+  <div class="factors-grid">
+    <span class="factor-chip">Настроение консула</span>
+    <span class="factor-chip">Текущая политическая ситуация</span>
+    <span class="factor-chip">Ваш кейс</span>
+    <span class="factor-chip">Выбранное консульство</span>
+  </div>
+  <p style="font-size:1.125rem;line-height:1.75;"><strong>Можно организовать всё самостоятельно и «сэкономить». Вот чего это может стоить:</strong></p>
+  <div class="loss-grid">
+    <div class="loss-card"><div class="loss-title">⏱ Время</div><ul class="loss-list"><li>На поиск противоречивой информации</li><li>На исправление ошибок</li><li>На ожидание между подачами</li></ul></div>
+    <div class="loss-card"><div class="loss-title">💰 Деньги</div><ul class="loss-list"><li>На неудачные попытки</li><li>На повторные сборы</li><li>На перелёты в другие страны</li></ul></div>
+    <div class="loss-card"><div class="loss-title">😰 Нервы и здоровье</div><ul class="loss-list"><li>Стресс от неизвестности</li><li>Бессонные ночи</li><li>Паника перед интервью</li></ul></div>
+    <div class="loss-card"><div class="loss-title">🚪 Возможности</div><ul class="loss-list"><li>Важные встречи</li><li>Семейные события</li><li>Бизнес-перспективы</li></ul></div>
+  </div>
+</section>
+
+<div class="band"><h2>Честные гарантии</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/ленд виза картинка_гарантии.jpeg" alt="Гарантии Safe Case" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:48px 24px 56px;">
+  <p style="font-size:1.125rem;text-align:center;font-weight:800;margin:0 0 16px;">Вот что я гарантирую на 100%</p>
+  <div class="guarantee-list">
+    <div class="guarantee-item"><span class="guarantee-icon">✓</span><span style="font-size:1.0625rem;">Честную оценку ваших шансов ещё до начала работы</span></div>
+    <div class="guarantee-item"><span class="guarantee-icon">✓</span><span style="font-size:1.0625rem;">Детальную проработку вашего кейса</span></div>
+    <div class="guarantee-item"><span class="guarantee-icon">✓</span><span style="font-size:1.0625rem;">Поддержку до получения результата</span></div>
+    <div class="guarantee-item"><span class="guarantee-icon">✓</span><span style="font-size:1.0625rem;">Бесплатную повторную подготовку в случае отказа</span></div>
+  </div>
+  <div class="dark-guarantee">
+    <p class="dark-guarantee-title">Бесплатная* переподача при отказе</p>
+    <p class="dark-guarantee-body">Я настолько уверена в методологии «Safe Case», что в случае отказа мы переподаёмся в другое консульство и проходим весь процесс подготовки повторно абсолютно бесплатно.</p>
+    <p class="dark-guarantee-note">*Не входят в процесс переподачи и оплачиваются отдельно: консульский сбор, оплата услуг бота для записи (если требуется).</p>
+  </div>
+</section>
+
+<div class="band"><h2>Давайте посчитаем, сколько на самом деле стоит отказ в визе?</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/ленд виза картинка_потрачено.jpeg" alt="Во сколько обходится отказ" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+  <p style="font-size:1.125rem;line-height:1.75;">Алексей, владелец строительной компании, пришёл ко мне после отказа. Его история — классический пример того, как желание сэкономить оборачивается огромными потерями.</p>
+  <div style="background:var(--surface-soft);border-left:4px solid var(--slate-300);border-radius:12px;padding:16px 20px;margin:18px 0 28px;font-style:italic;color:var(--slate-600);line-height:1.6;">«Зачем платить за сопровождение в простых вопросах?» «Я сам всё найду в интернете, гайды же есть!» «Ну после отказа я точно всё понял, сейчас исправлю — и на второй заход!»</div>
+
+  <div class="red-table">
+    <div class="red-table-head">Алексей · во сколько обошлась «экономия»</div>
+    <div class="red-table-body">
+      <div class="red-table-row"><span>Консульский сбор</span><strong>$185</strong></div>
+      <div class="red-table-row"><span>Перелёт (на одного)</span><strong>$400</strong></div>
+      <div class="red-table-row"><span>Отель</span><strong>$150</strong></div>
+      <div class="red-table-row"><span>Трансферы</span><strong>$50</strong></div>
+      <div class="red-table-total"><span style="font-weight:800;color:var(--danger-500);">ИТОГО</span><span style="font-weight:900;font-size:1.4rem;color:var(--danger-500);">$785 <span style="font-size:.9rem;font-weight:700;color:var(--slate-500);">≈ 68 000 ₽</span></span></div>
+      <div class="red-table-note"><span class="red-table-note-title">Но главное — упущено:</span><ul style="margin:.5rem 0 .5rem 1.2rem;font-size:1rem;line-height:1.55;"><li>Сорвался контракт с американскими поставщиками на <strong>$200 000</strong></li><li>Упущенная выгода от строительной выставки в Майами</li><li>Стресс, бессонные ночи и потеря уверенности</li></ul></div>
+    </div>
+  </div>
+
+  <div class="red-table">
+    <div class="red-table-head">Пенсионерка · не доверилась экспертам</div>
+    <div class="red-table-body">
+      <div class="red-table-row"><span>Консульский сбор</span><strong>$185</strong></div>
+      <div class="red-table-row"><span>Переводчик</span><strong>$170</strong></div>
+      <div class="red-table-row"><span>Перелёт и проживание</span><strong>$400</strong></div>
+      <div class="red-table-row"><span>Подготовка документов</span><strong>50 000 ₽</strong></div>
+      <div class="red-table-note"><span class="red-table-note-title">И самое дорогое:</span><p style="margin:.5rem 0 .5rem;">Пропустила рождение первого внука и не смогла поддержать дочь в первые месяцы материнства.</p></div>
+    </div>
+  </div>
+
+  <div class="red-table">
+    <div class="red-table-head">Семья с двумя детьми · делали «как у друзей»</div>
+    <div class="red-table-body">
+      <div class="red-table-row"><span>Билеты и отель</span><strong>210 000 ₽</strong></div>
+      <div class="red-table-row"><span>Невозвратный депозит</span><strong>потеря</strong></div>
+      <div class="red-table-note"><span class="red-table-note-title">И самое дорогое:</span><p style="margin:.5rem 0 .5rem;">Перенос поездки мечты ещё на год, испорченные каникулы и слёзы ребёнка, который полгода зачёркивал дни в календаре до Диснейленда.</p></div>
+    </div>
+  </div>
+
+  <div style="border:2px dashed var(--accent);border-radius:18px;padding:24px 26px;text-align:center;margin:0 0 28px;">
+    <p style="margin:0;font-size:1.25rem;font-weight:800;">Сколько ещё вы готовы «экономить» на своём времени, деньгах и возможностях?</p>
+  </div>
+
+  <p style="font-size:1.125rem;line-height:1.75;font-weight:800;text-align:center;margin-bottom:16px;">Прямо сейчас у вас есть выбор:</p>
+  <div class="choice-grid">
+    <div class="choice-no"><div class="choice-head-no">✗ Закрыть вкладку</div><p style="margin:0;line-height:1.55;color:var(--slate-700);font-size:.9rem;">Сделать всё самостоятельно и надеяться, что «авось проканает»</p></div>
+    <div class="choice-yes"><div class="choice-head-yes">✓ Застолбить</div><p style="margin:0;font-size:.9rem;line-height:1.55;color:var(--slate-700);">Получить бесплатный разбор кейса и узнать реальные шансы на визу</p></div>
+  </div>
+  <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka">Хочу визу 🇺🇸</a></div>
+</section>
+
+<div class="band"><h2>Ещё кейсы?</h2></div>
+<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+  <img src="assets/img/ленд виза картинка_кейсы.jpeg" alt="Кейсы получения виз" style="width:100%;display:block;">
+</div>
+
+<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+  <div style="display:flex;flex-direction:column;gap:16px;">
+
+    <details class="sv-acc">
+      <summary><span class="sv-acc-badge">КЕЙС №1</span><span class="sv-acc-title">Пять отказов и поездка в США</span><span class="sv-acc-chev">›</span></summary>
+      <div class="sv-acc-body">
+        <p>Марина, успешная предпринимательница из Москвы, хотела навестить своих детей в США. Но — пять отказов!</p>
+        <ul><li>Попытки получить туристическую визу</li><li>Затем подавалась на языковые курсы</li><li>В панике металась между разными консульствами</li></ul>
+        <p style="font-style:italic;color:var(--slate-600);">«Я была в полном отчаянии, каждый отказ только ухудшал ситуацию.»</p>
+        <p>Мы тщательно проработали историю предыдущих попыток и подались в Румынию.</p>
+        <p style="text-align:center;font-weight:800;color:var(--green-500);font-size:1.2rem;margin:18px 0;">✓ Одобрили!</p>
+        <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka" style="width:100%;max-width:100%;justify-content:center;">Хочу так же — оставить заявку</a></div>
+      </div>
+    </details>
+
+    <details class="sv-acc">
+      <summary><span class="sv-acc-badge">КЕЙС №2</span><span class="sv-acc-title">Предприниматель с разбитыми надеждами</span><span class="sv-acc-chev">›</span></summary>
+      <div class="sv-acc-body">
+        <p>Александр, владелец IT-компании. Три отказа. Упущенные контракты на сумму более $200 000. Казалось бы — идеальный кандидат: стабильный бизнес, высокий доход.</p>
+        <p>Проблема была в том, что каждый его «плюс» консулы воспринимали как «минус»: большой бизнес = можно управлять удалённо, высокий доход = легко начать жизнь в США.</p>
+        <p>Мы полностью переупаковали его историю, сделав акцент на необходимости личного присутствия в России.</p>
+        <p style="text-align:center;font-weight:800;color:var(--green-500);font-size:1.2rem;margin:18px 0;">✓ Виза получена через месяц. Контракт спасён.</p>
+        <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka" style="width:100%;max-width:100%;">Хочу так же — оставить заявку</a></div>
+      </div>
+    </details>
+
+    <details class="sv-acc">
+      <summary><span class="sv-acc-badge">КЕЙС №3</span><span class="sv-acc-title">Семья из четырёх человек</span><span class="sv-acc-chev">›</span></summary>
+      <div class="sv-acc-body">
+        <p>Первая попытка в Казахстане: старшему поколению визы одобрили, молодым — отказали. Ситуацию осложняли родственники в США и «богатая» визовая история.</p>
+        <p>Вот что мы сделали: детально расписали «рабочую» ситуацию каждого, разделили поездку на два независимых тура и выбрали наиболее лояльное консульство.</p>
+        <p style="text-align:center;font-weight:800;color:var(--green-500);font-size:1.2rem;margin:18px 0;">✓ Визы для всех членов семьи!</p>
+        <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka" style="width:100%;max-width:100%;">Хочу так же — оставить заявку</a></div>
+      </div>
+    </details>
+
+  </div>
+
+  <div style="margin:28px 0 0;">
+    <div class="author-row">
+      <div class="author-avatar" style="overflow:hidden;padding:0;background:none;"><img src="assets/img/аватарка ира флаг.png" alt="Ирина Соболева" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+      <span class="author-name">Ирина Соболева</span>
+    </div>
+    <blockquote class="glass-quote">Эти истории показывают главное: нет безнадёжных случаев — есть только неправильные стратегии. Каждый отказ можно превратить в одобрение при системном подходе.</blockquote>
+  </div>
+</section>
+
+<div class="final-cta">
+  <div style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:20px;">
+    <h2>Узнайте свои реальные шансы на визу США</h2>
+    <p>Бесплатный разбор кейса без ложных обещаний 100%</p>
+    <a class="sv-btn" href="#zayavka" style="font-size:1.1rem;padding:20px 48px;">Забронировать разбор</a>
+    <span style="font-weight:800;color:rgba(255,255,255,.5);">⏳ Осталось 3 места из 10 в этом месяце</span>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">Safe&nbsp;Visa<span>.</span></div>
+  <p>Ирина Соболева — эксперт по визам США. Метод «Safe Case».</p>
+</footer>
+
+</article>
+</body>
+</html>

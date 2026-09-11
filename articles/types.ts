@@ -7,11 +7,13 @@ export interface ArticleBlock {
 }
 
 export interface ArticleData {
-  id: string; // URL slug: 'kak-poluchit-vizu'
+  id: string;
   title: string;
-  description: string; // SEO meta
+  description: string;
   date: string;
   author: string;
   mainImage: string;
-  blocks: ArticleBlock[];
+  blocks?: ArticleBlock[];
+  markdown?: string;
+  href?: string;
 }
