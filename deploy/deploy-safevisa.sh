@@ -39,7 +39,10 @@ trap cleanup EXIT
 docker run --rm \
     -v "$GITEA_VOLUME:/gitea-data:ro" \
     -v "$workdir:/work" \
-    "$GIT_IMAGE" -c "safe.directory=$REPOSITORY" clone --no-checkout "$REPOSITORY" /work/source
+    -e GIT_CONFIG_COUNT=1 \
+    -e GIT_CONFIG_KEY_0=safe.directory \
+    -e "GIT_CONFIG_VALUE_0=$REPOSITORY" \
+    "$GIT_IMAGE" clone --no-checkout "$REPOSITORY" /work/source
 docker run --rm \
     -v "$workdir:/work" \
     "$GIT_IMAGE" -C /work/source checkout --detach "$commit"
