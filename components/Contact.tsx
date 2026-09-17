@@ -33,7 +33,7 @@ export const Contact: React.FC = () => {
                 className="inline-flex w-full items-center justify-center gap-3 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 px-8 py-5 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2"
               >
                 <MessageCircle className="h-6 w-6" />
-                MAX
+                Макс
               </a>
             </div>
           </div>

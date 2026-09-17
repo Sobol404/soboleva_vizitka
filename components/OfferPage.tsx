@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { ArrowLeft, FileCheck2, Mail, Scale, ShieldCheck } from 'lucide-react';
-import offerMarkdown from '../../oferta.md?raw';
+import offerMarkdown from '../content/legal/oferta.md?raw';
 import { DocumentToc, DocumentTocItem, scrollToDocumentSection, useActiveDocumentSection } from './DocumentToc';
 
 interface OfferPageProps {
@@ -63,7 +63,7 @@ export const OfferPage: React.FC<OfferPageProps> = ({ onBack }) => {
             <div className="mt-8 grid gap-3 text-sm sm:grid-cols-3">
               <div className="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
                 <FileCheck2 className="mb-3 h-5 w-5 text-primary" />
-                Редакция от 02.09.2026
+                Редакция от 17.09.2026
               </div>
               <div className="rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur-sm">
                 <ShieldCheck className="mb-3 h-5 w-5 text-primary" />

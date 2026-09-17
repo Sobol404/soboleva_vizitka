@@ -18,7 +18,7 @@ export const Socials: React.FC = () => {
     { name: 'Threads', user: '@irene_sa', icon: AtSign, href: links.social.threads, color: 'bg-gradient-to-br from-slate-700 to-slate-950', mobileOrder: 'order-2 lg:order-none' },
     { name: 'TikTok', user: '@irene..sa', icon: Music2, href: links.social.tiktok, color: 'bg-gradient-to-br from-slate-800 to-slate-950', mobileOrder: 'order-3 lg:order-none' },
     { name: 'YouTube', user: '@irene_sa', icon: Youtube, href: links.social.youtube, color: 'bg-gradient-to-br from-red-500 to-red-600', mobileOrder: 'order-4 lg:order-none' },
-    { name: 'MAX', user: 'Бизнес чат', icon: () => <svg className="w-full h-full text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>, href: links.social.max, color: 'bg-gradient-to-br from-indigo-500 to-purple-600', mobileOrder: 'order-5 lg:order-none' }
+    { name: 'Макс', user: 'Бизнес чат', icon: () => <svg className="w-full h-full text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>, href: links.social.max, color: 'bg-gradient-to-br from-indigo-500 to-purple-600', mobileOrder: 'order-5 lg:order-none' }
   ];
 
   return (
