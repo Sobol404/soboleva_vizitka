@@ -94,6 +94,13 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack }) => {
 
   const handleArticleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
+    const flipCard = target.closest<HTMLElement>('.flip');
+    if (flipCard) {
+      const isFlipped = flipCard.classList.toggle('is-flipped');
+      flipCard.setAttribute('aria-expanded', String(isFlipped));
+      return;
+    }
+
     const anchor = target.closest<HTMLAnchorElement>('a[href="#zayavka"]');
     if (!anchor) return;
 
@@ -101,20 +108,32 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack }) => {
     document.getElementById('zayavka')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  const handleArticleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+
+    const target = event.target as HTMLElement;
+    const flipCard = target.closest<HTMLElement>('.flip');
+    if (!flipCard) return;
+
+    event.preventDefault();
+    const isFlipped = flipCard.classList.toggle('is-flipped');
+    flipCard.setAttribute('aria-expanded', String(isFlipped));
+  };
+
   return (
-    <div className="min-h-screen bg-[#F4F7F9] pt-20">
+    <div className="min-h-screen bg-[#F4F7F9] pt-20 dark:bg-[#101827]">
       <style>{styles}</style>
       <div className="mx-auto max-w-[920px] px-4 py-4">
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-slate-600 shadow-sm transition hover:text-accent hover:shadow-md"
+          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-slate-600 shadow-sm transition hover:text-accent hover:shadow-md dark:bg-slate-800 dark:text-slate-100"
         >
           <ArrowLeft className="h-4 w-4" />
           Назад к главной
         </button>
       </div>
-      <div onClick={handleArticleClick} dangerouslySetInnerHTML={{ __html: articleMarkup }} />
+      <div onClick={handleArticleClick} onKeyDown={handleArticleKeyDown} dangerouslySetInnerHTML={{ __html: articleMarkup }} />
     </div>
   );
 };

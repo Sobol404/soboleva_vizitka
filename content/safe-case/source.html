@@ -16,6 +16,8 @@
   --accent-hover:#C13D42;
   --accent-soft:rgba(229,72,77,.1);
   --blue-400:#5AAAE5;
+  --cta-blue:#2563EB;
+  --cta-blue-hover:#1D4ED8;
   --green-500:#22C55E;
   --yellow-500:#EAB308;
   --red-600:#DC2626;
@@ -54,11 +56,13 @@ section{padding:56px 24px;}
 .band{background:var(--surface-inverse);color:#fff;padding:20px 24px;text-align:center;}
 .band h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;max-width:880px;margin:0 auto;line-height:1.2;}
 
-.sv-btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 36px;background:var(--accent);color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border:none;border-radius:9999px;cursor:pointer;box-shadow:0 8px 28px rgba(229,72,77,.4);text-decoration:none;transition:background .2s,transform .15s,box-shadow .2s;}
-.sv-btn:hover{background:var(--accent-hover);transform:translateY(-2px);box-shadow:0 12px 32px rgba(229,72,77,.5);}
-.sv-btn.outline{background:transparent;border:2px solid #fff;box-shadow:none;}
-.sv-btn.outline:hover{background:rgba(255,255,255,.1);}
+.sv-btn{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 36px;background:linear-gradient(135deg,var(--cta-blue),var(--blue-400));color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border:none;border-radius:9999px;cursor:pointer;box-shadow:0 8px 28px rgba(37,99,235,.32);text-decoration:none;transition:background .2s,transform .15s,box-shadow .2s;}
+.sv-btn::after{content:'';position:absolute;z-index:0;inset:-40% auto -40% -45%;width:24%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);transform:skewX(-22deg) translateX(-420%);animation:sv-cta-shine 9s ease-in-out infinite;pointer-events:none;}
+.sv-btn:hover{background:linear-gradient(135deg,var(--cta-blue-hover),var(--cta-blue));transform:translateY(-2px);box-shadow:0 12px 32px rgba(37,99,235,.42);}
+.sv-btn.outline{background:transparent;border:2px solid var(--cta-blue);color:var(--cta-blue);box-shadow:none;}
+.sv-btn.outline:hover{background:rgba(37,99,235,.1);}
 .sv-btn-wrap{display:flex;justify-content:center;margin-top:24px;}
+@keyframes sv-cta-shine{0%,76%,100%{transform:skewX(-22deg) translateX(-420%);}84%{transform:skewX(-22deg) translateX(720%);}}
 
 .glass-quote{background:rgba(255,255,255,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:20px 24px;font-style:italic;font-size:1.0625rem;line-height:1.65;color:var(--brand-slate);box-shadow:var(--shadow-sm);}
 
@@ -84,12 +88,14 @@ section{padding:56px 24px;}
 .myth-text{margin:0;font-size:.95rem;color:var(--slate-600);}
 .myth-reality{color:var(--green-500);font-weight:800;}
 
-.flip{perspective:1200px;outline:none;}
+.flip{perspective:1200px;outline:none;overflow:hidden;}
 .flip-inner{position:relative;transition:transform .65s var(--ease-out);transform-style:preserve-3d;height:100%;}
-.flip:hover .flip-inner,.flip:focus-within .flip-inner{transform:rotateY(180deg);}
+.flip:hover .flip-inner,.flip:focus-within .flip-inner,.flip.is-flipped .flip-inner{transform:rotateY(180deg);}
 .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;}
 .flip-back{transform:rotateY(180deg);}
 .insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;}
+.insight-visual{height:156px;max-width:82%;object-fit:contain;display:block;margin:0 auto;transform:scale(1.7);}
+.insight-iceberg{height:156px;display:flex;align-items:center;justify-content:center;font-size:8.5rem;line-height:1;margin:0 auto;}
 
 .expert-bio-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:flex-start;margin-bottom:32px;}
 
@@ -120,10 +126,20 @@ section{padding:56px 24px;}
 .sv-acc-body{padding:0 26px 26px;font-size:1.0625rem;line-height:1.7;}
 
 @keyframes sv-marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
-.marq-wrap{overflow:hidden;background:var(--accent);color:#fff;}
+.marq-wrap{overflow:hidden;background:var(--cta-blue);color:#fff;}
 .marq-track{display:inline-flex;white-space:nowrap;animation:sv-marq 22s linear infinite;padding:12px 0;font-weight:800;font-size:.95rem;letter-spacing:.02em;}
 
-.offer-frame{border:2px solid var(--accent);border-radius:28px;overflow:hidden;box-shadow:var(--shadow-xl);background:var(--surface-card);}
+.offer-frame{border:2px solid var(--cta-blue);border-radius:28px;overflow:hidden;box-shadow:var(--shadow-xl);background:var(--surface-card);}
+.offer-content{padding:32px 30px;}
+.quiz-shell{margin:28px 0 0;border-radius:20px;padding:12px;background:var(--surface-soft);border:1px solid rgba(37,99,235,.2);}
+.quiz-after{max-width:560px;margin:28px auto 0;text-align:left;}
+.quiz-after h3{text-align:center;font-size:1.2rem;font-weight:800;margin:0 0 14px;}
+.quiz-after ol{margin:0;padding-left:1.2rem;font-size:1.0625rem;line-height:1.6;color:var(--slate-600);}
+.quiz-free{text-align:center;font-size:1.0625rem;line-height:1.7;margin:24px 0 0;}
+.quiz-warning{background:var(--accent-soft);border:1px solid var(--accent);border-radius:16px;padding:18px 20px;margin-top:18px;text-align:left;}
+.section-preview{overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);}
+.section-after-preview{padding-top:28px!important;}
+.inline-section-preview{border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);}
 
 .blue-bullet-list{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0 24px;}
 .blue-bullet{background:#fff;border:1.5px solid #DBEAFE;border-left:4px solid var(--blue-400);border-radius:14px;padding:14px 18px;font-size:1rem;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.06);}
@@ -185,10 +201,7 @@ footer p{margin:10px 0 0;font-size:.9rem;}
   .band h2{font-size:clamp(1.5rem,4vw,2.2rem);}
   .insights-grid{grid-template-columns:1fr;}
   .expert-bio-grid{grid-template-columns:1fr;}
-  .flip{height:auto!important;}
-  .flip-inner{position:static;transform:none!important;transform-style:flat;}
-  .flip-face{position:static;backface-visibility:visible;-webkit-backface-visibility:visible;}
-  .flip-back{transform:none;display:none;}
+  .flip{height:360px!important;cursor:pointer;}
   .myth-grid{grid-template-columns:1fr;}
   .results-grid{grid-template-columns:repeat(3,1fr);}
   .steps-grid{grid-template-columns:1fr;}
@@ -206,8 +219,18 @@ footer p{margin:10px 0 0;font-size:.9rem;}
   .sv-acc-title{font-size:1rem;}
   .sv-acc-body{padding:0 18px 20px;}
 
-  .results-grid{grid-template-columns:1fr 1fr;}
+  .results-grid{grid-template-columns:1fr;gap:12px;}
   .results-dark{padding:24px 20px;}
+  .result-item{display:flex;align-items:baseline;justify-content:center;gap:10px;text-align:left!important;}
+  .result-item .result-value{font-size:2rem!important;}
+  .result-item .result-label{margin-top:0!important;}
+  .section-preview{margin:12px 0;border-radius:0;}
+  .inline-section-preview{width:calc(100% + 40px);margin:0 -20px 20px;border-radius:0;}
+  .section-after-preview{padding-top:24px!important;}
+  .insight-visual{height:174px;max-width:88%;transform:scale(1.9);}
+  .insight-iceberg{height:174px;font-size:9.5rem;}
+  .offer-content{padding:26px 20px;}
+  .quiz-shell{padding:8px;}
 
   .offer-frame .sv-btn-wrap{padding:0 4px;}
   .sv-btn{padding:14px 24px;font-size:.9rem;}
@@ -229,10 +252,14 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 
 /* ── SMALL MOBILE (≤ 400px) ── */
 @media(max-width:400px){
-  .results-grid{grid-template-columns:1fr;}
   .sv-acc-badge{display:none;}
 }
 #xl-visa-quiz iframe { min-height: 560px !important; }
+html.dark .sv-art{--brand-slate:#F1F5F9;--slate-500:#B6C3D1;--slate-600:#CBD5E1;--slate-700:#E2E8F0;--surface-page:#101827;--surface-card:#182538;--surface-soft:#1E3047;--surface-inverse:#243B4A;--border-hairline:rgba(191,219,254,.18);--border-default:rgba(191,219,254,.28);--shadow-sm:0 1px 3px rgba(0,0,0,.22);--shadow-md:0 4px 12px rgba(0,0,0,.28);--shadow-lg:0 12px 40px rgba(0,0,0,.36);--shadow-xl:0 20px 60px rgba(0,0,0,.42);color:var(--brand-slate);}
+html.dark .sv-art .bullet-item,html.dark .sv-art .blue-bullet,html.dark .sv-art .guarantee-item,html.dark .sv-art .factor-chip{background:var(--surface-card);}
+html.dark .sv-art .glass-quote{background:rgba(24,37,56,.85);border-color:var(--border-default);color:var(--brand-slate);}
+html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
+@media(prefers-reduced-motion:reduce){.sv-btn::after,.marq-track{animation:none;}}
 </style>
 </head>
 <body>
@@ -276,7 +303,7 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 
 <section style="max-width:880px;margin:0 auto;padding:56px 24px;">
   <h2 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;margin:0 0 22px;line-height:1.2;"><span class="mark-red">«Section 214(b)»…</span></h2>
-  <div style="border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);">
+  <div class="inline-section-preview">
     <img src="assets/img/ленд виза картинка_отказ.jpeg" alt="Отказ в визе" style="width:100%;display:block;">
   </div>
   <p style="font-size:1.125rem;line-height:1.75;">Всего две секунды, чтобы прочитать эту фразу на отказном листе.</p>
@@ -300,11 +327,11 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>6 мифов о визах США, которые будут стоить вам поездки</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/ленд виза картинка_мифы.jpeg" alt="6 мифов о визах США" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:56px 24px 8px;">
+<section class="section-after-preview" style="max-width:880px;margin:0 auto;padding:56px 24px 8px;">
   <p style="font-size:1.125rem;line-height:1.75;">Знаете, что самое обидное, когда отказывают в визе? То, что часто блестящая карьера, высокая должность и внушительный счёт в банке играют… <strong>против вас.</strong></p>
   <p style="font-size:1.125rem;line-height:1.75;">Вы изучили гору информации — YouTube, чаты в Telegram, две недели пыхтели над анкетой. Пришли в посольство — и получили отказ за 5 минут диалога с офицером.</p>
   <p style="font-size:1.125rem;line-height:1.75;">Возможно, вы поверили в <strong>мифы</strong>, которыми щедро делятся в интернете.</p>
@@ -352,19 +379,19 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>Три инсайта о тёмной стороне собеседования</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/ленд виза картинка_темная сторона.jpeg" alt="Тёмная сторона собеседования" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
-  <p style="text-align:center;color:var(--slate-500);margin:0 0 28px;font-size:1.0625rem;">Наведите на карточку, чтобы раскрыть</p>
+<section class="section-after-preview" style="max-width:880px;margin:0 auto;padding:56px 24px;">
+  <p style="text-align:center;color:var(--slate-500);margin:0 0 28px;font-size:1.0625rem;">Нажмите на карточку, чтобы раскрыть</p>
   <div class="insights-grid">
 
-    <div class="flip" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
+    <div class="flip" role="button" aria-expanded="false" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
       <div class="flip-inner">
         <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
           <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">01</span>
-          <img src="assets/img/матрешка.png" alt="Матрёшка" style="height:100px;object-fit:contain;display:block;margin:0 auto;">
+          <img class="insight-visual" src="assets/img/матрешка.png" alt="Матрёшка">
           <div style="width:100%;text-align:left;">
             <div style="font-size:.75rem;font-weight:800;letter-spacing:.12em;color:var(--yellow-500);text-transform:uppercase;margin-bottom:8px;">Инсайт #1</div>
             <div style="font-size:1.5rem;font-weight:800;">«Эффект матрёшки»</div>
@@ -376,11 +403,11 @@ footer p{margin:10px 0 0;font-size:.9rem;}
       </div>
     </div>
 
-    <div class="flip" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
+    <div class="flip" role="button" aria-expanded="false" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
       <div class="flip-inner">
         <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
           <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">02</span>
-          <img src="assets/img/очки.png" alt="Очки" style="height:100px;object-fit:contain;display:block;margin:0 auto;">
+          <img class="insight-visual" src="assets/img/очки.png" alt="Очки">
           <div style="width:100%;text-align:left;">
             <div style="font-size:.75rem;font-weight:800;letter-spacing:.12em;color:var(--yellow-500);text-transform:uppercase;margin-bottom:8px;">Инсайт #2</div>
             <div style="font-size:1.5rem;font-weight:800;">«Правило трёх фильтров»</div>
@@ -392,11 +419,11 @@ footer p{margin:10px 0 0;font-size:.9rem;}
       </div>
     </div>
 
-    <div class="flip" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
+    <div class="flip" role="button" aria-expanded="false" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
       <div class="flip-inner">
         <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
           <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">03</span>
-          <div style="font-size:5rem;text-align:center;line-height:1;margin:4px 0;">🧊</div>
+          <div class="insight-iceberg" aria-label="Айсберг">🧊</div>
           <div style="width:100%;text-align:left;">
             <div style="font-size:.75rem;font-weight:800;letter-spacing:.12em;color:var(--yellow-500);text-transform:uppercase;margin-bottom:8px;">Инсайт #3</div>
             <div style="font-size:1.5rem;font-weight:800;">«Принцип айсберга»</div>
@@ -423,11 +450,11 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>Как вам повысить шансы и получить визу таким же способом?</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/ленд виза картинка_safe case на доске.png" alt="Метод Safe Case на доске" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+<section class="section-after-preview" style="max-width:880px;margin:0 auto;padding:56px 24px;">
   <p style="font-size:1.125rem;line-height:1.75;">Офицер принимает решение за 2–3 минуты! Дело не в вашем возрасте, не в размере счёта и даже не в знании английского.</p>
   <p style="font-size:1.125rem;line-height:1.75;">В презентации своего кейса вы должны убедить его буквально в трёх тезисах:</p>
 
@@ -462,7 +489,7 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 
 <div class="band"><h2>Почему я имею право рассказывать вам о визах</h2></div>
 
-<section style="max-width:920px;margin:0 auto;padding:56px 24px;">
+<section class="section-after-preview" style="max-width:920px;margin:0 auto;padding:56px 24px;">
   <div class="expert-bio-grid">
     <div>
       <img src="assets/img/ленд виза картинка_Ира с визой в руке.jpeg" alt="Ирина Соболева с визой" style="width:100%;border-radius:20px;box-shadow:var(--shadow-lg);">
@@ -491,9 +518,9 @@ footer p{margin:10px 0 0;font-size:.9rem;}
   <div class="results-dark">
     <h3 style="font-size:2.4rem;font-weight:800;text-align:center;margin:0 0 24px;position:relative;">Результаты</h3>
     <div class="results-grid" style="position:relative;">
-      <div style="text-align:center;"><div style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">87%</div><div style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">успешных одобрений</div></div>
-      <div style="text-align:center;"><div style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">12</div><div style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">страны клиентов</div></div>
-      <div style="text-align:center;"><div style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">300+</div><div style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">благодарных отзывов</div></div>
+      <div class="result-item" style="text-align:center;"><div class="result-value" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">87%</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">успешных одобрений</div></div>
+      <div class="result-item" style="text-align:center;"><div class="result-value" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">12</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">стран клиентов</div></div>
+      <div class="result-item" style="text-align:center;"><div class="result-value" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">300+</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">благодарных отзывов</div></div>
     </div>
   </div>
 
@@ -501,15 +528,15 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>Конкретный путь к получению визы</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/ленд виза картинка_путь 8 шагов.jpeg" alt="8 шагов до визы США" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+<section class="section-after-preview" style="max-width:880px;margin:0 auto;padding:56px 24px;">
   <div style="max-width:600px;margin:0 auto 28px;">
     <blockquote class="glass-quote">Я просто хочу спокойно пройти интервью, без нервов и суеты. Чтобы чётко понимать каждый шаг.</blockquote>
   </div>
-  <div class="sv-btn-wrap" style="margin-bottom:40px;"><a class="sv-btn outline" href="#zayavka" style="background:transparent;border:2px solid var(--accent);color:var(--accent);box-shadow:none;">Получить разбор кейса</a></div>
+  <div class="sv-btn-wrap" style="margin-bottom:40px;"><a class="sv-btn outline" href="#zayavka">Получить разбор кейса</a></div>
 
   <div class="steps-grid">
     <div class="step-card"><span class="step-num-bg">1</span><div class="step-inner"><div class="step-label">Шаг 1</div><h3 class="step-title">Анализ вашего кейса</h3><ul class="step-list"><li>Детально анализирую вашу ситуацию через личную консультацию</li><li>Оцениваю реальные шансы и скрытые риски</li><li>Отвечаю на горящие вопросы и развеиваю страхи</li><li>Определяю слабые места предыдущих попыток</li></ul><div class="step-result">Получаете чувство уверенности и контроля, понимание реальных причин предыдущих отказов.</div></div></div>
@@ -524,11 +551,11 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>Что вы получаете в итоге?</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/много виз 2.jpeg" alt="Клиенты с визами США" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:48px 24px 56px;">
+<section class="section-after-preview" style="max-width:880px;margin:0 auto;padding:48px 24px 56px;">
   <div style="display:grid;grid-template-columns:1fr;gap:14px;">
     <div style="display:flex;gap:14px;align-items:center;background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-sm);"><span style="width:26px;height:26px;border-radius:50%;background:var(--green-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:.85rem;">✓</span><span style="font-size:1.0625rem;font-weight:600;">Виза в паспорте в оптимальные сроки</span></div>
     <div style="display:flex;gap:14px;align-items:center;background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:16px;padding:18px 20px;box-shadow:var(--shadow-sm);"><span style="width:26px;height:26px;border-radius:50%;background:var(--green-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0;font-size:.85rem;">✓</span><span style="font-size:1.0625rem;font-weight:600;">Спокойствие и уверенность на каждом этапе</span></div>
@@ -538,25 +565,23 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>Получите бесплатный разбор вашего кейса</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/ленд виза картинка_оценка шансов.jpeg" alt="Оценка шансов на визу" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:48px 24px;">
+<section id="zayavka" class="section-after-preview" style="max-width:880px;margin:0 auto;padding:48px 24px;">
   <div class="offer-frame">
     <div class="marq-wrap">
       <div class="marq-track">
-        <span style="padding:0 2rem;">🔥 Предложение для тех, кто забронирует место прямо сейчас</span>
-        <span style="padding:0 2rem;">✦ Осталось мало мест</span>
-        <span style="padding:0 2rem;">🇺🇸 Бесплатный разбор вашего кейса</span>
-        <span style="padding:0 2rem;">★ Не закрывайте вкладку</span>
-        <span style="padding:0 2rem;">🔥 Предложение для тех, кто забронирует место прямо сейчас</span>
-        <span style="padding:0 2rem;">✦ Осталось мало мест</span>
-        <span style="padding:0 2rem;">🇺🇸 Бесплатный разбор вашего кейса</span>
-        <span style="padding:0 2rem;">★ Не закрывайте вкладку</span>
+        <span style="padding:0 2rem;">Бесплатный разбор вашего кейса</span>
+        <span style="padding:0 2rem;">✦ Оцените реальные шансы</span>
+        <span style="padding:0 2rem;">🇺🇸 Пройдите короткий опрос</span>
+        <span style="padding:0 2rem;">Бесплатный разбор вашего кейса</span>
+        <span style="padding:0 2rem;">✦ Оцените реальные шансы</span>
+        <span style="padding:0 2rem;">🇺🇸 Пройдите короткий опрос</span>
       </div>
     </div>
-    <div style="padding:32px 30px;">
+    <div class="offer-content">
       <h3 style="text-align:center;font-size:1.4rem;font-weight:800;margin:0 0 18px;">Что происходит на разборе?</h3>
       <div class="check-list">
         <div class="check-list-item"><span class="ci">✓</span><span style="font-size:1.0625rem;">Проанализируем вашу ситуацию</span></div>
@@ -565,26 +590,16 @@ footer p{margin:10px 0 0;font-size:.9rem;}
         <div class="check-list-item"><span class="ci">✓</span><span style="font-size:1.0625rem;">Ответим на все горящие вопросы</span></div>
         <div class="check-list-item"><span class="ci">✓</span><span style="font-size:1.0625rem;">Объясним причины предыдущих отказов, если они были</span></div>
       </div>
-      <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka">Забронировать разбор</a></div>
-      <div style="display:flex;justify-content:center;margin:16px 0;">
-        <span style="font-size:.95rem;font-weight:800;color:var(--accent);">⏳ Осталось 3 места из 10</span>
+      <div class="quiz-shell">
+        <div id="xl-visa-quiz" style="min-height:180px;" aria-live="polite"></div>
       </div>
-      <p style="font-size:1.0625rem;line-height:1.7;font-style:italic;color:var(--slate-600);margin:0 0 1rem;">Вероятно, прочитав этот текст, вы думаете: <strong>«Звучит классно, но…»</strong></p>
-      <p style="font-size:1.0625rem;line-height:1.7;margin:0;"><span style="text-decoration:underline;">Разберу ваш кейс <strong>бесплатно</strong>, если вы оставите заявку прямо сейчас, не закрывая и не обновляя эту вкладку.</span></p>
-      <div class="warn-box"><p style="margin:0;font-size:1.0625rem;"><strong>❗ Важно.</strong> Количество слотов на консультации ограничено. Я выделяю <strong>не больше 10 записей в месяц</strong>, чтобы гарантировать качество работы и персональное внимание каждому.</p></div>
+      <div class="quiz-after">
+        <h3>После оставления заявки</h3>
+        <ol><li>Я свяжусь с вами в мессенджере</li><li>Выберем удобное время для звонка</li><li>Разберём вашу ситуацию</li></ol>
+      </div>
+      <p class="quiz-free">Разберу ваш кейс <strong>бесплатно</strong>.</p>
+      <div class="quiz-warning"><p style="margin:0;font-size:1.0625rem;"><strong>❗ Важно.</strong> Количество слотов ограничено.</p></div>
     </div>
-  </div>
-</section>
-
-<section id="zayavka" style="background:var(--surface-inverse);color:#fff;padding:52px 24px;text-align:center;">
-  <h2 style="font-size:clamp(1.4rem,3.6vw,2.1rem);font-weight:800;max-width:760px;margin:0 auto 28px;line-height:1.25;">Чтобы <span style="background:var(--yellow-500);color:var(--brand-slate);padding:0 .25em;border-radius:6px;">оставить заявку</span>, пройдите короткий опрос</h2>
-  <div style="max-width:760px;margin:0 auto;background:var(--surface-card);border-radius:20px;padding:40px 30px;box-shadow:var(--shadow-xl);text-align:center;">
-    <div id="xl-visa-quiz" style="min-height:180px;" aria-live="polite"></div>
-    <a class="sv-btn" href="https://t.me/m/e1XHDdGVNDAy" target="_blank">Написать напрямую в Telegram</a>
-  </div>
-  <div style="max-width:480px;margin:28px auto 0;">
-    <h3 style="font-size:1.2rem;font-weight:800;margin:0 0 14px;">Что происходит после записи?</h3>
-    <ol style="margin:0;padding-left:1.2rem;font-size:1.0625rem;line-height:1.6;color:rgba(255,255,255,.9);text-align:left;"><li>Я свяжусь с вами в мессенджере</li><li>Выберем удобное время для звонка</li><li>Разберём вашу ситуацию</li></ol>
   </div>
 </section>
 
@@ -610,11 +625,11 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>Честные гарантии</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/ленд виза картинка_гарантии.jpeg" alt="Гарантии Safe Case" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:48px 24px 56px;">
+<section class="section-after-preview" style="max-width:880px;margin:0 auto;padding:48px 24px 56px;">
   <p style="font-size:1.125rem;text-align:center;font-weight:800;margin:0 0 16px;">Вот что я гарантирую на 100%</p>
   <div class="guarantee-list">
     <div class="guarantee-item"><span class="guarantee-icon">✓</span><span style="font-size:1.0625rem;">Честную оценку ваших шансов ещё до начала работы</span></div>
@@ -630,11 +645,11 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>Давайте посчитаем, сколько на самом деле стоит отказ в визе?</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/ленд виза картинка_потрачено.jpeg" alt="Во сколько обходится отказ" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+<section class="section-after-preview" style="max-width:880px;margin:0 auto;padding:56px 24px;">
   <p style="font-size:1.125rem;line-height:1.75;">Алексей, владелец строительной компании, пришёл ко мне после отказа. Его история — классический пример того, как желание сэкономить оборачивается огромными потерями.</p>
   <div style="background:var(--surface-soft);border-left:4px solid var(--slate-300);border-radius:12px;padding:16px 20px;margin:18px 0 28px;font-style:italic;color:var(--slate-600);line-height:1.6;">«Зачем платить за сопровождение в простых вопросах?» «Я сам всё найду в интернете, гайды же есть!» «Ну после отказа я точно всё понял, сейчас исправлю — и на второй заход!»</div>
 
@@ -683,11 +698,11 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 </section>
 
 <div class="band"><h2>Ещё кейсы?</h2></div>
-<div style="overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);">
+<div class="section-preview">
   <img src="assets/img/ленд виза картинка_кейсы.jpeg" alt="Кейсы получения виз" style="width:100%;display:block;">
 </div>
 
-<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+<section class="section-after-preview" style="max-width:880px;margin:0 auto;padding:56px 24px;">
   <div style="display:flex;flex-direction:column;gap:16px;">
 
     <details class="sv-acc">
@@ -739,7 +754,6 @@ footer p{margin:10px 0 0;font-size:.9rem;}
     <h2>Узнайте свои реальные шансы на визу США</h2>
     <p>Бесплатный разбор кейса без ложных обещаний 100%</p>
     <a class="sv-btn" href="#zayavka" style="font-size:1.1rem;padding:20px 48px;">Забронировать разбор</a>
-    <span style="font-weight:800;color:rgba(255,255,255,.5);">⏳ Осталось 3 места из 10 в этом месяце</span>
   </div>
 </div>
 
