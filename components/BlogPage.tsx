@@ -24,7 +24,7 @@ const telegramDrafts: BlogCardData[] = [
     title: 'Пост 1',
     description: 'Короткий анонс будущего поста из Telegram — полезное наблюдение или разбор визовой ситуации.',
     date: 'Ссылка появится позже',
-    image: '/media/safe-case/превью Иришка ютуб1.jpg',
+    image: '/media/shared/irina-video-preview-01.jpg',
   },
   {
     id: 'telegram-draft-2',
@@ -32,7 +32,7 @@ const telegramDrafts: BlogCardData[] = [
     title: 'Пост 2',
     description: 'Здесь будет название, краткое описание в две строки и прямая ссылка на пост в канале.',
     date: 'Ссылка появится позже',
-    image: '/media/safe-case/превью Иришка ютуб2.jpg',
+    image: '/media/shared/irina-video-preview-02.jpg',
   },
 ];
 
@@ -114,7 +114,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ articles, onBack }) => {
         <section className="mt-6 rounded-[1.75rem] border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-dark-card sm:p-8 md:mt-8 md:rounded-[2rem] md:p-12">
           <div className="flex items-center gap-3 sm:gap-4">
             <img
-              src="/media/blog/ira-soboleva-avatar.jpg"
+              src="/media/shared/irina-blog-avatar.png"
               alt="Ирина Соболева"
               className="h-12 w-12 flex-shrink-0 rounded-full object-cover ring-2 ring-accent/20 sm:h-14 sm:w-14 md:h-16 md:w-16"
             />

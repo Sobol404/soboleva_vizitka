@@ -25,7 +25,7 @@ export const BlogPreview: React.FC<BlogPreviewProps> = ({ articles }) => {
       <div className="mx-auto max-w-5xl rounded-[2rem] border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-dark-card sm:p-7 md:p-10">
         <div className="flex items-center gap-3 md:gap-4">
           <img
-            src="/media/blog/ira-soboleva-avatar.jpg"
+            src="/media/shared/irina-blog-avatar.png"
             alt="Ирина Соболева"
             className="h-11 w-11 rounded-full object-cover ring-2 ring-accent/20 md:h-14 md:w-14"
           />

@@ -123,17 +123,17 @@ export const Reviews: React.FC = () => {
   const [modalSrc, setModalSrc] = useState<string | null>(null);
 
   const baseImages = [
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/f3ByCfvM6UCnXFHbaDziTg.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/JqxFQHnDJUm5CY4R4OQmRg.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/wFVQjXkXzUSP2THHd2GzYw.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/N7VxJASuaEu_GXmi9EqeCA.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/1kwKwhxBOU6UvIcZjNFgeA.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/94ZeCYoFr0GEM-MSmy84gw.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/nlDFowklyEutymyj-HVJzg.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/mDKRzF07D0WnX33TRKE55w.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/GXS47mBhYEOwBCIWcS2JwA.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/bh6JXQ4aAE6LoQpm-h3H8g.jpg',
-    'https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/hbCKLIXTJUWSLPRZ54QYWA.jpg',
+    '/media/shared/client-review-01.jpg',
+    '/media/shared/client-review-02.jpg',
+    '/media/shared/client-review-03.jpg',
+    '/media/shared/client-review-04.jpg',
+    '/media/shared/client-review-05.jpg',
+    '/media/shared/client-review-06.jpg',
+    '/media/shared/client-review-07.jpg',
+    '/media/shared/client-review-08.jpg',
+    '/media/shared/client-review-09.jpg',
+    '/media/shared/client-review-10.jpg',
+    '/media/shared/client-review-11.jpg',
   ];
 
   const firstRow = baseImages.filter((_, index) => index % 2 === 0);

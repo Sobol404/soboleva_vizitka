@@ -30,7 +30,7 @@ export const Socials: React.FC = () => {
              {/* Mobile Image */}
              <div className="block lg:hidden w-full relative pb-[56.25%] rounded-3xl overflow-hidden shadow-lg border border-slate-100 mb-6">
               <img 
-                src="https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/4oDheoKeLkqo8h2MCvbbWQ.webp" 
+                src="/media/shared/social-media-mockup.webp"
                 alt="Social media mockups"
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
@@ -94,7 +94,7 @@ export const Socials: React.FC = () => {
         <div className="hidden lg:flex flex-1 w-full lg:w-1/2 flex-col items-center justify-center">
            <div className="w-full relative pb-[56.25%] rounded-3xl overflow-hidden shadow-lg border border-slate-100">
             <img 
-              src="https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/4oDheoKeLkqo8h2MCvbbWQ.webp" 
+              src="/media/shared/social-media-mockup.webp"
               alt="Social media mockups"
               className="absolute inset-0 w-full h-full object-cover"
               loading="lazy"

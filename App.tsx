@@ -26,7 +26,7 @@ const safeCaseCard: ArticleData = {
   description: 'Большой разбор метода, типичных ошибок, кейсов и пути подготовки к интервью.',
   date: 'Спецпроект',
   author: 'Ирина Соболева',
-  mainImage: '/media/safe-case/ленд%20виза%20картинка_превью%20safe%20case.jpeg',
+  mainImage: '/media/pages/safe-case/article-preview.jpeg',
   href: '/usa-safecase',
 };
 

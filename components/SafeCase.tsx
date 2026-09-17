@@ -67,7 +67,7 @@ export const SafeCase: React.FC = () => {
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-stretch mb-20">
         <div className="hidden md:flex h-full justify-center">
             <img 
-                src="https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/EVy7zU2StUSPfvcr_UZ_3g.webp" 
+                src="/media/shared/safe-case-method.webp"
                 alt="Safe Case method visualization"
                 className="rounded-3xl shadow-xl w-full max-w-none object-cover dark:opacity-80 lg:min-h-[440px]"
                 loading="lazy"

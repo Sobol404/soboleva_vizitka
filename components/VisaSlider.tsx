@@ -13,10 +13,10 @@ export const VisaSlider: React.FC = () => {
   const hasDraggedRef = useRef(false);
 
   const baseImages = [
-    "https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/19m-vSpiK0K4Mw6Fug0XEw.webp",
-    "https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/7GbeWqFRoki9bxqd88iT1A.webp",
-    "https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/BxuwUkCT-UiukYeVEqR-Yw.webp",
-    "https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/P61Gts5iKUyEkT7qAHHOEw.webp",
+    "/media/shared/visa-approval-01.webp",
+    "/media/shared/visa-approval-02.webp",
+    "/media/shared/visa-approval-03.webp",
+    "/media/shared/visa-approval-04.webp",
   ];
 
   const visaImages = [...baseImages, ...baseImages, ...baseImages];

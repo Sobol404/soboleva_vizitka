@@ -41,7 +41,7 @@ export const Contact: React.FC = () => {
 
         <div className="flex-1 flex justify-center">
             <img
-              src="https://con.xl.ru/wiXOCZKs0k2ilUIgAhgUDA/images/yZBOQzcq-USoRfWkKyMnPw.png"
+              src="/media/shared/contact-telegram-mockup.png"
               alt="Contact mockups"
               className="w-full max-w-xl"
               loading="lazy"
