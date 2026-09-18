@@ -27,6 +27,7 @@ interface DocumentTocProps {
   isOpen?: boolean;
   onToggle?: () => void;
   onNavigate: (id: string) => void;
+  mobileWithTopButton?: boolean;
 }
 
 export const useActiveDocumentSection = (items: DocumentTocItem[]) => {
@@ -137,6 +138,7 @@ export const DocumentToc: React.FC<DocumentTocProps> = ({
   isOpen = false,
   onToggle,
   onNavigate,
+  mobileWithTopButton = false,
 }) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const panelId = `document-toc-${variant}`;
@@ -168,7 +170,7 @@ export const DocumentToc: React.FC<DocumentTocProps> = ({
           onClick={onToggle}
           aria-expanded={isOpen}
           aria-controls={panelId}
-          className="fixed bottom-5 right-4 z-40 flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 px-4 py-3 text-sm font-bold text-dark shadow-xl backdrop-blur-md transition-transform hover:-translate-y-0.5 dark:border-slate-700 dark:bg-dark-card/95 dark:text-white"
+          className={`fixed bottom-5 z-40 flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 px-4 py-3 text-sm font-bold text-dark shadow-xl backdrop-blur-md transition-transform hover:-translate-y-0.5 dark:border-slate-700 dark:bg-dark-card/95 dark:text-white ${mobileWithTopButton ? 'right-[4.75rem]' : 'right-4'}`}
         >
           <List className="h-4 w-4 text-accent" />
           Содержание

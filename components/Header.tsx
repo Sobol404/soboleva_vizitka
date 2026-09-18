@@ -34,14 +34,15 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.substring(1);
-    const openPage = window.location.hash.startsWith('#/');
+    const openPage = window.location.pathname !== '/' || window.location.hash.startsWith('#/');
 
     if (openPage) {
-      window.location.hash = '';
+      window.history.pushState({}, '', `/#${targetId}`);
+      window.dispatchEvent(new PopStateEvent('popstate'));
       window.setTimeout(() => {
         const target = targetId === 'root' ? document.getElementById('root') : document.getElementById(targetId);
         target?.scrollIntoView({ behavior: 'smooth' });
-      }, 0);
+      }, 50);
       setIsOpen(false);
       return;
     }
@@ -56,7 +57,8 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
 
   const navigateToRoute = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault();
-    window.location.hash = href;
+    window.history.pushState({}, '', `/${href}`);
+    window.dispatchEvent(new PopStateEvent('popstate'));
     setIsOpen(false);
   };
 

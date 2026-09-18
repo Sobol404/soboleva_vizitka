@@ -19,7 +19,7 @@
   --cta-blue:#2563EB;
   --cta-blue-hover:#1D4ED8;
   --green-500:#22C55E;
-  --yellow-500:#EAB308;
+  --yellow-500:#5AAAE5;
   --red-600:#DC2626;
   --slate-500:#64748B;
   --slate-600:#475569;
@@ -30,6 +30,7 @@
   --surface-card:#FFFFFF;
   --surface-soft:#F0F7FD;
   --surface-inverse:#324F5C;
+  --surface-gradient:linear-gradient(90deg,#1D3844,#2E485F,#1D3844);
   --border-hairline:rgba(50,79,92,.1);
   --border-default:rgba(50,79,92,.15);
   --shadow-sm:0 1px 3px rgba(50,79,92,.08),0 1px 2px rgba(50,79,92,.05);
@@ -40,20 +41,20 @@
   --ease-smooth:cubic-bezier(.4,0,.2,1);
 }
 
-html,body{background:var(--surface-page);font-family:'Inter',system-ui,sans-serif;color:var(--brand-slate);line-height:1.6;}
+html,body{background:var(--surface-page);font-family:'Manrope',system-ui,sans-serif;color:var(--brand-slate);line-height:1.6;}
 .sv-art p{margin:0 0 1rem;}
 .sv-art ul,.sv-art ol{margin:0 0 1rem;padding-left:1.25rem;}
 .sv-art li{margin:.4rem 0;line-height:1.6;}
-.mark{background:linear-gradient(transparent 55%,rgba(234,179,8,.55) 55%);padding:0 .12em;}
+.mark{background:linear-gradient(transparent 55%,rgba(90,170,229,.42) 55%);padding:0 .12em;}
 .mark-red{background:rgba(229,72,77,.14);color:var(--accent);padding:.05em .3em;border-radius:4px;font-weight:800;}
 
 .sv-art h1,.sv-art h2,.sv-art h3{font-family:'Playfair Display',serif;}
 
 .sv-art{background:var(--surface-page);max-width:920px;margin:0 auto;}
-section{padding:56px 24px;}
+.sv-art section{padding:56px 24px;}
 .narrow{max-width:880px;margin:0 auto;}
 
-.band{background:var(--surface-inverse);color:#fff;padding:20px 24px;text-align:center;}
+.band{background:transparent;color:var(--brand-slate);padding:36px 24px 10px;text-align:center;scroll-margin-top:112px;}
 .band h2{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;max-width:880px;margin:0 auto;line-height:1.2;}
 
 .sv-btn{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 36px;background:linear-gradient(135deg,var(--cta-blue),var(--blue-400));color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase;border:none;border-radius:9999px;cursor:pointer;box-shadow:0 8px 28px rgba(37,99,235,.32);text-decoration:none;transition:background .2s,transform .15s,box-shadow .2s;}
@@ -64,7 +65,7 @@ section{padding:56px 24px;}
 .sv-btn-wrap{display:flex;justify-content:center;margin-top:24px;}
 @keyframes sv-cta-shine{0%,76%,100%{transform:skewX(-22deg) translateX(-420%);}84%{transform:skewX(-22deg) translateX(720%);}}
 
-.glass-quote{background:rgba(255,255,255,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:20px 24px;font-style:italic;font-size:1.0625rem;line-height:1.65;color:var(--brand-slate);box-shadow:var(--shadow-sm);}
+.glass-quote{background:rgba(255,255,255,.65);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:20px 24px;font-style:italic;font-size:1rem;line-height:1.65;color:var(--brand-slate);box-shadow:var(--shadow-sm);}
 
 .bullet-list{display:grid;grid-template-columns:1fr;gap:10px;margin:20px 0 8px;}
 .bullet-item{display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid #D1FAE5;border-left:3px solid var(--green-500);border-radius:14px;padding:14px 16px;box-shadow:0 1px 4px rgba(0,0,0,.06);}
@@ -79,6 +80,11 @@ section{padding:56px 24px;}
 .author-row{display:flex;align-items:center;gap:14px;margin-bottom:10px;}
 .author-avatar{width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#5AAAE5,#324F5C);border:3px solid var(--surface-soft);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#fff;}
 .author-name{font-weight:700;font-size:1rem;color:var(--brand-slate);}
+.author-quote{position:relative;overflow:hidden;margin:28px 0;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.92);border-radius:28px;padding:28px;box-shadow:var(--shadow-sm);}
+.author-quote::after{content:'“';position:absolute;right:18px;top:-42px;font-family:'Playfair Display',serif;font-size:13rem;line-height:1;color:rgba(90,170,229,.12);pointer-events:none;}
+.author-quote .author-row,.author-quote .glass-quote{position:relative;z-index:1;}
+.author-quote .glass-quote{margin:0;padding:14px 0 0;background:transparent;border:0;box-shadow:none;font-size:1rem;font-style:italic;line-height:1.65;}
+.formula-quote .glass-quote{font-weight:700;font-style:italic;}
 
 .myth-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;}
 .myth-card{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:20px;padding:24px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:12px;}
@@ -92,8 +98,9 @@ section{padding:56px 24px;}
 .flip-inner{position:relative;transition:transform .65s var(--ease-out);transform-style:preserve-3d;height:100%;}
 .flip:hover .flip-inner,.flip:focus-within .flip-inner,.flip.is-flipped .flip-inner{transform:rotateY(180deg);}
 .flip-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;}
+.insight-front{background:var(--surface-gradient)!important;}
 .flip-back{transform:rotateY(180deg);}
-.insights-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;}
+.insights-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;}
 .insight-visual{height:156px;max-width:82%;object-fit:contain;display:block;margin:0 auto;transform:scale(1.7);}
 .insight-iceberg{height:156px;display:flex;align-items:center;justify-content:center;font-size:8.5rem;line-height:1;margin:0 auto;}
 
@@ -112,14 +119,14 @@ section{padding:56px 24px;}
 .stat-value{font-size:2rem;font-weight:900;color:var(--accent);line-height:1;}
 .stat-label{font-size:.875rem;color:var(--slate-500);margin-top:6px;text-align:center;}
 
-.results-dark{background:var(--surface-inverse);color:#fff;border-radius:28px;padding:36px 30px;margin:32px 0 8px;box-shadow:var(--shadow-xl);position:relative;overflow:hidden;}
+.results-dark{background:-webkit-linear-gradient(90deg,#1D3844,#2E485F,#1D3844);background:var(--surface-gradient);color:#fff;border-radius:28px;padding:36px 30px;margin:32px 0 8px;box-shadow:var(--shadow-xl);position:relative;overflow:hidden;}
 .results-dark::before{content:'';position:absolute;top:-60px;right:-60px;width:220px;height:220px;border-radius:50%;background:#fff;opacity:.05;filter:blur(40px);}
 .results-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;}
 
 .sv-acc{background:var(--surface-card);border:1px solid var(--border-hairline);border-radius:20px;box-shadow:var(--shadow-sm);overflow:hidden;}
 .sv-acc summary{display:flex;align-items:center;gap:16px;padding:22px 26px;cursor:pointer;list-style:none;}
 .sv-acc summary::-webkit-details-marker{display:none;}
-.sv-acc-badge{background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:.8rem;padding:.4rem .8rem;border-radius:9999px;flex-shrink:0;}
+.sv-acc-badge{background:transparent;color:var(--slate-500);font-weight:700;font-size:.8rem;padding:0;border-radius:0;flex-shrink:0;}
 .sv-acc-title{flex:1;font-size:1.15rem;font-weight:700;}
 .sv-acc-chev{flex-shrink:0;color:var(--accent);font-size:1.4rem;line-height:1;transition:transform .3s var(--ease-smooth);}
 .sv-acc[open] .sv-acc-chev{transform:rotate(90deg);}
@@ -132,14 +139,11 @@ section{padding:56px 24px;}
 .offer-frame{border:2px solid var(--cta-blue);border-radius:28px;overflow:hidden;box-shadow:var(--shadow-xl);background:var(--surface-card);}
 .offer-content{padding:32px 30px;}
 .quiz-shell{margin:28px 0 0;border-radius:20px;padding:12px;background:var(--surface-soft);border:1px solid rgba(37,99,235,.2);}
-.quiz-after{max-width:560px;margin:28px auto 0;text-align:left;}
-.quiz-after h3{text-align:center;font-size:1.2rem;font-weight:800;margin:0 0 14px;}
-.quiz-after ol{margin:0;padding-left:1.2rem;font-size:1.0625rem;line-height:1.6;color:var(--slate-600);}
-.quiz-free{text-align:center;font-size:1.0625rem;line-height:1.7;margin:24px 0 0;}
 .quiz-warning{background:var(--accent-soft);border:1px solid var(--accent);border-radius:16px;padding:18px 20px;margin-top:18px;text-align:left;}
 .section-preview{overflow:hidden;margin:16px 24px;border-radius:20px;box-shadow:var(--shadow-md);}
 .section-after-preview{padding-top:28px!important;}
 .inline-section-preview{border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);}
+.inline-section-preview--plain{border-radius:0;overflow:visible;box-shadow:none;}
 
 .blue-bullet-list{display:grid;grid-template-columns:1fr;gap:10px;margin:16px 0 24px;}
 .blue-bullet{background:#fff;border:1.5px solid #DBEAFE;border-left:4px solid var(--blue-400);border-radius:14px;padding:14px 18px;font-size:1rem;font-weight:600;box-shadow:0 1px 4px rgba(0,0,0,.06);}
@@ -175,9 +179,9 @@ section{padding:56px 24px;}
 .factor-chip{display:block;background:#fff;border:1.5px solid var(--border-default);border-radius:12px;padding:12px 16px;font-size:.95rem;font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,.07);}
 
 .story-quote{background:var(--surface-soft);border:1px solid var(--border-hairline);border-radius:18px;padding:22px 24px;margin:8px 0 24px;}
-.story-quote p{margin:0;font-size:1.0625rem;font-style:italic;}
+.story-quote p{margin:0;font-size:1rem;font-style:italic;}
 
-.dark-guarantee{background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px 30px;box-shadow:var(--shadow-lg);}
+.dark-guarantee{background:-webkit-linear-gradient(90deg,#1D3844,#2E485F,#1D3844);background:var(--surface-gradient);color:#fff;border-radius:22px;padding:28px 30px;box-shadow:var(--shadow-lg);}
 .dark-guarantee-title{margin:0 0 .8rem;font-weight:800;text-align:center;font-size:1.25rem;}
 .dark-guarantee-body{margin:0 0 .8rem;font-size:1rem;line-height:1.7;color:rgba(255,255,255,.9);}
 .dark-guarantee-note{margin:0;font-size:.85rem;font-style:italic;color:rgba(255,255,255,.6);}
@@ -185,21 +189,16 @@ section{padding:56px 24px;}
 .cta-disclaimer{border:2px dashed var(--accent);border-radius:18px;padding:24px 26px;background:var(--accent-soft);}
 .warn-box{background:var(--accent-soft);border:1px solid var(--accent);border-radius:16px;padding:18px 20px;margin-top:22px;}
 
-.final-cta{background:var(--surface-inverse);color:#fff;padding:80px 24px;text-align:center;}
+.final-cta{background:-webkit-linear-gradient(90deg,#1D3844,#2E485F,#1D3844);background:var(--surface-gradient);color:#fff;padding:80px 24px;text-align:center;}
 .final-cta h2{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin:0 0 16px;line-height:1.15;color:#fff;}
 .final-cta p{color:rgba(255,255,255,.8);margin:0 0 28px;font-size:1.0625rem;}
 
-footer{background:var(--surface-inverse);color:rgba(255,255,255,.7);padding:36px 24px;text-align:center;border-top:1px solid rgba(255,255,255,.07);}
-.footer-brand{font-size:1.3rem;font-weight:700;letter-spacing:-.02em;color:#fff;}
-.footer-brand span{color:var(--accent);}
-footer p{margin:10px 0 0;font-size:.9rem;}
-
 /* ── TABLET (≤ 768px) ── */
 @media(max-width:768px){
-  section{padding:44px 20px;}
-  .band{padding:16px 20px;}
+  .sv-art section{padding:44px 20px;}
+  .band{padding:28px 20px 8px;}
   .band h2{font-size:clamp(1.5rem,4vw,2.2rem);}
-  .insights-grid{grid-template-columns:1fr;}
+  .insights-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;}
   .expert-bio-grid{grid-template-columns:1fr;}
   .flip{height:360px!important;cursor:pointer;}
   .myth-grid{grid-template-columns:1fr;}
@@ -220,12 +219,16 @@ footer p{margin:10px 0 0;font-size:.9rem;}
   .sv-acc-body{padding:0 18px 20px;}
 
   .results-grid{grid-template-columns:1fr;gap:12px;}
+  .insights-grid{grid-template-columns:1fr;gap:22px;}
   .results-dark{padding:24px 20px;}
-  .result-item{display:flex;align-items:baseline;justify-content:center;gap:10px;text-align:left!important;}
+  .results-grid{max-width:330px;margin:0 auto;}
+  .result-item{display:grid;grid-template-columns:6.5rem minmax(0,1fr);align-items:baseline;justify-content:initial;gap:10px;text-align:left!important;}
   .result-item .result-value{font-size:2rem!important;}
-  .result-item .result-label{margin-top:0!important;}
-  .section-preview{margin:12px 0;border-radius:0;}
+  .result-item .result-value{text-align:center;}
+  .result-item .result-label{margin-top:0!important;white-space:nowrap;}
+  .section-preview{margin:8px 0 0;border-radius:0;}
   .inline-section-preview{width:calc(100% + 40px);margin:0 -20px 20px;border-radius:0;}
+  .inline-section-preview--plain{box-shadow:none;}
   .section-after-preview{padding-top:24px!important;}
   .insight-visual{height:174px;max-width:88%;transform:scale(1.9);}
   .insight-iceberg{height:174px;font-size:9.5rem;}
@@ -258,6 +261,8 @@ footer p{margin:10px 0 0;font-size:.9rem;}
 html.dark .sv-art{--brand-slate:#F1F5F9;--slate-500:#B6C3D1;--slate-600:#CBD5E1;--slate-700:#E2E8F0;--surface-page:#101827;--surface-card:#182538;--surface-soft:#1E3047;--surface-inverse:#243B4A;--border-hairline:rgba(191,219,254,.18);--border-default:rgba(191,219,254,.28);--shadow-sm:0 1px 3px rgba(0,0,0,.22);--shadow-md:0 4px 12px rgba(0,0,0,.28);--shadow-lg:0 12px 40px rgba(0,0,0,.36);--shadow-xl:0 20px 60px rgba(0,0,0,.42);color:var(--brand-slate);}
 html.dark .sv-art .bullet-item,html.dark .sv-art .blue-bullet,html.dark .sv-art .guarantee-item,html.dark .sv-art .factor-chip{background:var(--surface-card);}
 html.dark .sv-art .glass-quote{background:rgba(24,37,56,.85);border-color:var(--border-default);color:var(--brand-slate);}
+html.dark .sv-art .author-quote{background:rgba(24,37,56,.85);border-color:var(--border-default);}
+html.dark .sv-art .author-quote .glass-quote{background:transparent;border:0;}
 html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
 @media(prefers-reduced-motion:reduce){.sv-btn::after,.marq-track{animation:none;}}
 </style>
@@ -287,7 +292,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
     <div class="bullet-item"><span class="bullet-icon">✓</span><span class="bullet-text">После аннулирования предыдущих виз — подходит для «нестандартных» кейсов</span></div>
   </div>
 
-  <div style="margin:28px 0 8px;">
+  <div class="author-quote" style="margin:28px 0 8px;">
     <div class="author-row">
       <div class="author-avatar" style="overflow:hidden;padding:0;background:none;"><img src="assets/img/аватарка ира флаг.png" alt="Ирина Соболева" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
       <span class="author-name">Ирина Соболева</span>
@@ -299,11 +304,11 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   </div>
 </section>
 
-<div class="band"><h2>…но часто визу дают не с первого раза</h2></div>
+<div id="safe-case-refusals" class="band"><h2>…но часто визу дают не с первого раза</h2></div>
 
 <section style="max-width:880px;margin:0 auto;padding:56px 24px;">
   <h2 style="font-size:clamp(1.6rem,4vw,2.2rem);font-weight:800;margin:0 0 22px;line-height:1.2;"><span class="mark-red">«Section 214(b)»…</span></h2>
-  <div class="inline-section-preview">
+  <div class="inline-section-preview inline-section-preview--plain">
     <img src="assets/img/ленд виза картинка_отказ.jpeg" alt="Отказ в визе" style="width:100%;display:block;">
   </div>
   <p style="font-size:1.125rem;line-height:1.75;">Всего две секунды, чтобы прочитать эту фразу на отказном листе.</p>
@@ -320,13 +325,13 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
 
   <p style="font-size:2rem;font-weight:800;text-align:center;margin:36px 0 8px;line-height:1.2;">А теперь представьте:</p>
   <p style="font-size:1.5rem;font-weight:800;text-align:center;margin:0 0 24px;"><span class="mark">Все эти люди всё же попали в США.</span></p>
-  <div style="border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);">
+  <div style="margin:0 0 24px;">
     <img src="assets/img/получили_визы.png" alt="Клиенты получили визы США" style="width:100%;display:block;">
   </div>
   <p style="font-size:1.125rem;line-height:1.75;">Но прежде чем получить заветное одобрение, давайте разберёмся: <em>почему консул скажет вам «НЕТ» даже при идеальном выверенном кейсе?</em></p>
 </section>
 
-<div class="band"><h2>6 мифов о визах США, которые будут стоить вам поездки</h2></div>
+<div id="safe-case-myths" class="band"><h2>6 мифов о визах США, которые будут стоить вам поездки</h2></div>
 <div class="section-preview">
   <img src="assets/img/ленд виза картинка_мифы.jpeg" alt="6 мифов о визах США" style="width:100%;display:block;">
 </div>
@@ -378,7 +383,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   </div>
 </section>
 
-<div class="band"><h2>Три инсайта о тёмной стороне собеседования</h2></div>
+<div id="safe-case-insights" class="band"><h2>Три инсайта о тёмной стороне собеседования</h2></div>
 <div class="section-preview">
   <img src="assets/img/ленд виза картинка_темная сторона.jpeg" alt="Тёмная сторона собеседования" style="width:100%;display:block;">
 </div>
@@ -389,7 +394,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
 
     <div class="flip" role="button" aria-expanded="false" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
       <div class="flip-inner">
-        <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
+        <div class="flip-face insight-front" style="color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
           <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">01</span>
           <img class="insight-visual" src="assets/img/матрешка.png" alt="Матрёшка">
           <div style="width:100%;text-align:left;">
@@ -405,7 +410,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
 
     <div class="flip" role="button" aria-expanded="false" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
       <div class="flip-inner">
-        <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
+        <div class="flip-face insight-front" style="color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
           <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">02</span>
           <img class="insight-visual" src="assets/img/очки.png" alt="Очки">
           <div style="width:100%;text-align:left;">
@@ -421,7 +426,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
 
     <div class="flip" role="button" aria-expanded="false" tabindex="0" style="height:320px;border-radius:22px;outline:none;">
       <div class="flip-inner">
-        <div class="flip-face" style="background:var(--surface-inverse);color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
+        <div class="flip-face insight-front" style="color:#fff;border-radius:22px;padding:28px;justify-content:space-between;box-shadow:var(--shadow-lg);">
           <span style="font-size:3rem;font-weight:900;line-height:1;color:rgba(255,255,255,.16);">03</span>
           <div class="insight-iceberg" aria-label="Айсберг">🧊</div>
           <div style="width:100%;text-align:left;">
@@ -449,7 +454,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   </div>
 </section>
 
-<div class="band"><h2>Как вам повысить шансы и получить визу таким же способом?</h2></div>
+<div id="safe-case-formula" class="band"><h2>Как вам повысить шансы и получить визу таким же способом?</h2></div>
 <div class="section-preview">
   <img src="assets/img/ленд виза картинка_safe case на доске.png" alt="Метод Safe Case на доске" style="width:100%;display:block;">
 </div>
@@ -464,9 +469,12 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
     <div class="num-item"><span class="num-n">3</span><span class="num-text">Не несёте ли вы угрозу национальной безопасности США?</span></div>
   </div>
 
-  <div style="display:flex;gap:20px;align-items:center;background:var(--surface-inverse);color:#fff;border-radius:24px;padding:28px 30px;margin:28px 0;box-shadow:var(--shadow-lg);flex-wrap:wrap;">
-    <div style="width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.15);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:2rem;">🏆</div>
-    <div style="flex:1;min-width:220px;font-size:1.5rem;font-weight:800;line-height:1.25;">Это и есть формула одобрения <span style="color:var(--yellow-500);">«Safe Case»</span></div>
+  <div class="author-quote formula-quote">
+    <div class="author-row">
+      <div class="author-avatar" style="overflow:hidden;padding:0;background:none;"><img src="assets/img/аватарка ира флаг.png" alt="Ирина Соболева" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
+      <span class="author-name">Ирина Соболева</span>
+    </div>
+    <blockquote class="glass-quote">Это и есть формула одобрения <span style="color:var(--blue-400);">«Safe Case»</span></blockquote>
   </div>
   <div style="border-radius:20px;overflow:hidden;margin:0 0 24px;box-shadow:var(--shadow-md);">
     <img src="assets/img/много виз.jpeg" alt="Много виз США" style="width:100%;display:block;">
@@ -487,7 +495,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka">Забронировать разбор</a></div>
 </section>
 
-<div class="band"><h2>Почему я имею право рассказывать вам о визах</h2></div>
+<div id="safe-case-expertise" class="band"><h2>Почему я имею право рассказывать вам о визах</h2></div>
 
 <section class="section-after-preview" style="max-width:920px;margin:0 auto;padding:56px 24px;">
   <div class="expert-bio-grid">
@@ -495,7 +503,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
       <img src="assets/img/ленд виза картинка_Ира с визой в руке.jpeg" alt="Ирина Соболева с визой" style="width:100%;border-radius:20px;box-shadow:var(--shadow-lg);">
     </div>
     <div>
-      <p style="font-size:1.25rem;line-height:1.65;margin:0 0 20px;"><strong>Я — Ирина Соболева</strong>, эксперт по визам США с опытом более 300 успешных кейсов. Ко мне обращаются клиенты из более чем 12 стран. Я создала команду экспертов, а ещё — счастливая жена и мама.</p>
+      <p style="font-size:1.125rem;line-height:1.75;margin:0 0 20px;"><strong>Я — Ирина Соболева</strong>, эксперт по визам США с опытом более 300 успешных кейсов. Ко мне обращаются клиенты из более чем 12 стран. Я создала команду экспертов, а ещё — счастливая жена и мама.</p>
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;">
         <div class="stat-tile"><div class="stat-value">600+</div><div class="stat-label">успешных кейсов</div></div>
         <div class="stat-tile"><div class="stat-value">1 000+</div><div class="stat-label">консультаций</div></div>
@@ -527,7 +535,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   <div class="sv-btn-wrap" style="margin-top:28px;"><a class="sv-btn" href="#zayavka">Забронировать разбор</a></div>
 </section>
 
-<div class="band"><h2>Конкретный путь к получению визы</h2></div>
+<div id="safe-case-path" class="band"><h2>Конкретный путь к получению визы</h2></div>
 <div class="section-preview">
   <img src="assets/img/ленд виза картинка_путь 8 шагов.jpeg" alt="8 шагов до визы США" style="width:100%;display:block;">
 </div>
@@ -550,7 +558,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   </div>
 </section>
 
-<div class="band"><h2>Что вы получаете в итоге?</h2></div>
+<div id="safe-case-result" class="band"><h2>Что вы получаете в итоге?</h2></div>
 <div class="section-preview">
   <img src="assets/img/много виз 2.jpeg" alt="Клиенты с визами США" style="width:100%;display:block;">
 </div>
@@ -593,11 +601,6 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
       <div class="quiz-shell">
         <div id="xl-visa-quiz" style="min-height:180px;" aria-live="polite"></div>
       </div>
-      <div class="quiz-after">
-        <h3>После оставления заявки</h3>
-        <ol><li>Я свяжусь с вами в мессенджере</li><li>Выберем удобное время для звонка</li><li>Разберём вашу ситуацию</li></ol>
-      </div>
-      <p class="quiz-free">Разберу ваш кейс <strong>бесплатно</strong>.</p>
       <div class="quiz-warning"><p style="margin:0;font-size:1.0625rem;"><strong>❗ Важно.</strong> Количество слотов ограничено.</p></div>
     </div>
   </div>
@@ -624,7 +627,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   </div>
 </section>
 
-<div class="band"><h2>Честные гарантии</h2></div>
+<div id="safe-case-guarantees" class="band"><h2>Честные гарантии</h2></div>
 <div class="section-preview">
   <img src="assets/img/ленд виза картинка_гарантии.jpeg" alt="Гарантии Safe Case" style="width:100%;display:block;">
 </div>
@@ -644,7 +647,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   </div>
 </section>
 
-<div class="band"><h2>Давайте посчитаем, сколько на самом деле стоит отказ в визе?</h2></div>
+<div id="safe-case-cost" class="band"><h2>Давайте посчитаем, сколько на самом деле стоит отказ в визе?</h2></div>
 <div class="section-preview">
   <img src="assets/img/ленд виза картинка_потрачено.jpeg" alt="Во сколько обходится отказ" style="width:100%;display:block;">
 </div>
@@ -697,7 +700,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   <div class="sv-btn-wrap"><a class="sv-btn" href="#zayavka">Хочу визу 🇺🇸</a></div>
 </section>
 
-<div class="band"><h2>Ещё кейсы?</h2></div>
+<div id="safe-case-stories" class="band"><h2>Ещё кейсы?</h2></div>
 <div class="section-preview">
   <img src="assets/img/ленд виза картинка_кейсы.jpeg" alt="Кейсы получения виз" style="width:100%;display:block;">
 </div>
@@ -740,7 +743,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
 
   </div>
 
-  <div style="margin:28px 0 0;">
+  <div class="author-quote" style="margin:28px 0 0;">
     <div class="author-row">
       <div class="author-avatar" style="overflow:hidden;padding:0;background:none;"><img src="assets/img/аватарка ира флаг.png" alt="Ирина Соболева" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"></div>
       <span class="author-name">Ирина Соболева</span>
@@ -756,11 +759,6 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
     <a class="sv-btn" href="#zayavka" style="font-size:1.1rem;padding:20px 48px;">Забронировать разбор</a>
   </div>
 </div>
-
-<footer>
-  <div class="footer-brand">Safe&nbsp;Visa<span>.</span></div>
-  <p>Ирина Соболева — эксперт по визам США. Метод «Safe Case».</p>
-</footer>
 
 </article>
 </body>

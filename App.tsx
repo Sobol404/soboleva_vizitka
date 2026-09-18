@@ -173,7 +173,7 @@ const App: React.FC = () => {
         ) : isOfferOpen ? (
           <OfferPage onBack={goBack} />
         ) : isSafeCaseOpen ? (
-          <SafeCaseLanding onBack={goBack} />
+          <SafeCaseLanding onBack={goBack} relatedArticles={markdownArticles} />
         ) : isMiniOpen ? (
           <MiniLanding />
         ) : isBlogOpen ? (
@@ -196,7 +196,7 @@ const App: React.FC = () => {
           </>
         )}
       </main>
-      {!isSafeCaseOpen && !isMiniOpen && <Footer />}
+      {!isMiniOpen && <Footer />}
     </div>
   );
 };

@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Shared Visa media inbox lives outside this repository at ../media-inbox.
+# Source files must not be placed under the public directory by accident.
+/public/media/inbox/*
+!/public/media/inbox/README.md

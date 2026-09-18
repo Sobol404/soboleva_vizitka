@@ -1,57 +1,44 @@
-# Design System: Safe Case US Visa Landing
+# Дизайн-система блога Safe Visa
 
-This document is the "Source of Truth" for the visual style and UI components of the US Visa Expert landing page. Use these rules to generate new blocks or pages.
+Это источник правил для любой новой статьи блога. Эталон — страница Safe Case. Полный визуальный каталог: [`docs/blog-design-system/`](docs/blog-design-system/).
 
-## 1. Visual Identity & Brand
-- **Style**: Modern, premium, trustworthy, clean.
-- **Vibe**: Expert but accessible. Professional but personal.
-- **Key Element**: Large rounded corners (`3xl` / `24px`), glassmorphism effects, and bold typography.
+## Основа
 
-## 2. Color Palette
-The design uses a high-contrast palette with a strong accent color.
+- Фон: `#F4F7F9`; поверхности: белые; главный текст: `#324F5C`.
+- CTA и ссылки: синий `#2563EB` и голубой `#5AAAE5`; красный не используется как декоративный акцент.
+- Тёмные смысловые блоки: единый градиент `#1D3844 → #2E485F → #1D3844` слева направо.
+- Заголовки — Playfair Display; обычный текст, мета-данные и кнопки — Manrope.
+- Базовый текст и любой текст в цитате — `16px`, межстрочный интервал `1.65`.
+- Сетка: мобильный экран — одна колонка, планшет и десктоп — по назначению блока; без горизонтальной прокрутки.
 
-### Light Theme (Default)
-- **Background Main**: `#F4F7F9` (slate-50 equivalent)
-- **Background Secondary**: `#FFFFFF` (white)
-- **Background Accent/Soft**: `#F0F7FD` (light blue tint)
-- **Text Main**: `#324F5C` (dark slate)
-- **Text Muted**: `#64748B` (slate-500)
-- **Accent Primary**: `#E5484D` (vibrant red) -> Hover: `#C13D42`
+## Каталог компонентов
 
-### Dark Theme (Class: .dark)
-- **Background Main**: `#0F172A` (slate-900)
-- **Background Secondary**: `#1E293B` (slate-800)
-- **Text Main**: `#F8FAFC` (slate-50)
-- **Text Muted**: `#94A3B8` (slate-400)
-- **Accent Primary**: `#E5484D` (remains red)
+| Название | Роль | Главное правило |
+| --- | --- | --- |
+| `BlogArticle` | оболочка статьи | максимум 920 px для чтения |
+| `BlogBreadcrumbs` | путь к статье | заменяет кнопку «Назад» |
+| `BlogHero` | главный заголовок и обложка | один H1 и широкое изображение |
+| `BlogSectionHeading` | заголовок раздела | Playfair, без тёмной плашки по умолчанию |
+| `BlogBody` | основной текст | Manrope, 16 px, line-height 1.65 |
+| `BlogQuote` | обычная цитата | курсив, 16 px, светлая карточка |
+| `BlogAuthorQuote` | цитата Ирины | аватар, имя, светлая карточка и фоновая кавычка |
+| `BlogCaseAccordion` | раскрывающийся клиентский кейс | белая карточка, нейтральный label `КЕЙС №…` без подложки |
+| `BlogCaseLabel` | подпись номера кейса | серый текст, не бейдж и не CTA |
+| `BlogReview` | отзыв клиента | текстовая цитата или изображение без лишней рамки |
+| `BlogInsightCard` | карточка принципа/инсайта | единый тёмно-синий градиент, на планшете 3 в ряд |
+| `BlogFactList` | маркированные факты | зелёная отметка, белая карточка |
+| `BlogNumberedList` | пронумерованные шаги | голубая цифра и спокойный светлый фон |
+| `BlogMetrics` | результаты и цифры | выровненные колонки, крупные синие/голубые числа |
+| `BlogTocSticky` | содержание на десктопе | находится в правой колонке и остаётся под шапкой |
+| `BlogTocSheet` | содержание на мобильном | открывается нижней шторкой |
+| `BlogSubscribeCard` | плашка подписки | видна от 1024 px; обычный текст содержит ссылку на Telegram |
+| `BlogCTA` | призыв к действию | синяя pill-кнопка с редким бликом |
+| `BlogRelatedArticles` | похожие статьи | внизу статьи, сетка карточек |
+| `BlogFooter` | общий футер | единый для всех страниц |
 
-## 3. Typography
-- **Body Font Family**: 'Manrope', sans-serif (Weights: 400, 500, 600, 700, 800).
-- **Heading Font Family**: 'Playfair Display', Georgia, serif (Weights: 600, 700, 800).
-- **Hero Title**: `text-5xl` to `text-7xl`, font-extrabold, leading-tight.
-- **Section Heading**: `text-4xl` to `text-6xl`, font-bold, uppercase, tracking-wide.
-- **Body Text**: `text-lg`, leading-relaxed.
+## Правило сборки новой статьи
 
-## 4. UI Components (Tokens)
-- **Buttons**:
-  - `rounded-full` (100% pill shape).
-  - Primary: Accent Red with white text + "glint" animation.
-  - Secondary: White/Slate with dark text + subtle border.
-- **Cards**:
-  - `rounded-3xl` (24px).
-  - Background: Secondary color.
-  - Border: Subtle `1px` (transparent/0.05 opacity in light, white/0.1 in dark).
-- **Icons**: 
-  - Lucide React library.
-  - Stroke width: 1.5 or 2.
-
-## 5. Animations
-- **Blob Background**: Slow moving gradients in the background (blur-3xl).
-- **Hover**: Subtle lift (`hover:-translate-y-1`) and shadow enhancement.
-- **Fade-in**: Standard smooth entry for sections.
-
-## 6. Implementation Notes for AI
-- Always use Tailwind CSS utility classes.
-- Use `dark:` prefix for all color-related classes.
-- Container: `container mx-auto px-4 max-w-7xl`.
-- Responsive: Prioritize mobile-first, using `md:` and `lg:` breakpoints.
+1. Используй `BlogArticle → BlogBreadcrumbs → BlogHero → BlogBody` как обязательный каркас.
+2. Добавляй смысловые блоки только из каталога выше; не создавай новые цвета, градиенты и типографические размеры без обновления системы.
+3. На десктопе используй `BlogSubscribeCard` над `BlogTocSticky`; на мобильном и планшете скрывай подписку, оставляя `BlogTocSheet`.
+4. Перед выпуском проверяй 390 px, 768 px и 1440 px, содержание, CTA, тёмную тему и отсутствие горизонтальной прокрутки.

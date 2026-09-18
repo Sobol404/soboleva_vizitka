@@ -5,6 +5,7 @@ import { ImageModal } from './ui/ImageModal';
 import { Calendar, User, ChevronLeft } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { DocumentToc, DocumentTocItem, scrollToDocumentSection, useActiveDocumentSection } from './DocumentToc';
+import { ArticleAuthorCard } from './ArticleAuthorCard';
 
 interface ArticlePageProps {
   data: ArticleData;
@@ -69,9 +70,9 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ data, onBack }) => {
           />
         )}
 
-        <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_16rem] xl:gap-14">
-          <article className="min-w-0">
-            <header className="mb-12">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_16rem] xl:gap-14">
+          <article className="blog-article min-w-0">
+            <header className="blog-hero mb-12">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-dark dark:text-white leading-tight mb-6">
                 {data.title}
               </h1>
@@ -95,7 +96,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ data, onBack }) => {
               />
             )}
 
-            <div className="space-y-10">
+            <div className="blog-body space-y-10">
               {data.markdown ? (
                 <div className="space-y-6">
                   <ReactMarkdown
@@ -103,9 +104,10 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ data, onBack }) => {
                       h1: ({ children }) => <h2 id={`article-${headingId(String(children))}`} className="scroll-mt-40 lg:scroll-mt-28 text-3xl md:text-4xl font-bold text-dark dark:text-white mt-10">{children}</h2>,
                       h2: ({ children }) => <h2 id={`article-${headingId(String(children))}`} className="scroll-mt-40 lg:scroll-mt-28 text-2xl md:text-3xl font-bold text-dark dark:text-white mt-10">{children}</h2>,
                       h3: ({ children }) => <h3 id={`article-${headingId(String(children))}`} className="scroll-mt-40 lg:scroll-mt-28 text-xl md:text-2xl font-bold text-dark dark:text-white mt-8">{children}</h3>,
-                      p: ({ children }) => <p className="text-lg leading-relaxed text-slate-600 dark:text-slate-400">{children}</p>,
-                      ol: ({ children }) => <ol className="space-y-3 list-decimal pl-6 text-lg leading-relaxed text-slate-600 dark:text-slate-400">{children}</ol>,
-                      ul: ({ children }) => <ul className="space-y-3 list-disc pl-6 text-lg leading-relaxed text-slate-600 dark:text-slate-400">{children}</ul>,
+                      p: ({ children }) => <p className="text-base leading-relaxed text-slate-600 dark:text-slate-400">{children}</p>,
+                      ol: ({ children }) => <ol className="space-y-3 list-decimal pl-6 text-base leading-relaxed text-slate-600 dark:text-slate-400">{children}</ol>,
+                      ul: ({ children }) => <ul className="space-y-3 list-disc pl-6 text-base leading-relaxed text-slate-600 dark:text-slate-400">{children}</ul>,
+                      blockquote: ({ children }) => <blockquote className="blog-quote rounded-2xl border border-slate-200 bg-white p-5 text-base italic leading-relaxed text-dark shadow-sm dark:border-slate-700 dark:bg-dark-card dark:text-slate-100">{children}</blockquote>,
                       img: ({ src, alt }) => (
                         <button type="button" className="block w-full cursor-zoom-in" onClick={() => setSelectedImage(src || '')}>
                           <img src={src} alt={alt || ''} className="w-full rounded-2xl border border-slate-100 dark:border-slate-800 shadow-md" />
@@ -121,7 +123,7 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ data, onBack }) => {
                   case 'heading':
                     return <h2 key={idx} id={`article-block-${idx}`} className="scroll-mt-40 lg:scroll-mt-28 text-2xl md:text-3xl font-bold text-dark dark:text-white mt-8">{block.content}</h2>;
                   case 'text':
-                    return <p key={idx} className="text-lg leading-relaxed text-slate-600 dark:text-slate-400">{block.content}</p>;
+                    return <p key={idx} className="text-base leading-relaxed text-slate-600 dark:text-slate-400">{block.content}</p>;
                   case 'image':
                     return (
                       <div key={idx} className="relative group cursor-zoom-in" onClick={() => setSelectedImage(block.src!)}>
@@ -156,7 +158,10 @@ export const ArticlePage: React.FC<ArticlePageProps> = ({ data, onBack }) => {
           </article>
 
           {tocItems.length > 0 && (
-            <DocumentToc variant="desktop" items={tocItems} activeId={activeId} onNavigate={navigateTo} />
+            <div className="hidden lg:block">
+              <ArticleAuthorCard className="mb-8" />
+              <DocumentToc variant="desktop" items={tocItems} activeId={activeId} onNavigate={navigateTo} />
+            </div>
           )}
         </div>
       </Section>
