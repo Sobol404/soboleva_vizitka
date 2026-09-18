@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUp, ArrowUpRight, BookOpenText, ChevronRight } from 'lucide-react';
 import { ArticleData } from '../articles/types';
 import safeCaseSource from '../content/safe-case/source.html?raw';
@@ -62,6 +62,7 @@ const replaceSafeCaseImagePath = (sourcePath: string) => (
 export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relatedArticles }) => {
   const [tocOpen, setTocOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const articleHostRef = useRef<HTMLDivElement>(null);
   const activeId = useActiveDocumentSection(safeCaseTocItems);
   const related = useMemo(() => relatedArticles.filter((article) => article.id !== 'safe-case').slice(0, 3), [relatedArticles]);
   const styles = useMemo(
@@ -92,6 +93,15 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
       window.removeEventListener('resize', updateScrollTopVisibility);
     };
   }, []);
+
+  // Keep the imported article DOM outside React's reconciliation. The XL
+  // script replaces its mount node with an iframe; reapplying innerHTML on a
+  // TOC state update would otherwise remove the live quiz from the page.
+  useLayoutEffect(() => {
+    const articleHost = articleHostRef.current;
+    if (!articleHost || articleHost.innerHTML === articleMarkup) return;
+    articleHost.innerHTML = articleMarkup;
+  }, [articleMarkup]);
 
   useEffect(() => {
     const widgetHost = document.getElementById('xl-visa-quiz');
@@ -197,7 +207,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
 
       <div className="mx-auto grid max-w-[1240px] gap-10 lg:grid-cols-[minmax(0,920px)_16rem] lg:px-4 xl:gap-14">
         <div className="min-w-0">
-          <div onClick={handleArticleClick} onKeyDown={handleArticleKeyDown} dangerouslySetInnerHTML={{ __html: articleMarkup }} />
+          <div ref={articleHostRef} onClick={handleArticleClick} onKeyDown={handleArticleKeyDown} />
 
           <div aria-labelledby="related-safe-case-heading" className="mx-4 my-12 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-dark-card sm:p-8">
             <div className="flex items-end justify-between gap-4">
