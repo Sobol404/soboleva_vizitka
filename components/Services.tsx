@@ -4,6 +4,7 @@ import { Button } from './ui/Button';
 import { Check, ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { ServicePackage } from '../types';
 import { links } from '../config/links';
+import { sendMetrikaGoal } from '../analytics/metrika';
 
 export const Services: React.FC = () => {
   const [supportEnabled, setSupportEnabled] = useState(false);
@@ -16,7 +17,8 @@ export const Services: React.FC = () => {
   const userInteractedRef = useRef(false);
 
   const scrollToContact = () => {
-     window.open(links.telegram.consultation, '_blank', 'noopener,noreferrer');
+     sendMetrikaGoal('ym-open-chat', { messenger: 'telegram', placement: 'services' });
+     window.open(links.telegram.siteInvite, '_blank', 'noopener,noreferrer');
   };
 
   const consultationFeatures = [

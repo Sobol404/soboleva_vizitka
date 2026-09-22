@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail, Send } from 'lucide-react';
 import { links } from '../config/links';
 
 export const Footer: React.FC = () => {
@@ -30,6 +30,15 @@ export const Footer: React.FC = () => {
                     <Mail className="w-4 h-4" />
                     <span>irina.sapozhkova@gmail.com</span>
                 </div>
+                <a
+                  href={links.telegram.siteInvite}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex w-fit items-center gap-2 text-primary transition-colors hover:text-white"
+                >
+                    <Send className="w-4 h-4" />
+                    <span>Связаться</span>
+                </a>
             </div>
           </div>
 
@@ -52,6 +61,7 @@ export const Footer: React.FC = () => {
           <div className="flex gap-6">
             <a href="#/policy" className="hover:text-slate-300 transition-colors">Согласие на обработку ПДн</a>
             <a href="#/offer" className="hover:text-slate-300 transition-colors">Договор оферты</a>
+            <a href="#/cookies" className="hover:text-slate-300 transition-colors">Политика cookie</a>
           </div>
         </div>
       </div>

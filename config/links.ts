@@ -5,6 +5,8 @@
 export const links = {
   telegram: {
     consultation: 'https://t.me/m/e1XHDdGVNDAy',
+    /** Инвайт-ссылка сайта-визитки с заготовленным текстом обращения. */
+    siteInvite: 'https://t.me/m/BxmN-BQSOWVi',
     channel: 'https://t.me/+70mVsQp7SOFiYTE6',
   },
   social: {

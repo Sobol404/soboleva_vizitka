@@ -19,6 +19,9 @@ import { OfferPage } from './components/OfferPage';
 import { BlogPreview } from './components/BlogPreview';
 import { BlogPage } from './components/BlogPage';
 import { MiniLanding } from './components/MiniLanding';
+import { CookiesPage } from './components/CookiesPage';
+import { CookieBanner } from './components/CookieBanner';
+import { getMetrikaVirtualPath, MetrikaTracker } from './analytics/MetrikaTracker';
 
 const safeCaseCard: ArticleData = {
   id: 'safe-case',
@@ -38,6 +41,7 @@ const App: React.FC = () => {
   const [isOfferOpen, setIsOfferOpen] = useState(false);
   const [isBlogOpen, setIsBlogOpen] = useState(false);
   const [isMiniOpen, setIsMiniOpen] = useState(false);
+  const [isCookiesOpen, setIsCookiesOpen] = useState(false);
 
   const articleRegistry = useMemo(
     () => Object.fromEntries(markdownArticles.map((article) => [article.id, article])),
@@ -57,6 +61,7 @@ const App: React.FC = () => {
         setIsOfferOpen(false);
         setIsBlogOpen(false);
         setIsMiniOpen(false);
+        setIsCookiesOpen(false);
         document.title = 'Safe Case | Ирина Соболева';
         window.scrollTo(0, 0);
         return;
@@ -69,6 +74,7 @@ const App: React.FC = () => {
         setIsOfferOpen(false);
         setIsBlogOpen(false);
         setIsMiniOpen(true);
+        setIsCookiesOpen(false);
         window.scrollTo(0, 0);
         return;
       }
@@ -80,6 +86,7 @@ const App: React.FC = () => {
         setIsOfferOpen(false);
         setIsBlogOpen(false);
         setIsMiniOpen(false);
+        setIsCookiesOpen(false);
         document.title = 'Safe Case | Ирина Соболева';
         window.scrollTo(0, 0);
         return;
@@ -92,6 +99,7 @@ const App: React.FC = () => {
         setIsOfferOpen(false);
         setIsBlogOpen(false);
         setIsMiniOpen(false);
+        setIsCookiesOpen(false);
         window.scrollTo(0, 0);
         return;
       }
@@ -103,6 +111,19 @@ const App: React.FC = () => {
         setIsOfferOpen(true);
         setIsBlogOpen(false);
         setIsMiniOpen(false);
+        setIsCookiesOpen(false);
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      if (hash === '#/cookies') {
+        setCurrentArticle(null);
+        setIsSafeCaseOpen(false);
+        setIsPolicyOpen(false);
+        setIsOfferOpen(false);
+        setIsBlogOpen(false);
+        setIsMiniOpen(false);
+        setIsCookiesOpen(true);
         window.scrollTo(0, 0);
         return;
       }
@@ -114,6 +135,7 @@ const App: React.FC = () => {
         setIsOfferOpen(false);
         setIsBlogOpen(true);
         setIsMiniOpen(false);
+        setIsCookiesOpen(false);
         document.title = 'Ира Соболева про визы | Блог';
         window.scrollTo(0, 0);
         return;
@@ -126,6 +148,7 @@ const App: React.FC = () => {
         setIsOfferOpen(false);
         setIsBlogOpen(false);
         setIsMiniOpen(false);
+        setIsCookiesOpen(false);
         setCurrentArticle(articleRegistry[articleId]);
         return;
       }
@@ -136,6 +159,7 @@ const App: React.FC = () => {
       setIsOfferOpen(false);
       setIsBlogOpen(false);
       setIsMiniOpen(false);
+      setIsCookiesOpen(false);
       document.title = 'Эксперт по визам США | Safe Case';
     };
 
@@ -158,6 +182,8 @@ const App: React.FC = () => {
     window.history.pushState({}, '', '/');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
+  const metrikaVirtualPath = getMetrikaVirtualPath(window.location.pathname, window.location.hash);
+  const trackReading = Boolean(currentArticle) || isSafeCaseOpen || isPolicyOpen || isOfferOpen || isCookiesOpen;
 
   return (
     <div className="min-h-screen w-full overflow-x-clip transition-colors duration-300">
@@ -167,11 +193,14 @@ const App: React.FC = () => {
       </div>
 
       {!isMiniOpen && <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
+      <MetrikaTracker virtualPath={metrikaVirtualPath} trackReading={trackReading} />
       <main className="relative z-10">
         {isPolicyOpen ? (
           <PolicyPage onBack={goBack} />
         ) : isOfferOpen ? (
           <OfferPage onBack={goBack} />
+        ) : isCookiesOpen ? (
+          <CookiesPage onBack={goBack} />
         ) : isSafeCaseOpen ? (
           <SafeCaseLanding onBack={goBack} relatedArticles={markdownArticles} />
         ) : isMiniOpen ? (
@@ -197,6 +226,7 @@ const App: React.FC = () => {
         )}
       </main>
       {!isMiniOpen && <Footer />}
+      <CookieBanner />
     </div>
   );
 };
