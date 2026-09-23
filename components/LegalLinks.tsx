@@ -9,6 +9,10 @@ const legalLinks = [
   { href: '/offer', label: 'Договор оферты' },
 ];
 
+const footerLegalLinks = legalLinks.filter(({ href }) =>
+  ['/privacy', '/policy', '/cookies', '/offer'].includes(href),
+);
+
 export const LegalLinks: React.FC = () => (
   <nav
     aria-label="Связанные юридические документы"
@@ -29,4 +33,4 @@ export const LegalLinks: React.FC = () => (
   </nav>
 );
 
-export { legalLinks };
+export { footerLegalLinks, legalLinks };

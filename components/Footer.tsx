@@ -1,7 +1,7 @@
 import React from 'react';
 import { AtSign, Instagram, Mail, Phone, Send, Youtube } from 'lucide-react';
 import { links } from '../config/links';
-import { legalLinks } from './LegalLinks';
+import { footerLegalLinks } from './LegalLinks';
 
 type FooterProps = {
   /** Компактная версия используется в коротком рекламном лендинге. */
@@ -104,7 +104,7 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
             <div className="flex flex-col gap-1.5 border-t border-slate-800 pt-2.5 text-xs leading-relaxed text-slate-400 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
               <span>© {new Date().getFullYear()} Safe Visa. Все права защищены.</span>
               <div className="flex flex-wrap gap-x-4 gap-y-1.5">
-                {legalLinks.map((link) => (
+                {footerLegalLinks.map((link) => (
                   <a key={link.href} href={link.href} className="transition-colors hover:text-slate-300">{link.label}</a>
                 ))}
               </div>
@@ -171,7 +171,7 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
              <span>&copy; {new Date().getFullYear()} Safe Visa. Все права защищены.</span>
           </div>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 md:justify-end">
-            {legalLinks.map((link) => (
+            {footerLegalLinks.map((link) => (
               <a key={link.href} href={link.href} className="hover:text-slate-300 transition-colors">{link.label}</a>
             ))}
           </div>
