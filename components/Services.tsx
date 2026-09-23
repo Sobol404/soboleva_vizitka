@@ -54,7 +54,7 @@ export const Services: React.FC = () => {
   const services: ServicePackage[] = [
     {
       title: "Визовое сопровождение с персональным менеджером",
-      priceRub: managerSupportEnabled ? "40 000₽ / 500$ (за взрослого)" : "30 000₽ / 400$ (за взрослого)",
+      priceRub: managerSupportEnabled ? "40 000₽ / 500$" : "30 000₽ / 400$",
       priceUsd: managerSupportEnabled ? "15 000₽ / 200$ (за ребёнка)" : "10 000₽ / 150$ (за ребёнка)",
       features: [...managerBaseFeatures, ...managerExtraFeatures],
       notes: "Бот и консульские сборы не включены",
@@ -64,7 +64,7 @@ export const Services: React.FC = () => {
     },
     {
       title: "VIP Сопровождение с экспертом Ириной Соболевой",
-      priceRub: "55 000₽ / 650$ (за взрослого)",
+      priceRub: "55 000₽ / 650$",
       priceUsd: "15 000₽ / 200$ (за ребёнка)",
       features: [
         "Все, что входит в тариф «Визовое сопровождение с персональным менеджером»",

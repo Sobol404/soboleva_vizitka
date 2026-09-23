@@ -145,7 +145,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
       return;
     }
 
-    const anchor = target.closest<HTMLAnchorElement>('a[href="#zayavka"]');
+    const anchor = target.closest<HTMLAnchorElement>('a[data-scroll-target="zayavka"]');
     if (!anchor) return;
 
     event.preventDefault();
@@ -181,7 +181,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
           Главная
         </button>
         <ChevronRight className="h-4 w-4 shrink-0 text-slate-300" aria-hidden="true" />
-        <a href="/#/blog" className="shrink-0 font-semibold transition-colors hover:text-accent">Блог</a>
+        <a href="/blog" className="shrink-0 font-semibold transition-colors hover:text-accent">Блог</a>
         <ChevronRight className="h-4 w-4 shrink-0 text-slate-300" aria-hidden="true" />
         <span className="truncate text-slate-700 dark:text-slate-200">Метод «Safe Case»</span>
       </nav>
@@ -215,7 +215,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">Блог Safe Visa</p>
                 <h2 id="related-safe-case-heading" className="mt-1 text-2xl font-bold text-dark dark:text-white sm:text-3xl">Похожие статьи</h2>
               </div>
-              <a href="/#/blog" className="hidden items-center gap-1 text-sm font-bold text-accent sm:inline-flex">
+              <a href="/blog" className="hidden items-center gap-1 text-sm font-bold text-accent sm:inline-flex">
                 Все статьи <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
@@ -224,7 +224,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
               {related.map((article) => (
                 <a
                   key={article.id}
-                  href={`/#/article/${article.id}`}
+                  href={`/article/${article.id}`}
                   className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-700 dark:bg-slate-800"
                 >
                   <div className="aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-900">
@@ -242,7 +242,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
               ))}
             </div>
 
-            <a href="/#/blog" className="mt-6 inline-flex items-center gap-1 text-sm font-bold text-accent sm:hidden">
+            <a href="/blog" className="mt-6 inline-flex items-center gap-1 text-sm font-bold text-accent sm:hidden">
               Все статьи <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </a>
           </div>

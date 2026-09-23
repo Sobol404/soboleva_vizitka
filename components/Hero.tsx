@@ -84,7 +84,7 @@ export const Hero: React.FC = () => {
            <div className="relative w-full max-w-[380px] lg:max-w-[480px] aspect-square mx-auto">
              <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-purple-100 dark:from-primary/10 dark:to-purple-900/10 rounded-[3rem] transform rotate-3 scale-95 opacity-50"></div>
              <img 
-               src="/media/shared/irina-visa-expert-hero.jpeg"
+               src="/media/shared/irina-visa-expert-hero.jpg"
                alt="Safe Visa - Визовый эксперт" 
                className="relative z-10 w-full h-full object-cover rounded-[2.5rem] shadow-2xl border-4 border-white dark:border-slate-800 transform lg:scale-110 lg:-translate-x-4 lg:-translate-y-4"
                loading="lazy"

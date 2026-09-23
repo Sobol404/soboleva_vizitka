@@ -20,6 +20,9 @@ import { BlogPreview } from './components/BlogPreview';
 import { BlogPage } from './components/BlogPage';
 import { MiniLanding } from './components/MiniLanding';
 import { CookiesPage } from './components/CookiesPage';
+import { PrivacyPage } from './components/PrivacyPage';
+import { ClientDataConsentPage } from './components/ClientDataConsentPage';
+import { AdvertisingConsentPage } from './components/AdvertisingConsentPage';
 import { CookieBanner } from './components/CookieBanner';
 import { getMetrikaVirtualPath, MetrikaTracker } from './analytics/MetrikaTracker';
 
@@ -33,15 +36,23 @@ const safeCaseCard: ArticleData = {
   href: '/usa-safecase',
 };
 
+type StaticPage = 'home' | 'safe-case' | 'policy' | 'privacy' | 'client-consent' | 'advertising-consent' | 'offer' | 'blog' | 'mini' | 'cookies';
+
+const legacyRoutes: Record<string, string> = {
+  '#/safe-case': '/usa-safecase',
+  '#/policy': '/policy',
+  '#/privacy': '/privacy',
+  '#/client-data-consent': '/client-data-consent',
+  '#/advertising-consent': '/advertising-consent',
+  '#/offer': '/offer',
+  '#/cookies': '/cookies',
+  '#/blog': '/blog',
+};
+
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(() => localStorage.getItem('theme') === 'dark');
   const [currentArticle, setCurrentArticle] = useState<ArticleData | null>(null);
-  const [isSafeCaseOpen, setIsSafeCaseOpen] = useState(false);
-  const [isPolicyOpen, setIsPolicyOpen] = useState(false);
-  const [isOfferOpen, setIsOfferOpen] = useState(false);
-  const [isBlogOpen, setIsBlogOpen] = useState(false);
-  const [isMiniOpen, setIsMiniOpen] = useState(false);
-  const [isCookiesOpen, setIsCookiesOpen] = useState(false);
+  const [staticPage, setStaticPage] = useState<StaticPage>('home');
 
   const articleRegistry = useMemo(
     () => Object.fromEntries(markdownArticles.map((article) => [article.id, article])),
@@ -51,116 +62,45 @@ const App: React.FC = () => {
 
   useEffect(() => {
     const handleLocationChange = () => {
-      const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
       const hash = window.location.hash;
+      const legacyArticleId = hash.startsWith('#/article/') ? hash.replace('#/article/', '') : '';
+      const legacyPath = legacyArticleId ? `/article/${legacyArticleId}` : legacyRoutes[hash];
+      let pathname = window.location.pathname.replace(/\/+$/, '') || '/';
 
-      if (pathname === '/usa-safecase') {
-        setCurrentArticle(null);
-        setIsSafeCaseOpen(true);
-        setIsPolicyOpen(false);
-        setIsOfferOpen(false);
-        setIsBlogOpen(false);
-        setIsMiniOpen(false);
-        setIsCookiesOpen(false);
-        document.title = 'Safe Case | Ирина Соболева';
-        window.scrollTo(0, 0);
-        return;
+      if (legacyPath) {
+        window.history.replaceState({}, '', legacyPath);
+        pathname = legacyPath;
       }
 
-      if (pathname === '/mini1') {
-        setCurrentArticle(null);
-        setIsSafeCaseOpen(false);
-        setIsPolicyOpen(false);
-        setIsOfferOpen(false);
-        setIsBlogOpen(false);
-        setIsMiniOpen(true);
-        setIsCookiesOpen(false);
-        window.scrollTo(0, 0);
-        return;
-      }
-
-      if (hash === '#/safe-case') {
-        setCurrentArticle(null);
-        setIsSafeCaseOpen(true);
-        setIsPolicyOpen(false);
-        setIsOfferOpen(false);
-        setIsBlogOpen(false);
-        setIsMiniOpen(false);
-        setIsCookiesOpen(false);
-        document.title = 'Safe Case | Ирина Соболева';
-        window.scrollTo(0, 0);
-        return;
-      }
-
-      if (hash === '#/policy') {
-        setCurrentArticle(null);
-        setIsSafeCaseOpen(false);
-        setIsPolicyOpen(true);
-        setIsOfferOpen(false);
-        setIsBlogOpen(false);
-        setIsMiniOpen(false);
-        setIsCookiesOpen(false);
-        window.scrollTo(0, 0);
-        return;
-      }
-
-      if (hash === '#/offer') {
-        setCurrentArticle(null);
-        setIsSafeCaseOpen(false);
-        setIsPolicyOpen(false);
-        setIsOfferOpen(true);
-        setIsBlogOpen(false);
-        setIsMiniOpen(false);
-        setIsCookiesOpen(false);
-        window.scrollTo(0, 0);
-        return;
-      }
-
-      if (hash === '#/cookies') {
-        setCurrentArticle(null);
-        setIsSafeCaseOpen(false);
-        setIsPolicyOpen(false);
-        setIsOfferOpen(false);
-        setIsBlogOpen(false);
-        setIsMiniOpen(false);
-        setIsCookiesOpen(true);
-        window.scrollTo(0, 0);
-        return;
-      }
-
-      if (hash === '#/blog') {
-        setCurrentArticle(null);
-        setIsSafeCaseOpen(false);
-        setIsPolicyOpen(false);
-        setIsOfferOpen(false);
-        setIsBlogOpen(true);
-        setIsMiniOpen(false);
-        setIsCookiesOpen(false);
-        document.title = 'Ира Соболева про визы | Блог';
-        window.scrollTo(0, 0);
-        return;
-      }
-
-      const articleId = hash.replace('#/article/', '');
-      if (hash.startsWith('#/article/') && articleRegistry[articleId]) {
-        setIsSafeCaseOpen(false);
-        setIsPolicyOpen(false);
-        setIsOfferOpen(false);
-        setIsBlogOpen(false);
-        setIsMiniOpen(false);
-        setIsCookiesOpen(false);
+      const articleId = pathname.startsWith('/article/') ? pathname.replace('/article/', '') : '';
+      if (articleId && articleRegistry[articleId]) {
+        setStaticPage('home');
         setCurrentArticle(articleRegistry[articleId]);
+        window.scrollTo(0, 0);
         return;
       }
 
+      const routeMap: Record<string, StaticPage> = {
+        '/': 'home',
+        '/usa-safecase': 'safe-case',
+        '/policy': 'policy',
+        '/privacy': 'privacy',
+        '/client-data-consent': 'client-consent',
+        '/advertising-consent': 'advertising-consent',
+        '/offer': 'offer',
+        '/cookies': 'cookies',
+        '/blog': 'blog',
+        '/mini1': 'mini',
+      };
+
+      const nextPage = routeMap[pathname] || 'home';
       setCurrentArticle(null);
-      setIsSafeCaseOpen(false);
-      setIsPolicyOpen(false);
-      setIsOfferOpen(false);
-      setIsBlogOpen(false);
-      setIsMiniOpen(false);
-      setIsCookiesOpen(false);
-      document.title = 'Эксперт по визам США | Safe Case';
+      setStaticPage(nextPage);
+
+      if (nextPage === 'safe-case') document.title = 'Safe Case | Ирина Соболева';
+      if (nextPage === 'blog') document.title = 'Ира Соболева про визы | Блог';
+      if (nextPage === 'home') document.title = 'Эксперт по визам США | Safe Case';
+      window.scrollTo(0, 0);
     };
 
     window.addEventListener('hashchange', handleLocationChange);
@@ -182,8 +122,18 @@ const App: React.FC = () => {
     window.history.pushState({}, '', '/');
     window.dispatchEvent(new PopStateEvent('popstate'));
   };
+  const isSafeCaseOpen = staticPage === 'safe-case';
+  const isPolicyOpen = staticPage === 'policy';
+  const isPrivacyOpen = staticPage === 'privacy';
+  const isClientConsentOpen = staticPage === 'client-consent';
+  const isAdvertisingConsentOpen = staticPage === 'advertising-consent';
+  const isOfferOpen = staticPage === 'offer';
+  const isBlogOpen = staticPage === 'blog';
+  const isMiniOpen = staticPage === 'mini';
+  const isCookiesOpen = staticPage === 'cookies';
+  const isMiniPath = window.location.pathname.replace(/\/+$/, '') === '/mini1';
   const metrikaVirtualPath = getMetrikaVirtualPath(window.location.pathname, window.location.hash);
-  const trackReading = Boolean(currentArticle) || isSafeCaseOpen || isPolicyOpen || isOfferOpen || isCookiesOpen;
+  const trackReading = Boolean(currentArticle) || isSafeCaseOpen || isPolicyOpen || isPrivacyOpen || isClientConsentOpen || isAdvertisingConsentOpen || isOfferOpen || isCookiesOpen;
 
   return (
     <div className="min-h-screen w-full overflow-x-clip transition-colors duration-300">
@@ -197,6 +147,12 @@ const App: React.FC = () => {
       <main className="relative z-10">
         {isPolicyOpen ? (
           <PolicyPage onBack={goBack} />
+        ) : isPrivacyOpen ? (
+          <PrivacyPage onBack={goBack} />
+        ) : isClientConsentOpen ? (
+          <ClientDataConsentPage onBack={goBack} />
+        ) : isAdvertisingConsentOpen ? (
+          <AdvertisingConsentPage onBack={goBack} />
         ) : isOfferOpen ? (
           <OfferPage onBack={goBack} />
         ) : isCookiesOpen ? (
@@ -225,7 +181,7 @@ const App: React.FC = () => {
           </>
         )}
       </main>
-      {!isMiniOpen && <Footer />}
+      {!isMiniOpen && <Footer compact={isMiniPath} />}
       <CookieBanner />
     </div>
   );

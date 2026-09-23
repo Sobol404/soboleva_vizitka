@@ -86,9 +86,6 @@ export const Socials: React.FC = () => {
                 </a>
               ))}
            </div>
-           <p className="text-center text-2xl font-serif font-bold uppercase tracking-wide text-accent lg:hidden">
-             Подписывайтесь
-           </p>
         </div>
 
         <div className="hidden lg:flex flex-1 w-full lg:w-1/2 flex-col items-center justify-center">
@@ -119,9 +116,6 @@ export const Socials: React.FC = () => {
                 </a>
               ))}
            </div>
-           <p className="mt-6 text-center text-4xl font-serif font-bold uppercase tracking-wide text-accent">
-             Подписывайтесь
-           </p>
         </div>
 
       </div>

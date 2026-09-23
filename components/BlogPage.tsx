@@ -57,7 +57,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ articles, onBack }) => {
         description: article.description,
         date: formatDate(article.date),
         image: article.mainImage,
-        href: article.href || `#/article/${article.id}`,
+        href: article.href || `/article/${article.id}`,
       }));
 
     return [...articleCards, ...telegramDrafts];

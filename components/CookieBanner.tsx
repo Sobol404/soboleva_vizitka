@@ -44,22 +44,23 @@ export const CookieBanner: React.FC = () => {
       <div aria-hidden="true" className="pointer-events-none absolute -bottom-28 left-1/4 h-40 w-64 rounded-full bg-white/10 blur-3xl" />
       <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between md:gap-6">
         <div className="min-w-0">
-          <h2 className="text-lg font-bold leading-tight sm:text-xl">Мы используем файлы cookie</h2>
+          <h2 className="text-lg font-bold leading-tight sm:text-xl">Мы используем cookie-файлы</h2>
           <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-300 sm:text-base">
-            Сайт использует технические cookie и локальное хранилище, чтобы сохранять настройки сайта и ваш выбор. После
-            принятия подключается Яндекс.Метрика для анализа посещений и улучшения сайта.
-            Подробнее — в <a className="text-primary underline decoration-primary/70 underline-offset-2 hover:text-white" href="#/cookies">Политике использования cookie</a> и{' '}
-            <a className="text-primary underline decoration-primary/70 underline-offset-2 hover:text-white" href="#/policy">Согласии на обработку ПДн</a>.
+            Мы используем cookie-файлы для корректной работы сайта и аналитики. Продолжая пользоваться сайтом, вы
+            соглашаетесь с нашей{' '}
+            <a className="text-primary underline decoration-primary/70 underline-offset-2 hover:text-white" href="/privacy">политикой обработки персональных данных</a>{' '}
+            и{' '}
+            <a className="text-primary underline decoration-primary/70 underline-offset-2 hover:text-white" href="/cookies">политикой использования файлов cookie</a>.
           </p>
         </div>
-        <div className="flex shrink-0 flex-col-reverse gap-2 sm:flex-row md:items-center">
+        <div className="flex shrink-0 flex-row gap-2 md:items-center">
           <button
             type="button"
             onClick={() => chooseConsent('rejected')}
             disabled={!isVisible}
             className="rounded-xl border border-white/45 bg-white/[0.06] px-5 py-3 text-sm font-bold text-white transition-colors hover:border-white hover:bg-white/[0.13] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
-            Отклонить
+            Отказаться
           </button>
           <button
             type="button"

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, BarChart3, Cookie, Mail, Settings2, ShieldCheck } from 'lucide-react';
 import { DocumentToc, DocumentTocItem, scrollToDocumentSection, useActiveDocumentSection } from './DocumentToc';
+import { LegalLinks } from './LegalLinks';
 
 interface CookiesPageProps {
   onBack: () => void;
@@ -10,7 +11,7 @@ const tocItems: DocumentTocItem[] = [
   { id: 'chto-takoe-cookie', label: 'Что такое cookie?' },
   { id: 'kakie-tehnologii', label: 'Какие технологии используются' },
   { id: 'analitika', label: 'Веб-аналитика' },
-  { id: 'konfidencialnost', label: 'Конфиденциальность' },
+  { id: 'obrabotka-dannyh', label: 'Обработка данных' },
   { id: 'upravlenie-cookie', label: 'Как управлять cookie' },
   { id: 'kontakty', label: 'Контакты' },
   { id: 'izmeneniya', label: 'Изменения политики' },
@@ -23,9 +24,13 @@ export const CookiesPage: React.FC<CookiesPageProps> = ({ onBack }) => {
     setTocOpen(false);
     scrollToDocumentSection(id);
   };
+  const showCookieBannerAgain = () => {
+    window.localStorage.removeItem('safevisa-cookie-consent');
+    window.location.reload();
+  };
 
   useEffect(() => {
-    document.title = 'Политика использования cookie | Safe Visa';
+    document.title = 'Политика использования cookie | zagranici.ru';
     window.scrollTo(0, 0);
   }, []);
 
@@ -61,7 +66,7 @@ export const CookiesPage: React.FC<CookiesPageProps> = ({ onBack }) => {
                   <h1 className="text-3xl font-bold leading-tight sm:text-4xl md:text-5xl">
                     Политика использования файлов cookie
                   </h1>
-                  <p className="mt-4 text-sm text-slate-300">Последнее обновление: 22.09.2026</p>
+                  <p className="mt-4 text-sm text-slate-300">Последнее обновление: 23.09.2026</p>
                 </div>
               </div>
             </header>
@@ -74,8 +79,8 @@ export const CookiesPage: React.FC<CookiesPageProps> = ({ onBack }) => {
                   запомнить настройки и сделать повторное посещение сайта удобнее.
                 </p>
                 <p>
-                  Cookie не дают сайту доступа к личным файлам на устройстве. Safe Visa не использует cookie для хранения
-                  паспортных данных, анкет или других документов клиентов.
+                  Cookie не дают сайту доступа к личным файлам на устройстве. Сайт zagranici.ru не использует cookie для хранения
+                  данных заявки или клиентских документов.
                 </p>
               </section>
 
@@ -106,26 +111,24 @@ export const CookiesPage: React.FC<CookiesPageProps> = ({ onBack }) => {
                   по ссылкам, глубину прокрутки и время взаимодействия с материалами сайта, включая статьи.
                 </p>
                 <p>
-                  В Метрику не передаются анкеты, паспорта, документы, имя, телефон, электронная почта или другие данные
-                  заявки. Если вы выберете «Отклонить», Яндекс.Метрика не загружается.
+                  В Метрику не передаются данные квиза, клиентские документы, имя, телефон, электронная почта или другие
+                  данные заявки. Если вы выберете «Отказаться», Яндекс.Метрика не загружается.
                 </p>
               </section>
 
-              <section id="konfidencialnost" className="scroll-mt-40 space-y-4 lg:scroll-mt-28">
+              <section id="obrabotka-dannyh" className="scroll-mt-40 space-y-4 lg:scroll-mt-28">
                 <div className="flex items-center gap-3">
                   <ShieldCheck className="h-6 w-6 shrink-0 text-accent" />
-                  <h2 className="text-2xl font-bold text-dark dark:text-white md:text-3xl">Как мы защищаем конфиденциальность?</h2>
+                  <h2 className="text-2xl font-bold text-dark dark:text-white md:text-3xl">Обработка технических данных</h2>
                 </div>
-                <ul className="list-disc space-y-2 pl-6">
-                  <li>не продаём и не публикуем сведения о посетителях сайта;</li>
-                  <li>не используем cookie для хранения паспортов, анкет и копий документов;</li>
-                  <li>обрабатываем данные заявки по отдельному согласию и в соответствии с политикой обработки ПДн;</li>
-                  <li>запускаем Яндекс.Метрику только после выбора «Принять» в уведомлении о cookie;</li>
-                  <li>ограничиваем использование технических данных целями работы и улучшения сайта.</li>
-                </ul>
+                <p>
+                  Технические данные используются для работы Сайта, сохранения выбранных настроек и, после выбора
+                  «Принять», анализа посещений в Яндекс.Метрике. Данные, передаваемые через квиз и клиентские материалы,
+                  обрабатываются по отдельным правилам, опубликованным в политике обработки персональных данных.
+                </p>
                 <p>
                   Подробные правила обработки персональных данных опубликованы на странице{' '}
-                  <a className="text-accent underline underline-offset-4 hover:text-accent-hover" href="#/policy">согласия на обработку ПДн</a>.
+                  <a className="text-accent underline underline-offset-4 hover:text-accent-hover" href="/privacy">политики обработки персональных данных</a>.
                 </p>
               </section>
 
@@ -139,6 +142,13 @@ export const CookiesPage: React.FC<CookiesPageProps> = ({ onBack }) => {
                   Управление обычно находится в разделе настроек конфиденциальности браузера: Chrome, Safari, Firefox,
                   Edge и других браузеров. Названия пунктов могут отличаться в зависимости от версии браузера.
                 </p>
+                <button
+                  type="button"
+                  onClick={showCookieBannerAgain}
+                  className="rounded-xl bg-[#2563EB] px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-950/20 transition-colors hover:bg-[#1D4ED8] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  Показать уведомление ещё раз
+                </button>
               </section>
 
               <section id="kontakty" className="scroll-mt-40 space-y-4 lg:scroll-mt-28">
@@ -158,6 +168,8 @@ export const CookiesPage: React.FC<CookiesPageProps> = ({ onBack }) => {
                   обработке данных. Актуальная версия всегда публикуется на этой странице и действует с момента публикации.
                 </p>
               </section>
+
+              <LegalLinks />
             </div>
           </article>
 

@@ -1,12 +1,12 @@
 # Visa site acceptance matrix
 
-## Home route `#/`
+## Home route `/`
 
 ### Hero
 
 - Desktop: quote, four achievement cards, then a full-width CTA below them.
 - Mobile: compact headings and no clipped achievement text.
-- CTA scrolls to `#services`.
+- CTA scrolls to the services section without adding `#` to the browser address.
 
 ### About
 
@@ -37,9 +37,9 @@
 ### Blog preview
 
 - `Ира Соболева про визы` fits on one mobile line at 390 px.
-- The home preview remains compact and links to `#/blog`.
+- The home preview remains compact and links to `/blog`.
 
-## Blog route `#/blog`
+## Blog route `/blog`
 
 - Header title uses at most two lines on mobile.
 - Desktop cards include an image, type/date metadata, title, and description.

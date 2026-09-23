@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { ArrowLeft, FileCheck2, Mail, Scale, ShieldCheck } from 'lucide-react';
 import offerMarkdown from '../content/legal/oferta.md?raw';
 import { DocumentToc, DocumentTocItem, scrollToDocumentSection, useActiveDocumentSection } from './DocumentToc';
+import { LegalLinks } from './LegalLinks';
 
 interface OfferPageProps {
   onBack: () => void;
@@ -117,6 +118,9 @@ export const OfferPage: React.FC<OfferPageProps> = ({ onBack }) => {
                   </a>.
                 </p>
               </footer>
+              <div className="mt-8 not-italic">
+                <LegalLinks />
+              </div>
             </div>
           </article>
 

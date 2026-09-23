@@ -1,0 +1,25 @@
+@layer theme, base, components, utilities;
+
+/*
+ * Tailwind собран только для MiniLanding: без глобального Preflight и с
+ * префиксом mini:, чтобы не менять внешний вид остальных страниц проекта.
+ */
+@import "tailwindcss/theme.css" layer(theme) prefix(mini);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(mini) important;
+
+@theme {
+  --font-sans: "Manrope", sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+}
+
+@keyframes mini-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

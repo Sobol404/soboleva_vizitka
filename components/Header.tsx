@@ -11,11 +11,11 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const navLinks = [
-    { name: 'Обо мне', href: '#about' },
-    { name: 'Услуги', href: '#services' },
-    { name: 'Блог', href: '#/blog', route: true },
-    { name: 'Отзывы', href: '#reviews' },
-    { name: 'Контакты', href: '#contact' },
+    { name: 'Обо мне', href: '/', section: 'about' },
+    { name: 'Услуги', href: '/', section: 'services' },
+    { name: 'Блог', href: '/blog', route: true },
+    { name: 'Отзывы', href: '/', section: 'reviews' },
+    { name: 'Контакты', href: '/', section: 'contact' },
   ];
 
   const handleScroll = () => {
@@ -31,13 +31,12 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   
-  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
     e.preventDefault();
-    const targetId = href.substring(1);
-    const openPage = window.location.pathname !== '/' || window.location.hash.startsWith('#/');
+    const openPage = window.location.pathname !== '/';
 
     if (openPage) {
-      window.history.pushState({}, '', `/#${targetId}`);
+      window.history.pushState({}, '', '/');
       window.dispatchEvent(new PopStateEvent('popstate'));
       window.setTimeout(() => {
         const target = targetId === 'root' ? document.getElementById('root') : document.getElementById(targetId);
@@ -57,7 +56,7 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
 
   const navigateToRoute = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     event.preventDefault();
-    window.history.pushState({}, '', `/${href}`);
+    window.history.pushState({}, '', href);
     window.dispatchEvent(new PopStateEvent('popstate'));
     setIsOpen(false);
   };
@@ -70,7 +69,7 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
     }`}>
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
         <div className="flex items-center justify-between h-20">
-          <a href="#root" onClick={(e) => scrollToSection(e, '#root')} className="text-2xl font-bold text-dark dark:text-white tracking-tight">
+          <a href="/" onClick={(e) => scrollToSection(e, 'root')} className="text-2xl font-bold text-dark dark:text-white tracking-tight">
             Safe Visa<span className="text-accent">.</span>
           </a>
           
@@ -80,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
               <a 
                 key={link.name} 
                 href={link.href} 
-                onClick={(e) => link.route ? navigateToRoute(e, link.href) : scrollToSection(e, link.href)}
+                onClick={(e) => link.route ? navigateToRoute(e, link.href) : scrollToSection(e, link.section || 'root')}
                 className="text-sm font-semibold text-dark dark:text-slate-300 hover:text-accent dark:hover:text-accent transition-colors"
               >
                 {link.name}
@@ -126,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
               <a 
                 key={link.name} 
                 href={link.href}
-                onClick={(e) => link.route ? navigateToRoute(e, link.href) : scrollToSection(e, link.href)}
+                onClick={(e) => link.route ? navigateToRoute(e, link.href) : scrollToSection(e, link.section || 'root')}
                 className="text-lg font-semibold text-dark dark:text-slate-200 hover:text-accent transition-colors"
               >
                 {link.name}

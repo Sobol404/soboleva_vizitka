@@ -39,7 +39,7 @@ export const BlogPreview: React.FC<BlogPreviewProps> = ({ articles }) => {
           {previewArticles.map((article) => (
             <a
               key={article.id}
-              href={article.href || `#/article/${article.id}`}
+              href={article.href || `/article/${article.id}`}
               className="group flex gap-3 py-5 first:pt-5 last:pb-5"
             >
               <BookOpenText className="mt-1 h-5 w-5 flex-shrink-0 text-accent" aria-hidden="true" />
@@ -65,7 +65,7 @@ export const BlogPreview: React.FC<BlogPreviewProps> = ({ articles }) => {
         </div>
 
         <a
-          href="#/blog"
+          href="/blog"
           className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-dark transition-colors hover:border-accent hover:text-accent dark:border-slate-700 dark:text-white dark:hover:border-accent dark:hover:text-accent"
         >
           Читать все материалы

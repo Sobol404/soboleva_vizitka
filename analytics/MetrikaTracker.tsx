@@ -21,6 +21,9 @@ export const getMetrikaVirtualPath = (pathname: string, hash: string) => {
   if (normalizedPathname === '/mini1') return '/mini1';
   if (hash === '#/blog') return '/blog';
   if (hash === '#/policy') return '/policy';
+  if (hash === '#/privacy') return '/privacy';
+  if (hash === '#/client-data-consent') return '/client-data-consent';
+  if (hash === '#/advertising-consent') return '/advertising-consent';
   if (hash === '#/offer') return '/offer';
   if (hash === '#/cookies') return '/cookies';
   if (hash.startsWith('#/article/')) return `/article/${hash.replace('#/article/', '')}`;
