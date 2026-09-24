@@ -36,7 +36,7 @@ const safeCaseCard: ArticleData = {
   href: '/usa-safecase',
 };
 
-type StaticPage = 'home' | 'safe-case' | 'policy' | 'privacy' | 'client-consent' | 'advertising-consent' | 'offer' | 'blog' | 'mini' | 'cookies';
+type StaticPage = 'home' | 'safe-case' | 'policy' | 'privacy' | 'client-consent' | 'advertising-consent' | 'offer' | 'blog' | 'mini' | 'mini-max' | 'cookies';
 
 const legacyRoutes: Record<string, string> = {
   '#/safe-case': '/usa-safecase',
@@ -91,6 +91,7 @@ const App: React.FC = () => {
         '/cookies': 'cookies',
         '/blog': 'blog',
         '/mini1': 'mini',
+        '/mini1-max': 'mini-max',
       };
 
       const nextPage = routeMap[pathname] || 'home';
@@ -129,7 +130,7 @@ const App: React.FC = () => {
   const isAdvertisingConsentOpen = staticPage === 'advertising-consent';
   const isOfferOpen = staticPage === 'offer';
   const isBlogOpen = staticPage === 'blog';
-  const isMiniOpen = staticPage === 'mini';
+  const isMiniOpen = staticPage === 'mini' || staticPage === 'mini-max';
   const isCookiesOpen = staticPage === 'cookies';
   const isMiniPath = window.location.pathname.replace(/\/+$/, '') === '/mini1';
   const metrikaVirtualPath = getMetrikaVirtualPath(window.location.pathname, window.location.hash);
@@ -160,7 +161,7 @@ const App: React.FC = () => {
         ) : isSafeCaseOpen ? (
           <SafeCaseLanding onBack={goBack} relatedArticles={markdownArticles} />
         ) : isMiniOpen ? (
-          <MiniLanding />
+          <MiniLanding ctaChannel={staticPage === 'mini-max' ? 'max' : 'telegram'} />
         ) : isBlogOpen ? (
           <BlogPage articles={blogArticles} onBack={goBack} />
         ) : currentArticle ? (

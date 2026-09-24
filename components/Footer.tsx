@@ -14,7 +14,7 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
       <footer className="border-t border-slate-800 bg-dark py-4 text-slate-300 sm:py-5">
         <div className="container mx-auto max-w-7xl px-6">
           <div className="space-y-2.5">
-            <div className="space-y-2.5 md:grid md:grid-cols-3 md:items-start md:gap-x-12 md:space-y-0">
+            <div className="space-y-2.5 min-[900px]:grid min-[900px]:grid-cols-[minmax(0,1.35fr)_minmax(0,0.8fr)_auto] min-[900px]:items-start min-[900px]:gap-x-6 min-[900px]:space-y-0 xl:gap-x-10">
               <div>
                 <div className="text-xl font-bold tracking-tight text-white">
                   Safe Visa<span className="text-accent">.</span>
@@ -27,8 +27,8 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
                 </p>
               </div>
 
-              <div className="space-y-2.5 md:pt-8">
-                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs leading-relaxed text-slate-300">
+              <div className="space-y-2.5 min-[900px]:pt-8">
+                <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs leading-relaxed text-slate-300 min-[900px]:flex-col min-[900px]:items-start">
                   <a className="transition-colors hover:text-white" href="tel:+79015009901">
                     +7 901 500-99-01
                   </a>
@@ -37,7 +37,7 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
                   </a>
                 </div>
                 <a
-                  className="inline-flex w-fit items-center gap-2 text-xs font-bold text-primary transition-colors hover:text-white"
+                  className="inline-flex w-fit items-center gap-2 text-xs font-bold text-primary transition-colors hover:text-white min-[900px]:hidden"
                   href={links.telegram.siteInvite}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -47,7 +47,7 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
                 </a>
               </div>
 
-              <nav aria-label="Социальные сети" className="flex flex-nowrap items-center gap-2 md:justify-self-start md:pt-8">
+              <nav aria-label="Социальные сети" className="flex flex-nowrap items-center gap-2 min-[900px]:justify-self-start min-[900px]:pt-8">
               <a
                 aria-label="Telegram"
                 className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-600 text-slate-200 transition-colors hover:border-slate-300 hover:text-white"
@@ -90,13 +90,29 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
               </a>
               <a
                 aria-label="MAX"
-                className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-600 text-slate-200 transition-colors hover:border-slate-300 hover:text-white"
+                className="group inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-600 text-slate-200 transition-colors hover:border-slate-300 hover:text-white"
                 href={links.social.max}
                 target="_blank"
                 rel="noopener noreferrer"
                 title="MAX"
               >
-                <span aria-hidden="true" className="text-[9px] font-extrabold tracking-[-0.08em]">MAX</span>
+                <img
+                  aria-hidden="true"
+                  alt=""
+                  src="/media/ui/icon-max.png"
+                  width="17"
+                  height="17"
+                  className="h-[17px] w-[17px] rounded-[4px] object-contain grayscale brightness-125 opacity-90 transition-[filter,opacity] group-hover:brightness-200 group-hover:opacity-100"
+                />
+              </a>
+              <a
+                className="ml-2 hidden w-fit items-center gap-2 whitespace-nowrap text-xs font-bold text-primary transition-colors hover:text-white min-[900px]:inline-flex"
+                href={links.telegram.siteInvite}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Send aria-hidden="true" size={14} />
+                Связаться
               </a>
               </nav>
             </div>

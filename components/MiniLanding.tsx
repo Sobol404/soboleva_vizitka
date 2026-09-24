@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Check, Send, UserRound } from 'lucide-react';
+import { Check, Send } from 'lucide-react';
 import { links } from '../config/links';
 import { Footer } from './Footer';
 import './MiniLanding.css';
@@ -26,6 +26,15 @@ const articleContents = [
   'Реальные кейсы превращения отказов в одобрения',
 ];
 
+const proofAvatars = [
+  '/media/pages/mini1/avatars/photo_ava_18.jpg',
+  '/media/pages/mini1/avatars/photo_ava_sashka.jpeg',
+  '/media/pages/mini1/avatars/photo_ava_24.jpg',
+  '/media/pages/mini1/avatars/photo_ava_violetta.jpeg',
+  '/media/pages/mini1/avatars/photo_ava_olesya.jpeg',
+  '/media/pages/mini1/avatars/photo_ava_22.jpg',
+];
+
 const stats = [
   ['600+', 'Успешных визовых кейсов', 'Включая сложные ситуации с отказами'],
   ['1000+', 'Проведённых консультаций', 'Индивидуальный подход к каждому'],
@@ -40,34 +49,68 @@ const containerClass =
 const eyebrowClass =
   'mini:mb-3 mini:text-xs mini:leading-[1.4] mini:font-extrabold mini:tracking-[0.14em] mini:uppercase';
 
-const TelegramCta: React.FC<{ children: React.ReactNode; overlay?: boolean }> = ({ children, overlay = false }) => (
-  <a
-    className={
-      overlay
-        ? 'mini:inline-flex mini:min-h-12 mini:w-[calc(100%-2rem)] mini:items-center mini:justify-center mini:gap-2 mini:rounded-full mini:border mini:border-white/30 mini:bg-[rgba(37,99,235,0.92)] mini:px-5 mini:py-3 mini:text-center mini:text-[13px] mini:font-extrabold mini:tracking-[0.02em] mini:text-white mini:no-underline mini:shadow-[0_12px_32px_rgba(0,0,0,0.35)] mini:backdrop-blur-md mini:transition-[transform,box-shadow,background-color] mini:duration-300 mini:hover:-translate-y-1 mini:hover:bg-[#2563eb] mini:hover:shadow-[0_16px_38px_rgba(0,0,0,0.42)] mini:focus-visible:outline-3 mini:focus-visible:outline-offset-4 mini:focus-visible:outline-white mini:motion-reduce:transition-none'
-        : 'mini:inline-flex mini:min-h-[54px] mini:w-full mini:max-w-[350px] mini:items-center mini:justify-center mini:gap-2.5 mini:rounded-full mini:bg-[linear-gradient(135deg,#2563eb,#5aaae5)] mini:px-[26px] mini:py-4 mini:text-center mini:text-sm mini:font-extrabold mini:tracking-[0.025em] mini:text-white mini:no-underline mini:shadow-[0_12px_30px_rgba(37,99,235,0.25)] mini:transition-[transform,box-shadow] mini:duration-500 mini:ease-out mini:hover:-translate-y-px mini:hover:shadow-[0_15px_34px_rgba(37,99,235,0.3)] mini:focus-visible:outline-3 mini:focus-visible:outline-offset-4 mini:focus-visible:outline-[#5aaae5] mini:motion-reduce:transition-none'
-    }
-    href={links.telegram.channel}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    <Send aria-hidden="true" size={17} strokeWidth={2.4} />
-    <span>{children}</span>
-  </a>
-);
+type CtaChannel = 'telegram' | 'max';
 
-export const MiniLanding: React.FC = () => {
+const ctaContent: Record<CtaChannel, { href: string; label: string }> = {
+  telegram: { href: links.telegram.channel, label: 'Забрать в Telegram' },
+  max: { href: links.social.max, label: 'Забрать в Макс' },
+};
+
+const LandingCta: React.FC<{ channel: CtaChannel; overlay?: boolean }> = ({ channel, overlay = false }) => {
+  const { href, label } = ctaContent[channel];
+  const isMax = channel === 'max';
+
+  return (
+    <a
+      className={
+        overlay
+          ? `mini-landing-cta ${isMax ? 'mini-landing-cta--max' : 'mini-landing-cta--telegram'} mini:relative mini:inline-flex mini:min-h-12 mini:w-[calc(100%-2rem)] mini:items-center mini:justify-center mini:gap-2 mini:overflow-hidden mini:rounded-full mini:border mini:border-white/30 mini:px-5 mini:py-3 mini:text-center mini:text-[13px] mini:font-extrabold mini:tracking-[0.02em] mini:text-white mini:no-underline mini:shadow-[0_12px_32px_rgba(0,0,0,0.35)] mini:backdrop-blur-md mini:transition-[transform,box-shadow,filter] mini:duration-300 mini:focus-visible:outline-3 mini:focus-visible:outline-offset-4 mini:focus-visible:outline-white mini:motion-reduce:transition-none ${
+              isMax
+                ? 'mini:bg-[linear-gradient(135deg,rgba(124,58,237,0.95),rgba(192,38,211,0.95))]'
+                : 'mini:bg-[linear-gradient(135deg,rgba(37,99,235,0.95),rgba(90,170,229,0.95))]'
+            }`
+          : `mini-landing-cta ${isMax ? 'mini-landing-cta--max' : 'mini-landing-cta--telegram'} mini:relative mini:inline-flex mini:min-h-[54px] mini:w-full mini:max-w-[350px] mini:items-center mini:justify-center mini:gap-2.5 mini:overflow-hidden mini:rounded-full mini:px-[26px] mini:py-4 mini:text-center mini:text-sm mini:font-extrabold mini:tracking-[0.025em] mini:text-white mini:no-underline mini:transition-[transform,box-shadow,filter] mini:duration-300 mini:ease-out mini:focus-visible:outline-3 mini:focus-visible:outline-offset-4 mini:motion-reduce:transition-none ${
+              isMax
+                ? 'mini:bg-[linear-gradient(135deg,#7c3aed,#c026d3)] mini:shadow-[0_12px_30px_rgba(124,58,237,0.27)] mini:focus-visible:outline-[#c026d3]'
+                : 'mini:bg-[linear-gradient(135deg,#2563eb,#5aaae5)] mini:shadow-[0_12px_30px_rgba(37,99,235,0.25)] mini:focus-visible:outline-[#5aaae5]'
+            }`
+      }
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {!isMax && (
+        <Send aria-hidden="true" size={17} strokeWidth={2.4} />
+      )}
+      <span>{label}</span>
+      {isMax && (
+        <img
+          aria-hidden="true"
+          alt=""
+          src="/media/ui/icon-max.png"
+          width="24"
+          height="24"
+          className={`mini:pointer-events-none mini:absolute mini:right-4 mini:shrink-0 mini:rounded-[6px] mini:object-contain mini:shadow-[0_2px_8px_rgba(30,27,75,0.22)] ${
+            overlay ? 'mini:h-5 mini:w-5' : 'mini:h-6 mini:w-6'
+          }`}
+        />
+      )}
+    </a>
+  );
+};
+
+export const MiniLanding: React.FC<{ ctaChannel?: CtaChannel }> = ({ ctaChannel = 'telegram' }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    document.title = 'Safe Case — короткий лендинг';
+    document.title = ctaChannel === 'max' ? 'Safe Case — MAX' : 'Safe Case — короткий лендинг';
 
     const video = videoRef.current;
     if (video) {
       video.muted = true;
       void video.play().catch(() => undefined);
     }
-  }, []);
+  }, [ctaChannel]);
 
   return (
     <main className="mini:min-h-screen mini:w-full mini:overflow-hidden mini:bg-[#f4f7f9] mini:font-sans mini:text-[#324f5c] mini:isolate">
@@ -114,21 +157,22 @@ export const MiniLanding: React.FC = () => {
             </div>
 
             <div className="mini:mt-6 mini:flex mini:max-w-[790px] mini:flex-col mini:items-center">
-              <TelegramCta>Забрать в Telegram</TelegramCta>
+              <LandingCta channel={ctaChannel} />
               <div className="mini:mt-2.5 mini:flex mini:w-full mini:max-w-[350px] mini:items-center mini:justify-center mini:gap-2 mini:text-center mini:text-[13px] mini:font-bold mini:text-[#526776]">
                 <span className="mini:flex mini:items-center mini:-space-x-2" aria-hidden="true">
-                  <span className="mini:inline-flex mini:h-7 mini:w-7 mini:items-center mini:justify-center mini:rounded-full mini:border-2 mini:border-[#f4f7f9] mini:bg-[#dbeafe] mini:text-[#2563eb] mini:shadow-sm">
-                    <UserRound size={14} strokeWidth={2.4} />
-                  </span>
-                  <span className="mini:inline-flex mini:h-7 mini:w-7 mini:items-center mini:justify-center mini:rounded-full mini:border-2 mini:border-[#f4f7f9] mini:bg-[#fce7d8] mini:text-[#d97706] mini:shadow-sm">
-                    <UserRound size={14} strokeWidth={2.4} />
-                  </span>
-                  <span className="mini:inline-flex mini:h-7 mini:w-7 mini:items-center mini:justify-center mini:rounded-full mini:border-2 mini:border-[#f4f7f9] mini:bg-[#dcfce7] mini:text-[#16a34a] mini:shadow-sm">
-                    <UserRound size={14} strokeWidth={2.4} />
-                  </span>
-                  <span className="mini:inline-flex mini:h-7 mini:w-7 mini:items-center mini:justify-center mini:rounded-full mini:border-2 mini:border-[#f4f7f9] mini:bg-[#f3e8ff] mini:text-[#9333ea] mini:shadow-sm">
-                    <UserRound size={14} strokeWidth={2.4} />
-                  </span>
+                  {proofAvatars.map((src, index) => (
+                    <img
+                      key={src}
+                      src={src}
+                      alt=""
+                      width="28"
+                      height="28"
+                      loading="eager"
+                      decoding="async"
+                      className="mini:h-7 mini:w-7 mini:rounded-full mini:border-2 mini:border-[#f4f7f9] mini:bg-white mini:object-cover mini:shadow-sm"
+                      style={{ zIndex: proofAvatars.length - index }}
+                    />
+                  ))}
                 </span>
                 <span>Уже забрали 785 человек</span>
               </div>
@@ -155,7 +199,7 @@ export const MiniLanding: React.FC = () => {
                 aria-hidden="true"
               />
               <div className="mini:absolute mini:inset-x-0 mini:bottom-5 mini:flex mini:justify-center mini:sm:hidden">
-                <TelegramCta overlay>Забрать в Telegram</TelegramCta>
+                <LandingCta channel={ctaChannel} overlay />
               </div>
             </div>
           </div>
@@ -233,6 +277,9 @@ export const MiniLanding: React.FC = () => {
                 </div>
               </article>
             ))}
+          </div>
+          <div className="mini:mt-8 mini:flex mini:justify-center mini:sm:mt-10">
+            <LandingCta channel={ctaChannel} />
           </div>
         </div>
       </section>
