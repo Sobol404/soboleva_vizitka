@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Section } from './ui/Section';
 import { Button } from './ui/Button';
-import { Check, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Check, Star } from 'lucide-react';
 import { ServicePackage } from '../types';
 import { links } from '../config/links';
 import { sendMetrikaGoal } from '../analytics/metrika';
@@ -11,8 +11,8 @@ export const Services: React.FC = () => {
   const [managerSupportEnabled, setManagerSupportEnabled] = useState(false);
   const [activeService, setActiveService] = useState(0);
   const servicesRef = useRef<HTMLDivElement>(null);
-  const dragStateRef = useRef({ pointerId: -1, startX: 0, startScrollLeft: 0 });
-  const didDragRef = useRef(false);
+  const dragStateRef = useRef<{ pointerId: number; startX: number; startScrollLeft: number; dragged: boolean } | null>(null);
+  const suppressClickRef = useRef(false);
   const initialPositionedRef = useRef(false);
   const userInteractedRef = useRef(false);
 
@@ -160,32 +160,35 @@ export const Services: React.FC = () => {
   };
 
   const handlePointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (window.matchMedia('(min-width: 768px)').matches) return;
-
+    if (window.innerWidth >= 768 || event.button !== 0 || event.pointerType === 'touch') return;
     userInteractedRef.current = true;
+    suppressClickRef.current = false;
     dragStateRef.current = {
       pointerId: event.pointerId,
       startX: event.clientX,
       startScrollLeft: event.currentTarget.scrollLeft,
+      dragged: false,
     };
-    didDragRef.current = false;
   };
 
   const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
-    const { pointerId, startX, startScrollLeft } = dragStateRef.current;
-    if (pointerId !== event.pointerId) return;
-
-    const distance = event.clientX - startX;
-    if (Math.abs(distance) < 6 && !didDragRef.current) return;
-
-    didDragRef.current = true;
-    event.currentTarget.setPointerCapture(event.pointerId);
-    event.currentTarget.scrollLeft = startScrollLeft - distance;
+    const drag = dragStateRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    if (!drag.dragged && Math.abs(event.clientX - drag.startX) < 6) return;
+    if (!drag.dragged) {
+      drag.dragged = true;
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
+    event.preventDefault();
+    event.currentTarget.scrollLeft = drag.startScrollLeft + drag.startX - event.clientX;
   };
 
   const handlePointerEnd = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (dragStateRef.current.pointerId !== event.pointerId) return;
-    dragStateRef.current.pointerId = -1;
+    const drag = dragStateRef.current;
+    if (!drag || drag.pointerId !== event.pointerId) return;
+    suppressClickRef.current = drag.dragged;
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+    dragStateRef.current = null;
     updateActiveService();
   };
 
@@ -196,44 +199,27 @@ export const Services: React.FC = () => {
         <p className="mt-4 text-slate-600 dark:text-slate-400 text-base sm:text-lg md:text-3xl">Выберите оптимальный вариант сопровождения</p>
       </div>
 
-      <div className="mb-4 flex items-center justify-between md:hidden">
+      <div className="mb-4 flex items-center md:hidden">
         <p className="text-sm font-semibold text-slate-500 dark:text-slate-400">Листайте тарифы свайпом</p>
-        <div className="flex gap-2">
-          <button
-            type="button"
-            onClick={() => selectService(Math.max(0, activeService - 1))}
-            disabled={activeService === 0}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-dark shadow-sm disabled:opacity-30 dark:border-slate-700 dark:bg-dark-card dark:text-white"
-            aria-label="Предыдущий тариф"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            type="button"
-            onClick={() => selectService(Math.min(services.length - 1, activeService + 1))}
-            disabled={activeService === services.length - 1}
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-dark shadow-sm disabled:opacity-30 dark:border-slate-700 dark:bg-dark-card dark:text-white"
-            aria-label="Следующий тариф"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
       </div>
 
       <div
         ref={servicesRef}
-        className="flex touch-pan-y cursor-grab gap-4 overflow-x-auto overscroll-x-contain hide-scrollbar snap-x snap-mandatory -mx-4 px-4 pb-4 pt-5 active:cursor-grabbing md:grid md:grid-cols-2 md:touch-auto md:cursor-auto md:overflow-visible md:mx-0 md:px-0 md:pb-0 md:pt-0 lg:grid-cols-3 md:gap-6 max-w-7xl mx-auto"
+        className="flex touch-auto cursor-grab select-none gap-4 overflow-x-auto overscroll-x-contain hide-scrollbar snap-x snap-mandatory -mx-4 px-4 pb-4 pt-5 active:cursor-grabbing md:grid md:grid-cols-2 md:cursor-auto md:select-text md:overflow-visible md:mx-0 md:px-0 md:pb-0 md:pt-0 lg:grid-cols-3 md:gap-6 max-w-7xl mx-auto"
+        role="region"
+        tabIndex={0}
         aria-label="Тарифы: листайте карточки свайпом"
         onScroll={updateActiveService}
+        onTouchStart={() => { userInteractedRef.current = true; }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerEnd}
         onPointerCancel={handlePointerEnd}
         onClickCapture={(event) => {
-          if (!didDragRef.current) return;
+          if (!suppressClickRef.current) return;
           event.preventDefault();
           event.stopPropagation();
-          didDragRef.current = false;
+          suppressClickRef.current = false;
         }}
       >
         {services.map((service, idx) => (
@@ -256,7 +242,7 @@ export const Services: React.FC = () => {
             )}
 
             <div className="mb-6">
-              <h3 className="text-base leading-tight font-bold text-dark dark:text-white mb-4 min-h-[3.5rem] flex items-center md:text-lg">{service.title}</h3>
+              <h3 className="font-sans text-base leading-tight font-bold text-dark dark:text-white mb-4 min-h-[3.5rem] flex items-center md:text-lg">{service.title}</h3>
               <div className="flex flex-col gap-1">
                 {(service.isManager || service.isVip) && <div className="text-sm font-semibold text-dark/80 dark:text-slate-300">Стоимость услуги:</div>}
                 <div className="whitespace-nowrap text-[clamp(1rem,4.2vw,1.5rem)] font-bold leading-tight text-accent">{service.priceRub}</div>

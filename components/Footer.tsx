@@ -36,18 +36,18 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
                     irina.sapozhkova@gmail.com
                   </a>
                 </div>
-                <a
-                  className="inline-flex w-fit items-center gap-2 text-xs font-bold text-primary transition-colors hover:text-white min-[900px]:hidden"
-                  href={links.telegram.siteInvite}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Send aria-hidden="true" size={14} />
-                  Связаться
-                </a>
               </div>
 
               <nav aria-label="Социальные сети" className="flex flex-nowrap items-center gap-2 min-[900px]:justify-self-start min-[900px]:pt-8">
+              <a
+                className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap text-xs font-bold text-primary transition-colors hover:text-white"
+                href={links.telegram.siteInvite}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Send aria-hidden="true" size={14} />
+                Связаться
+              </a>
               <a
                 aria-label="Telegram"
                 className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-600 text-slate-200 transition-colors hover:border-slate-300 hover:text-white"
@@ -102,17 +102,9 @@ export const Footer: React.FC<FooterProps> = ({ compact = false }) => {
                   src="/media/ui/icon-max.png"
                   width="17"
                   height="17"
+                  data-radius="none"
                   className="h-[17px] w-[17px] rounded-[4px] object-contain grayscale brightness-125 opacity-90 transition-[filter,opacity] group-hover:brightness-200 group-hover:opacity-100"
                 />
-              </a>
-              <a
-                className="ml-2 hidden w-fit items-center gap-2 whitespace-nowrap text-xs font-bold text-primary transition-colors hover:text-white min-[900px]:inline-flex"
-                href={links.telegram.siteInvite}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Send aria-hidden="true" size={14} />
-                Связаться
               </a>
               </nav>
             </div>

@@ -37,9 +37,8 @@ const proofAvatars = [
 
 const stats = [
   ['600+', 'Успешных визовых кейсов', 'Включая сложные ситуации с отказами'],
-  ['1000+', 'Проведённых консультаций', 'Индивидуальный подход к каждому'],
+  ['2000+', 'Проведённых консультаций', 'Индивидуальный подход к каждому'],
   ['87%', 'Успешных одобрений', 'Даже после предыдущих отказов'],
-  ['12', 'Стран', 'Работаю с клиентами из 12 стран'],
   ['60 000+', 'Подписчиков', 'Аудитория в соцсетях'],
 ];
 
@@ -90,6 +89,7 @@ const LandingCta: React.FC<{ channel: CtaChannel; overlay?: boolean }> = ({ chan
           src="/media/ui/icon-max.png"
           width="24"
           height="24"
+          data-radius="none"
           className={`mini:pointer-events-none mini:absolute mini:right-4 mini:shrink-0 mini:rounded-[6px] mini:object-contain mini:shadow-[0_2px_8px_rgba(30,27,75,0.22)] ${
             overlay ? 'mini:h-5 mini:w-5' : 'mini:h-6 mini:w-6'
           }`}
@@ -138,8 +138,8 @@ export const MiniLanding: React.FC<{ ctaChannel?: CtaChannel }> = ({ ctaChannel 
             </h1>
 
             <p className="mini:mx-auto mini:mt-5 mini:mb-0 mini:max-w-[720px] mini:text-center mini:text-[15px] mini:leading-[1.65] mini:text-[#526776] mini:sm:text-base mini:lg:text-[17px]">
-              Метод основан на <b className="mini:text-[#324f5c]">1000+ консультаций</b>, протестирован на{' '}
-              <b className="mini:text-[#324f5c]">700 реальных анкетах</b> и подкреплён опытом лучших экспертов РФ.
+              Метод основан на <b className="mini:text-[#324f5c]">2000+ консультаций</b>, протестирован на{' '}
+              <b className="mini:text-[#324f5c]">600 реальных анкетах</b> и подкреплён опытом лучших экспертов РФ.
             </p>
 
             <div className="mini:mt-6 mini:grid mini:max-w-[790px] mini:grid-cols-2 mini:gap-2 mini:max-[359px]:grid-cols-1 mini:sm:grid-cols-2 mini:lg:grid-cols-3">
@@ -217,14 +217,14 @@ export const MiniLanding: React.FC<{ ctaChannel?: CtaChannel }> = ({ ctaChannel 
           <ul className="mini:m-0 mini:grid mini:list-none mini:grid-cols-1 mini:gap-x-[18px] mini:gap-y-1.5 mini:p-0 mini:sm:grid-cols-2">
             {articleContents.map((item) => (
               <li
-                className="mini:group mini:flex mini:min-h-12 mini:items-center mini:gap-[11px] mini:rounded-xl mini:border mini:border-transparent mini:px-3 mini:py-2.5 mini:transition-[transform,background-color,border-color] mini:duration-500 mini:ease-out mini:hover:translate-x-px mini:hover:border-[rgba(255,255,255,0.07)] mini:hover:bg-[rgba(255,255,255,0.045)] mini:motion-reduce:transition-none"
+                className="mini:group mini:flex mini:min-h-12 mini:items-center mini:gap-[11px] mini:px-0 mini:py-2.5 mini:transition-transform mini:duration-500 mini:ease-out mini:hover:translate-x-px mini:motion-reduce:transition-none"
                 key={item}
               >
                 <span
                   className="mini:h-[7px] mini:w-[7px] mini:flex-[0_0_7px] mini:rounded-full mini:bg-[#5aaae5] mini:shadow-[0_0_0_4px_rgba(90,170,229,0.12)] mini:transition-[transform,box-shadow] mini:duration-500 mini:ease-out mini:group-hover:scale-110 mini:group-hover:shadow-[0_0_0_5px_rgba(90,170,229,0.12)] mini:motion-reduce:transition-none"
                   aria-hidden="true"
                 />
-                <p className="mini:m-0 mini:text-sm mini:leading-[1.5] mini:text-[rgba(255,255,255,0.9)]">{item}</p>
+                <p className="mini:m-0 mini:text-base mini:leading-[1.5] mini:text-[rgba(255,255,255,0.9)]">{item}</p>
               </li>
             ))}
           </ul>
@@ -233,15 +233,8 @@ export const MiniLanding: React.FC<{ ctaChannel?: CtaChannel }> = ({ ctaChannel 
 
       <section className="mini:bg-[#f4f7f9] mini:py-[56px] mini:sm:py-20 mini:lg:py-[88px]">
         <div className={containerClass}>
-          <div className="mini:flex mini:flex-col mini:items-stretch mini:gap-7 mini:sm:grid mini:sm:grid-cols-[220px_minmax(0,1fr)] mini:sm:items-center mini:sm:gap-8 mini:lg:grid-cols-[290px_minmax(0,1fr)] mini:lg:gap-[52px]">
-            <div className="mini:[aspect-ratio:1] mini:w-full mini:self-center mini:overflow-hidden mini:rounded-[26px] mini:border mini:border-[rgba(50,79,92,0.12)] mini:bg-[#f0f7fd] mini:shadow-[0_12px_34px_rgba(50,79,92,0.12)]">
-              <img
-                className="mini:block mini:h-full mini:w-full mini:object-cover mini:transition-transform mini:duration-700 mini:hover:scale-[1.025] mini:motion-reduce:transition-none"
-                src="/media/pages/mini1/irina-about.jpg"
-                alt="Ирина Соболева"
-              />
-            </div>
-            <div>
+          <div className="mini:relative mini:grid mini:grid-cols-1 mini:items-center mini:gap-7 mini:lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] mini:lg:gap-8">
+            <div className="mini:relative mini:z-20 mini:order-2 mini:min-w-0 mini:lg:order-1">
               <p className={`${eyebrowClass} mini:text-[#348fce]`}>Автор статьи</p>
               <h2 className="mini:mt-0 mini:mb-4 mini:font-serif mini:text-[2rem] mini:leading-[1.12] mini:font-extrabold mini:sm:text-[clamp(2rem,4vw,3.2rem)]">
                 Ирина Соболева
@@ -251,32 +244,39 @@ export const MiniLanding: React.FC<{ ctaChannel?: CtaChannel }> = ({ ctaChannel 
                 последние 4 года я разработала систему{' '}
                 <span className="mini:font-extrabold mini:text-[#2563eb]">«Safe&nbsp;Case»</span>, которая помогает
                 получить визу даже после нескольких отказов с вероятностью{' '}
-                <b className="mini:text-[#324f5c]">87%</b>.
+                <b className="mini:text-[#324f5c]">87%</b>. Работаю с клиентами из 12 стран.
               </p>
-            </div>
-          </div>
 
-          <div className="mini:mt-8 mini:flex mini:flex-col mini:border-y mini:border-[rgba(50,79,92,0.12)] mini:sm:mt-10 mini:sm:grid mini:sm:grid-cols-6 mini:sm:gap-4 mini:sm:border-0">
-            {stats.map(([value, label, sub], index) => (
-              <article
-                className={`mini:flex mini:items-baseline mini:justify-between mini:gap-4 mini:border-b mini:border-[rgba(50,79,92,0.1)] mini:py-3 mini:last:border-b-0 mini:sm:block mini:sm:rounded-[20px] mini:sm:border mini:sm:bg-white mini:sm:p-[22px] mini:sm:shadow-[0_4px_12px_rgba(50,79,92,0.08)] mini:sm:transition-[transform,box-shadow] mini:sm:duration-300 mini:sm:hover:-translate-y-1 mini:sm:hover:shadow-[0_14px_28px_rgba(50,79,92,0.12)] mini:sm:motion-reduce:transition-none mini:sm:col-span-2 ${
-                  index === 3 ? 'mini:sm:col-start-2' : ''
-                } ${index === 4 ? 'mini:sm:col-start-4' : ''}`}
-                key={label}
-              >
-                <strong className="mini:block mini:shrink-0 mini:font-sans mini:text-[25px] mini:leading-none mini:text-[#2563eb] mini:sm:text-[36px]">
-                  {value}
-                </strong>
-                <div className="mini:min-w-0 mini:text-right mini:sm:text-left">
-                  <h3 className="mini:m-0 mini:font-sans mini:text-[13px] mini:leading-[1.35] mini:font-bold mini:text-[#324f5c] mini:sm:mt-2.5 mini:sm:text-[15px]">
-                    {label}
-                  </h3>
-                  <p className="mini:mt-1 mini:mb-0 mini:hidden mini:text-xs mini:leading-[1.45] mini:text-[#64748b] mini:sm:block mini:sm:text-[13px]">
-                    {sub}
-                  </p>
-                </div>
-              </article>
-            ))}
+              <div className="mini:mt-8 mini:grid mini:grid-cols-2 mini:gap-3 mini:sm:gap-4">
+                {stats.map(([value, label, sub]) => (
+                  <article
+                    className="mini:min-w-0 mini:rounded-[20px] mini:border mini:border-[rgba(50,79,92,0.08)] mini:bg-white mini:p-3 mini:shadow-[0_4px_12px_rgba(50,79,92,0.08)] mini:sm:p-[18px] mini:lg:p-[22px]"
+                    key={label}
+                  >
+                    <strong className="mini:block mini:font-sans mini:text-[25px] mini:leading-none mini:text-[#2563eb] mini:sm:text-[36px]">
+                      {value}
+                    </strong>
+                    <h3 className="mini:mt-2 mini:mb-0 mini:font-sans mini:text-[12px] mini:leading-[1.35] mini:font-bold mini:text-[#324f5c] mini:sm:text-[15px]">
+                      {label}
+                    </h3>
+                    <p className="mini:mt-1 mini:mb-0 mini:hidden mini:text-xs mini:leading-[1.45] mini:text-[#64748b] mini:sm:block mini:sm:text-[13px]">
+                      {sub}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </div>
+
+            <div className="mini:relative mini:order-1 mini:mx-auto mini:aspect-square mini:w-full mini:max-w-[350px] mini:overflow-hidden mini:rounded-[26px] mini:border mini:border-[rgba(50,79,92,0.12)] mini:bg-[#f0f7fd] mini:shadow-[0_12px_34px_rgba(50,79,92,0.12)] mini:lg:order-2 mini:lg:mr-[clamp(-140px,calc(580px_-_50vw),-24px)] mini:lg:max-w-none mini:lg:overflow-visible mini:lg:rounded-none mini:lg:border-0 mini:lg:bg-transparent mini:lg:shadow-none mini:lg:aspect-auto">
+              <picture className="mini:block mini:h-full mini:w-full mini:lg:flex mini:lg:justify-end">
+                <source media="(min-width: 1024px)" srcSet="/media/pages/mini1/irina-about-cutout.png" />
+                <img
+                  className="mini:relative mini:z-10 mini:block mini:h-full mini:w-full mini:object-cover mini:lg:h-auto mini:lg:w-[min(116%,700px)] mini:lg:max-w-none mini:lg:object-contain"
+                  src="/media/pages/mini1/irina-about.jpg"
+                  alt="Ирина Соболева"
+                />
+              </picture>
+            </div>
           </div>
           <div className="mini:mt-8 mini:flex mini:justify-center mini:sm:mt-10">
             <LandingCta channel={ctaChannel} />

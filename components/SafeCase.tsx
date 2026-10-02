@@ -1,6 +1,7 @@
 import React from 'react';
 import { Section } from './ui/Section';
 import { Target, Link, MessageSquare, AlertTriangle, Users, HeartCrack, FileX, Briefcase, XCircle, CheckCircle } from 'lucide-react';
+import { ResponsiveImage } from './ui/ResponsiveImage';
 
 export const SafeCase: React.FC = () => {
   const pillars = [
@@ -22,12 +23,12 @@ export const SafeCase: React.FC = () => {
   ];
 
   const complexCases = [
-    { icon: FileX, label: "Предыдущие отказы в визе (даже 5+)", image: "/illustrations/complex-cases/previous-refusals.jpg" },
-    { icon: Users, label: "Наличие родственников в США", image: "/illustrations/complex-cases/relatives-in-usa.jpg" },
-    { icon: HeartCrack, label: "Сложная семейная ситуация", image: "/illustrations/complex-cases/complex-family.jpg" },
-    { icon: AlertTriangle, label: "Отсутствие визовой истории", image: "/illustrations/complex-cases/no-visa-history.jpg" },
-    { icon: Briefcase, label: "Нестандартный тип занятости", image: "/illustrations/complex-cases/nonstandard-employment.jpg" },
-    { icon: XCircle, label: "Аннулированные визы или ESTA", image: "/illustrations/complex-cases/cancelled-visa.jpg" },
+    { icon: FileX, label: "Предыдущие отказы в визе (даже 5+)", image: "/illustrations/complex-cases/previous-refusals-v2" },
+    { icon: Users, label: "Наличие родственников в США", image: "/illustrations/complex-cases/relatives-in-usa-v2" },
+    { icon: HeartCrack, label: "Сложная семейная ситуация", image: "/illustrations/complex-cases/complex-family-v2" },
+    { icon: AlertTriangle, label: "Отсутствие визовой истории", image: "/illustrations/complex-cases/no-visa-history" },
+    { icon: Briefcase, label: "Нестандартный тип занятости", image: "/illustrations/complex-cases/nonstandard-employment" },
+    { icon: XCircle, label: "Аннулированные визы или ESTA", image: "/illustrations/complex-cases/cancelled-visa" },
   ];
 
   return (
@@ -66,10 +67,15 @@ export const SafeCase: React.FC = () => {
       {/* 3 Pillars with Image */}
       <div className="grid lg:grid-cols-2 gap-10 lg:gap-12 items-stretch mb-20">
         <div className="hidden md:flex h-full justify-center">
-            <img 
-                src="/media/shared/safe-case-method.webp"
+            <ResponsiveImage
+                basePath="/media/shared/safe-case-method"
+                widths={[480, 800, 1200]}
+                fallbackType="jpg"
+                sizes="(max-width: 1023px) 0px, 50vw"
                 alt="Safe Case method visualization"
                 className="rounded-3xl shadow-xl w-full max-w-none object-cover dark:opacity-80 lg:min-h-[440px]"
+                width={2368}
+                height={1792}
                 loading="lazy"
                 decoding="async"
             />
@@ -101,10 +107,15 @@ export const SafeCase: React.FC = () => {
           {complexCases.map((item, idx) => (
             <div key={idx} className="overflow-hidden rounded-2xl md:rounded-3xl bg-light dark:bg-slate-900 border border-slate-100 dark:border-slate-700 shadow-sm group">
               <div className="hidden md:block w-full aspect-square overflow-hidden">
-                <img 
-                  src={item.image} 
+                <ResponsiveImage
+                  basePath={item.image}
+                  widths={[480, 800]}
+                  fallbackType="jpg"
+                  sizes="(max-width: 1023px) calc(50vw - 36px), 380px"
                   alt={item.label} 
                   className="w-full h-full object-cover transform group-hover:scale-[1.025] transition-transform duration-500"
+                  width={800}
+                  height={800}
                   loading="lazy"
                   decoding="async"
                 />

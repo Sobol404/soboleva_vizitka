@@ -1,13 +1,11 @@
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { ArrowUp, ArrowUpRight, BookOpenText, ChevronRight } from 'lucide-react';
-import { ArticleData } from '../articles/types';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { ArrowUp, ChevronRight } from 'lucide-react';
 import safeCaseSource from '../content/safe-case/source.html?raw';
 import { DocumentToc, DocumentTocItem, scrollToDocumentSection, useActiveDocumentSection } from './DocumentToc';
 import { ArticleAuthorCard } from './ArticleAuthorCard';
 
 interface SafeCaseLandingProps {
   onBack: () => void;
-  relatedArticles: ArticleData[];
 }
 
 const safeCaseTocItems: DocumentTocItem[] = [
@@ -47,6 +45,31 @@ const safeCaseImagePaths: Record<string, string> = {
   'assets/img/получили_визы.png': '/media/pages/safe-case/approved-visas.png',
 };
 
+const safeCaseImageDimensions: Record<string, [number, number]> = {
+  'article-preview': [1672, 941],
+  'irina-avatar-flag': [1254, 1254],
+  'client-reviews-overview': [2048, 1365],
+  'visa-refusal': [1672, 941],
+  'approved-visas': [1920, 1920],
+  'visa-myths': [1672, 941],
+  'interview-risks': [1672, 941],
+  matryoshka: [1536, 1024],
+  glasses: [1536, 1024],
+  'client-review-flag-01': [1920, 1080],
+  'method-on-whiteboard': [1660, 947],
+  'client-visas-01': [2048, 1152],
+  'client-reviews-collage': [2048, 2048],
+  'irina-with-visa': [1254, 1254],
+  'eight-steps': [1672, 941],
+  'client-visas-02': [2048, 2048],
+  'chances-assessment': [1672, 941],
+  guarantees: [1672, 941],
+  'cost-of-refusal': [1280, 720],
+  'success-cases': [1672, 941],
+};
+
+const safeCaseTransparentImages = new Set(['approved-visas', 'glasses', 'matryoshka']);
+
 const extractBlock = (source: string, pattern: RegExp, label: string) => {
   const match = source.match(pattern);
   if (!match?.[1]) throw new Error(`Не удалось извлечь ${label} из Safe Case`);
@@ -59,23 +82,82 @@ const replaceSafeCaseImagePath = (sourcePath: string) => (
   )?.[1] ?? sourcePath
 );
 
-export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relatedArticles }) => {
+const addResponsiveSafeCaseImages = (markup: string) => markup.replace(
+  /<img([^>]*?)src="(\/media\/pages\/safe-case\/([^"]+)\.(?:jpeg|png))"([^>]*)>/g,
+  (_match, beforeSrc: string, _sourcePath: string, imageName: string, afterSrc: string) => {
+    const [width, height] = safeCaseImageDimensions[imageName] ?? [1200, 800];
+    const fallbackType = safeCaseTransparentImages.has(imageName) ? 'png' : 'jpg';
+    const basePath = `/media/pages/safe-case/${imageName}`;
+    const sizes = imageName === 'irina-avatar-flag'
+      ? '60px'
+      : imageName === 'matryoshka' || imageName === 'glasses'
+        ? '(max-width: 768px) 32vw, 220px'
+        : '(max-width: 768px) calc(100vw - 40px), 872px';
+    const eagerAttributes = imageName === 'article-preview'
+      ? 'loading="eager" fetchpriority="high"'
+      : 'loading="lazy"';
+    const webpSet = [480, 800, 1200].map((size) => `${basePath}-${size}.webp ${size}w`).join(', ');
+    const fallbackSet = [480, 800, 1200].map((size) => `${basePath}-${size}.${fallbackType} ${size}w`).join(', ');
+    const editorialPicture = !['irina-avatar-flag', 'matryoshka', 'glasses'].includes(imageName);
+
+    return `<picture class="responsive-picture${editorialPicture ? ' editorial-picture' : ''}"><source type="image/webp" srcset="${webpSet}" sizes="${sizes}"><img${beforeSrc}src="${basePath}-1200.${fallbackType}" srcset="${fallbackSet}" sizes="${sizes}" width="${width}" height="${height}" ${eagerAttributes} decoding="async"${afterSrc}></picture>`;
+  },
+);
+
+export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack }) => {
   const [tocOpen, setTocOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const articleHostRef = useRef<HTMLDivElement>(null);
+  const widgetMutationObserverRef = useRef<MutationObserver | null>(null);
+  const widgetFallbackTimerRef = useRef<number | null>(null);
   const activeId = useActiveDocumentSection(safeCaseTocItems);
-  const related = useMemo(() => relatedArticles.filter((article) => article.id !== 'safe-case').slice(0, 3), [relatedArticles]);
   const styles = useMemo(
     () => extractBlock(safeCaseSource, /<style>([\s\S]*?)<\/style>/i, 'стили')
-      .replaceAll("'Inter'", "'Manrope'"),
+      .replaceAll("'Inter'", "'Manrope'")
+      .replace(
+        '*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}',
+        '.sv-art,.sv-art *,.sv-art *::before,.sv-art *::after{box-sizing:border-box;margin:0;padding:0;}',
+      )
+      .replace(':root{', '.sv-art{')
+      .replace(
+        "html,body{background:var(--surface-page);font-family:'Manrope',system-ui,sans-serif;color:var(--brand-slate);line-height:1.6;}",
+        ".sv-art{font-family:'Manrope',system-ui,sans-serif;color:var(--brand-slate);line-height:1.6;}",
+      )
+      .concat(`
+        .responsive-picture{display:contents;}
+        #xl-visa-quiz{min-height:380px !important;}
+        #xl-visa-quiz iframe{min-height:380px !important;}
+        .sv-art .sv-btn{width:min(100%,366px)!important;max-width:366px!important;min-height:56px!important;padding:0 24px!important;font-size:1rem!important;border-radius:9999px!important;}
+        .sv-art .sv-btn-wrap{padding-left:0!important;padding-right:0!important;}
+        .sv-art :is(.glass-quote,.bullet-item,.num-item,.author-quote,.myth-card,.step-card,.step-result,.stat-tile,.results-dark,.sv-acc,.offer-frame,.quiz-shell,.quiz-warning,.section-preview,.inline-section-preview,.blue-bullet,.guarantee-item,.loss-card,.choice-no,.choice-yes,.red-table,.story-quote,.dark-guarantee,.cta-disclaimer,.warn-box,.final-cta,.flip,.flip-face,[style*="border-radius:12px"],[style*="border-radius:14px"],[style*="border-radius:16px"],[style*="border-radius:18px"],[style*="border-radius:20px"],[style*="border-radius:22px"],[style*="border-radius:28px"]){border-radius:20px!important;}
+        .sv-art img:not([style*="border-radius:50%"]){border-radius:20px!important;}
+        .sv-art .author-avatar,.sv-art .author-avatar img,.sv-art .sv-btn{border-radius:9999px!important;}
+        .sv-art .final-cta{overflow:hidden;margin-bottom:40px!important;}
+        .sv-art .steps-grid{display:block;}
+        .sv-art .step-card{position:sticky;top:76px;margin-bottom:20px;}
+        .sv-art .step-card:nth-child(1){z-index:1}.sv-art .step-card:nth-child(2){z-index:2}.sv-art .step-card:nth-child(3){z-index:3}.sv-art .step-card:nth-child(4){z-index:4}.sv-art .step-card:nth-child(5){z-index:5}.sv-art .step-card:nth-child(6){z-index:6}.sv-art .step-card:nth-child(7){z-index:7}.sv-art .step-card:nth-child(8){z-index:8}
+        @media(max-width:640px){
+          .sv-art .step-card{top:60px;}
+          .sv-art .guarantee-clarification{margin-top:-30px!important;margin-bottom:-60px!important;}
+          .sv-art .editorial-picture img,.sv-art div:has(> .editorial-picture){border-radius:0!important;}
+        }
+        #xl-visa-quiz:not([data-xl-widget-attached="true"]){
+          border:1px solid rgba(148,163,184,.24);
+          border-radius:24px;
+          background:linear-gradient(110deg,rgba(226,232,240,.45) 8%,rgba(248,250,252,.9) 18%,rgba(226,232,240,.45) 33%);
+          background-size:200% 100%;
+          animation:quiz-placeholder 1.8s linear infinite;
+        }
+        @keyframes quiz-placeholder{to{background-position-x:-200%;}}
+      `),
     [],
   );
 
-  const articleMarkup = useMemo(() => extractBlock(
+  const articleMarkup = useMemo(() => addResponsiveSafeCaseImages(extractBlock(
     safeCaseSource,
     /(<article class="sv-art">[\s\S]*<\/article>)/i,
     'статью',
-  ).replace(/assets\/img\/[^\"]+/g, replaceSafeCaseImagePath), []);
+  ).replace(/assets\/img\/[^\"]+/g, replaceSafeCaseImagePath)), []);
 
   useEffect(() => {
     document.title = 'Как 9 из 10 россиян получают визу США — метод Safe Case';
@@ -104,6 +186,36 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
   }, [articleMarkup]);
 
   useEffect(() => {
+    const results = articleHostRef.current?.querySelector<HTMLElement>('.results-dark');
+    const values = Array.from(results?.querySelectorAll<HTMLElement>('[data-count-to]') ?? []);
+    if (!results || !values.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let frame = 0;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+
+      const start = performance.now();
+      const animate = (now: number) => {
+        const progress = Math.min((now - start) / 1200, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        values.forEach((element) => {
+          const target = Number(element.dataset.countTo);
+          element.textContent = `${Math.round(target * eased)}${element.dataset.countSuffix ?? ''}`;
+        });
+        if (progress < 1) frame = window.requestAnimationFrame(animate);
+      };
+      frame = window.requestAnimationFrame(animate);
+    }, { threshold: 0.3 });
+
+    observer.observe(results);
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+    };
+  }, [articleMarkup]);
+
+  const loadQuizWidget = useCallback(() => {
     const widgetHost = document.getElementById('xl-visa-quiz');
     if (!widgetHost || widgetHost.dataset.xlWidgetAttached === 'true') return;
 
@@ -123,18 +235,36 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
     // zero-height iframe. A minimum height keeps it usable while allowing XL
     // to grow the frame later on a configured domain.
     const ensureFrameIsVisible = () => {
-      const frame = widgetHost.querySelector('iframe');
-      if (frame) frame.style.minHeight = '560px';
+      const frame = widgetHost.querySelector<HTMLIFrameElement>('iframe');
+      if (frame) {
+        frame.style.minHeight = '380px';
+        frame.title = 'Квиз для бесплатного разбора визового кейса';
+      }
     };
-    const observer = new MutationObserver(ensureFrameIsVisible);
-    observer.observe(widgetHost, { childList: true });
-    const fallbackTimer = window.setTimeout(ensureFrameIsVisible, 1_000);
+    widgetMutationObserverRef.current = new MutationObserver(ensureFrameIsVisible);
+    widgetMutationObserverRef.current.observe(widgetHost, { childList: true });
+    widgetFallbackTimerRef.current = window.setTimeout(ensureFrameIsVisible, 1_000);
+  }, []);
+
+  useEffect(() => {
+    const widgetHost = document.getElementById('xl-visa-quiz');
+    if (!widgetHost) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      if (!entries.some((entry) => entry.isIntersecting)) return;
+      loadQuizWidget();
+      observer.disconnect();
+    }, { rootMargin: '1000px 0px' });
+    observer.observe(widgetHost);
 
     return () => {
       observer.disconnect();
-      window.clearTimeout(fallbackTimer);
+      widgetMutationObserverRef.current?.disconnect();
+      widgetMutationObserverRef.current = null;
+      if (widgetFallbackTimerRef.current !== null) window.clearTimeout(widgetFallbackTimerRef.current);
+      widgetFallbackTimerRef.current = null;
     };
-  }, [articleMarkup]);
+  }, [articleMarkup, loadQuizWidget]);
 
   const handleArticleClick = (event: React.MouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
@@ -149,6 +279,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
     if (!anchor) return;
 
     event.preventDefault();
+    loadQuizWidget();
     document.getElementById('zayavka')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
@@ -170,7 +301,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
   };
 
   return (
-    <div className="min-h-screen bg-[#F4F7F9] pt-20 dark:bg-[#101827]">
+    <div className="min-h-screen bg-[#F4F7F9] pt-12 dark:bg-[#101827]">
       <style>{styles}</style>
       <nav aria-label="Хлебные крошки" className="mx-auto flex max-w-[1240px] items-center gap-2 overflow-hidden px-4 py-5 text-sm text-slate-500 dark:text-slate-400">
         <button
@@ -200,7 +331,7 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
         type="button"
         aria-label="Прокрутить наверх"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className={`fixed bottom-5 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-[#2563EB] text-white shadow-xl transition-all duration-300 hover:bg-[#1D4ED8] lg:bottom-6 lg:right-6 ${showScrollTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-10 opacity-0'}`}
+        className={`fixed bottom-5 right-4 z-40 flex h-11 w-11 items-center justify-center rounded-full bg-[#324F5C] text-white shadow-xl transition-all duration-300 hover:bg-[#263F49] lg:bottom-6 lg:right-6 ${showScrollTop ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-10 opacity-0'}`}
       >
         <ArrowUp className="h-5 w-5" aria-hidden="true" />
       </button>
@@ -209,43 +340,6 @@ export const SafeCaseLanding: React.FC<SafeCaseLandingProps> = ({ onBack, relate
         <div className="min-w-0">
           <div ref={articleHostRef} onClick={handleArticleClick} onKeyDown={handleArticleKeyDown} />
 
-          <div aria-labelledby="related-safe-case-heading" className="mx-4 my-12 rounded-[2rem] border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-dark-card sm:p-8">
-            <div className="flex items-end justify-between gap-4">
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">Блог Safe Visa</p>
-                <h2 id="related-safe-case-heading" className="mt-1 text-2xl font-bold text-dark dark:text-white sm:text-3xl">Похожие статьи</h2>
-              </div>
-              <a href="/blog" className="hidden items-center gap-1 text-sm font-bold text-accent sm:inline-flex">
-                Все статьи <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-              </a>
-            </div>
-
-            <div className="mt-6 grid gap-5 md:grid-cols-3">
-              {related.map((article) => (
-                <a
-                  key={article.id}
-                  href={`/article/${article.id}`}
-                  className="group overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-700 dark:bg-slate-800"
-                >
-                  <div className="aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-900">
-                    <img src={article.mainImage} alt="" loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.025]" />
-                  </div>
-                  <div className="p-5">
-                    <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
-                      <BookOpenText className="h-4 w-4 text-accent" aria-hidden="true" />
-                      Статья · {article.date}
-                    </div>
-                    <h3 className="mt-3 text-lg font-bold leading-snug text-dark transition-colors group-hover:text-accent dark:text-white">{article.title}</h3>
-                    <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">{article.description}</p>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            <a href="/blog" className="mt-6 inline-flex items-center gap-1 text-sm font-bold text-accent sm:hidden">
-              Все статьи <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-            </a>
-          </div>
         </div>
 
         <div className="hidden lg:block">

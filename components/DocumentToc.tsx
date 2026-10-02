@@ -11,7 +11,7 @@ export const scrollToDocumentSection = (id: string) => {
   if (!element) return;
 
   const isDesktop = window.innerWidth >= 1024;
-  const fixedHeaderOffset = isDesktop ? 112 : 104;
+  const fixedHeaderOffset = isDesktop ? 80 : 72;
   const targetTop = element.getBoundingClientRect().top + window.scrollY - fixedHeaderOffset;
 
   window.scrollTo({
@@ -168,12 +168,12 @@ export const DocumentToc: React.FC<DocumentTocProps> = ({
         <button
           type="button"
           onClick={onToggle}
+          aria-label={isOpen ? 'Закрыть содержание' : 'Открыть содержание'}
           aria-expanded={isOpen}
           aria-controls={panelId}
-          className={`fixed bottom-5 z-40 flex items-center gap-2 rounded-full border border-slate-200 bg-white/95 px-4 py-3 text-sm font-bold text-dark shadow-xl backdrop-blur-md transition-transform hover:-translate-y-0.5 dark:border-slate-700 dark:bg-dark-card/95 dark:text-white ${mobileWithTopButton ? 'right-[4.75rem]' : 'right-4'}`}
+          className={`fixed bottom-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 bg-white/95 text-dark shadow-xl backdrop-blur-md transition-transform hover:-translate-y-0.5 dark:border-slate-700 dark:bg-dark-card/95 dark:text-white ${mobileWithTopButton ? 'right-[4.75rem]' : 'right-4'}`}
         >
-          <List className="h-4 w-4 text-accent" />
-          Содержание
+          <List className={`h-5 w-5 ${mobileWithTopButton ? 'text-[#314e5a]' : 'text-accent'}`} aria-hidden="true" />
         </button>
 
         {isOpen && (

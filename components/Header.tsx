@@ -9,6 +9,8 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isHomePage = (window.location.pathname.replace(/\/+$/, '') || '/') === '/';
+  const useSolidBackground = isScrolled || !isHomePage;
 
   const navLinks = [
     { name: 'Обо мне', href: '/', section: 'about' },
@@ -63,18 +65,18 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/80 dark:bg-dark-deep/80 shadow-md backdrop-blur-md' 
+      useSolidBackground
+        ? 'border-b border-white/60 bg-white/70 shadow-[0_8px_30px_rgba(15,23,42,0.08)] backdrop-blur-xl dark:border-slate-700/60 dark:bg-dark-deep/70'
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto px-4 md:px-6 lg:px-8 max-w-7xl">
-        <div className="flex items-center justify-between h-20">
-          <a href="/" onClick={(e) => scrollToSection(e, 'root')} className="text-2xl font-bold text-dark dark:text-white tracking-tight">
+        <div className="flex h-12 items-center justify-between">
+          <a href="/" onClick={(e) => scrollToSection(e, 'root')} className="text-xl font-bold tracking-tight text-dark dark:text-white">
             Safe Visa<span className="text-accent">.</span>
           </a>
           
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden items-center gap-6 lg:flex xl:gap-8">
             {navLinks.map((link) => (
               <a 
                 key={link.name} 
@@ -89,29 +91,29 @@ export const Header: React.FC<HeaderProps> = ({ darkMode, toggleDarkMode }) => {
             {/* Theme Toggle */}
             <button 
               onClick={toggleDarkMode}
-              className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-dark dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              className="rounded-full bg-slate-100 p-1.5 text-dark transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
               aria-label="Toggle theme"
             >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </nav>
           
           {/* Mobile Actions */}
-          <div className="lg:hidden flex items-center gap-2">
+          <div className="flex items-center gap-1 lg:hidden">
             <button 
               onClick={toggleDarkMode}
-              className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-dark dark:text-white mr-2"
+              className="rounded-full bg-slate-100 p-1.5 text-dark transition-colors hover:bg-slate-200 dark:bg-slate-800 dark:text-white dark:hover:bg-slate-700"
               aria-label="Переключить тему"
             >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-dark dark:text-white p-2"
+              className="flex h-9 w-9 items-center justify-center text-dark dark:text-white"
               aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}
               aria-expanded={isOpen}
             >
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>

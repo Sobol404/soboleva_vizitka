@@ -1,9 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { SafeCase } from './components/SafeCase';
-import { SafeCaseLanding } from './components/SafeCaseLanding';
 import { Socials } from './components/Socials';
 import { Services } from './components/Services';
 import { Reviews } from './components/Reviews';
@@ -11,20 +10,32 @@ import { Guarantees } from './components/Guarantees';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
 import { VisaSlider } from './components/VisaSlider';
-import { ArticlePage } from './components/ArticlePage';
 import { ArticleData } from './articles/types';
 import { markdownArticles } from './content/article-loader';
-import { PolicyPage } from './components/PolicyPage';
-import { OfferPage } from './components/OfferPage';
 import { BlogPreview } from './components/BlogPreview';
-import { BlogPage } from './components/BlogPage';
-import { MiniLanding } from './components/MiniLanding';
-import { CookiesPage } from './components/CookiesPage';
-import { PrivacyPage } from './components/PrivacyPage';
-import { ClientDataConsentPage } from './components/ClientDataConsentPage';
-import { AdvertisingConsentPage } from './components/AdvertisingConsentPage';
 import { CookieBanner } from './components/CookieBanner';
 import { getMetrikaVirtualPath, MetrikaTracker } from './analytics/MetrikaTracker';
+
+const SafeCaseLanding = lazy(() => import('./components/SafeCaseLanding').then((module) => ({ default: module.SafeCaseLanding })));
+const ArticlePage = lazy(() => import('./components/ArticlePage').then((module) => ({ default: module.ArticlePage })));
+const PolicyPage = lazy(() => import('./components/PolicyPage').then((module) => ({ default: module.PolicyPage })));
+const OfferPage = lazy(() => import('./components/OfferPage').then((module) => ({ default: module.OfferPage })));
+const BlogPage = lazy(() => import('./components/BlogPage').then((module) => ({ default: module.BlogPage })));
+const MiniLanding = lazy(() => import('./components/MiniLanding').then((module) => ({ default: module.MiniLanding })));
+const CookiesPage = lazy(() => import('./components/CookiesPage').then((module) => ({ default: module.CookiesPage })));
+const PrivacyPage = lazy(() => import('./components/PrivacyPage').then((module) => ({ default: module.PrivacyPage })));
+const ClientDataConsentPage = lazy(() => import('./components/ClientDataConsentPage').then((module) => ({ default: module.ClientDataConsentPage })));
+const AdvertisingConsentPage = lazy(() => import('./components/AdvertisingConsentPage').then((module) => ({ default: module.AdvertisingConsentPage })));
+
+const PageLoadingFallback = () => (
+  <div className="min-h-[70vh] bg-light pt-28 dark:bg-dark-deep" aria-live="polite" aria-busy="true">
+    <div className="mx-auto max-w-6xl px-4">
+      <div className="h-8 w-48 animate-pulse rounded-full bg-slate-200 dark:bg-slate-700" />
+      <div className="mt-6 h-64 animate-pulse rounded-[2rem] bg-white shadow-sm dark:bg-dark-card" />
+      <span className="sr-only">Загружаем страницу…</span>
+    </div>
+  </div>
+);
 
 const safeCaseCard: ArticleData = {
   id: 'safe-case',
@@ -132,7 +143,6 @@ const App: React.FC = () => {
   const isBlogOpen = staticPage === 'blog';
   const isMiniOpen = staticPage === 'mini' || staticPage === 'mini-max';
   const isCookiesOpen = staticPage === 'cookies';
-  const isMiniPath = window.location.pathname.replace(/\/+$/, '') === '/mini1';
   const metrikaVirtualPath = getMetrikaVirtualPath(window.location.pathname, window.location.hash);
   const trackReading = Boolean(currentArticle) || isSafeCaseOpen || isPolicyOpen || isPrivacyOpen || isClientConsentOpen || isAdvertisingConsentOpen || isOfferOpen || isCookiesOpen;
 
@@ -146,43 +156,45 @@ const App: React.FC = () => {
       {!isMiniOpen && <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />}
       <MetrikaTracker virtualPath={metrikaVirtualPath} trackReading={trackReading} />
       <main className="relative z-10">
-        {isPolicyOpen ? (
-          <PolicyPage onBack={goBack} />
-        ) : isPrivacyOpen ? (
-          <PrivacyPage onBack={goBack} />
-        ) : isClientConsentOpen ? (
-          <ClientDataConsentPage onBack={goBack} />
-        ) : isAdvertisingConsentOpen ? (
-          <AdvertisingConsentPage onBack={goBack} />
-        ) : isOfferOpen ? (
-          <OfferPage onBack={goBack} />
-        ) : isCookiesOpen ? (
-          <CookiesPage onBack={goBack} />
-        ) : isSafeCaseOpen ? (
-          <SafeCaseLanding onBack={goBack} relatedArticles={markdownArticles} />
-        ) : isMiniOpen ? (
-          <MiniLanding ctaChannel={staticPage === 'mini-max' ? 'max' : 'telegram'} />
-        ) : isBlogOpen ? (
-          <BlogPage articles={blogArticles} onBack={goBack} />
-        ) : currentArticle ? (
-          <ArticlePage data={currentArticle} onBack={goBack} />
-        ) : (
-          <>
-            <Hero />
-            <About />
-            <VisaSlider />
-            <SafeCase />
-            <Socials />
-            <BlogPreview articles={blogArticles} />
+        <Suspense fallback={<PageLoadingFallback />}>
+          {isPolicyOpen ? (
+            <PolicyPage onBack={goBack} />
+          ) : isPrivacyOpen ? (
+            <PrivacyPage onBack={goBack} />
+          ) : isClientConsentOpen ? (
+            <ClientDataConsentPage onBack={goBack} />
+          ) : isAdvertisingConsentOpen ? (
+            <AdvertisingConsentPage onBack={goBack} />
+          ) : isOfferOpen ? (
+            <OfferPage onBack={goBack} />
+          ) : isCookiesOpen ? (
+            <CookiesPage onBack={goBack} />
+          ) : isSafeCaseOpen ? (
+            <SafeCaseLanding onBack={goBack} />
+          ) : isMiniOpen ? (
+            <MiniLanding ctaChannel={staticPage === 'mini-max' ? 'max' : 'telegram'} />
+          ) : isBlogOpen ? (
+            <BlogPage articles={blogArticles} onBack={goBack} />
+          ) : currentArticle ? (
+            <ArticlePage data={currentArticle} onBack={goBack} />
+          ) : (
+            <>
+              <Hero />
+              <About />
+              <VisaSlider />
+              <SafeCase />
+              <Socials />
+              <BlogPreview articles={blogArticles} />
 
-            <Services />
-            <Reviews />
-            <Guarantees />
-            <Contact />
-          </>
-        )}
+              <Services />
+              <Reviews />
+              <Guarantees />
+              <Contact />
+            </>
+          )}
+        </Suspense>
       </main>
-      {!isMiniOpen && <Footer compact={isMiniPath} />}
+      {!isMiniOpen && <Footer compact />}
       <CookieBanner />
     </div>
   );

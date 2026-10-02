@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Section } from './ui/Section';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ResponsiveImage } from './ui/ResponsiveImage';
 
 export const VisaSlider: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -13,10 +14,10 @@ export const VisaSlider: React.FC = () => {
   const hasDraggedRef = useRef(false);
 
   const baseImages = [
-    "/media/shared/visa-approval-01.webp",
-    "/media/shared/visa-approval-02.webp",
-    "/media/shared/visa-approval-03.webp",
-    "/media/shared/visa-approval-04.webp",
+    "/media/shared/visa-approval-updated-01",
+    "/media/shared/visa-approval-updated-02",
+    "/media/shared/visa-approval-updated-03",
+    "/media/shared/visa-approval-04",
   ];
 
   const visaImages = [...baseImages, ...baseImages, ...baseImages];
@@ -114,10 +115,15 @@ export const VisaSlider: React.FC = () => {
               className="flex-shrink-0 w-[82vw] sm:w-80 md:w-96 h-52 sm:h-56 md:h-64 rounded-2xl overflow-hidden shadow-lg transform transition-transform hover:scale-[1.02] bg-light dark:bg-dark-card border border-slate-100 dark:border-slate-800 cursor-pointer"
               onClick={() => handleImageClick(src)}
             >
-              <img
-                src={src}
+              <ResponsiveImage
+                basePath={src}
+                widths={[480, 800, 1200]}
+                fallbackType="jpg"
+                sizes="(max-width: 639px) 82vw, (max-width: 767px) 320px, 384px"
                 alt={`Visa example ${index + 1}`}
                 className="w-full h-full object-cover pointer-events-none dark:opacity-80"
+                width={1920}
+                height={1080}
                 draggable="false"
                 loading="lazy"
                 decoding="async"
@@ -164,7 +170,7 @@ export const VisaSlider: React.FC = () => {
             >
               <X className="w-4 h-4" />
             </button>
-            <img src={modalSrc} alt="Visa example" className="w-full h-auto object-contain" />
+            <img src={`${modalSrc}-1200.webp`} alt="Visa example" className="w-full h-auto object-contain" width={1200} height={675} />
           </div>
         </div>
       )}

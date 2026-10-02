@@ -2,6 +2,7 @@ import React from 'react';
 import { Section } from './ui/Section';
 import { MessageCircle, Send } from 'lucide-react';
 import { links } from '../config/links';
+import { ResponsiveImage } from './ui/ResponsiveImage';
 
 export const Contact: React.FC = () => {
   return (
@@ -40,10 +41,15 @@ export const Contact: React.FC = () => {
         </div>
 
         <div className="flex-1 flex justify-center">
-            <img
-              src="/media/shared/contact-telegram-mockup.png"
+            <ResponsiveImage
+              basePath="/media/shared/contact-telegram-mockup"
+              widths={[480, 800, 1200]}
+              fallbackType="png"
+              sizes="(max-width: 767px) calc(100vw - 32px), 50vw"
               alt="Contact mockups"
               className="w-full max-w-xl"
+              width={1920}
+              height={1920}
               loading="lazy"
               decoding="async"
             />

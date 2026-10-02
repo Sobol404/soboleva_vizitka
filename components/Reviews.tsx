@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Section } from './ui/Section';
 import { X } from 'lucide-react';
+import { ResponsiveImage } from './ui/ResponsiveImage';
 
 type Direction = 'left' | 'right';
 
@@ -16,6 +17,7 @@ const ReviewMarquee: React.FC<ReviewMarqueeProps> = ({ images, direction, onOpen
   const startXRef = useRef(0);
   const scrollLeftRef = useRef(0);
   const hasDraggedRef = useRef(false);
+  const pendingReviewRef = useRef<string | null>(null);
   const pauseUntilRef = useRef(0);
   const [isDragging, setIsDragging] = useState(false);
   const repeatedImages = [...images, ...images, ...images];
@@ -62,6 +64,9 @@ const ReviewMarquee: React.FC<ReviewMarqueeProps> = ({ images, direction, onOpen
     if (!scrollRef.current) return;
     setIsDragging(true);
     hasDraggedRef.current = false;
+    pendingReviewRef.current = (event.target as HTMLElement)
+      .closest<HTMLButtonElement>('button[data-review-src]')
+      ?.dataset.reviewSrc ?? null;
     pauseAutoScroll();
     startXRef.current = event.clientX;
     scrollLeftRef.current = scrollRef.current.scrollLeft;
@@ -81,9 +86,11 @@ const ReviewMarquee: React.FC<ReviewMarqueeProps> = ({ images, direction, onOpen
     setIsDragging(false);
   };
 
-  const handleReviewClick = (src: string) => {
-    setIsDragging(false);
-    if (!hasDraggedRef.current) onOpen(src);
+  const finishPointerInteraction = () => {
+    const pendingReview = pendingReviewRef.current;
+    stopDragging();
+    if (!hasDraggedRef.current && pendingReview) onOpen(pendingReview);
+    pendingReviewRef.current = null;
   };
 
   return (
@@ -92,23 +99,31 @@ const ReviewMarquee: React.FC<ReviewMarqueeProps> = ({ images, direction, onOpen
       className="hide-scrollbar flex gap-4 overflow-x-auto py-1 select-none cursor-grab touch-pan-y active:cursor-grabbing md:gap-6"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
-      onPointerUp={stopDragging}
-      onPointerCancel={stopDragging}
-      onPointerLeave={stopDragging}
+      onPointerUp={finishPointerInteraction}
+      onPointerCancel={() => { pendingReviewRef.current = null; stopDragging(); }}
+      onPointerLeave={() => { pendingReviewRef.current = null; stopDragging(); }}
       style={{ scrollBehavior: 'auto' }}
     >
       {repeatedImages.map((src, index) => (
         <button
           key={`${direction}-${index}`}
           type="button"
+          data-review-src={src}
           className="flex-shrink-0 w-[78vw] overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-sm transition-transform hover:scale-[1.01] dark:border-slate-800 dark:bg-dark-card sm:w-[25rem]"
-          onClick={() => handleReviewClick(src)}
+          onClick={(event) => {
+            if (event.detail === 0) onOpen(src);
+          }}
           aria-label="Открыть отзыв крупнее"
         >
-          <img
-            src={src}
+          <ResponsiveImage
+            basePath={src}
+            widths={[480, 800]}
+            fallbackType="jpg"
+            sizes="(max-width: 639px) 78vw, 400px"
             alt="Отзыв клиента"
             className="pointer-events-none aspect-video h-full w-full object-cover"
+            width={882}
+            height={662}
             draggable="false"
             loading="lazy"
             decoding="async"
@@ -123,17 +138,17 @@ export const Reviews: React.FC = () => {
   const [modalSrc, setModalSrc] = useState<string | null>(null);
 
   const baseImages = [
-    '/media/shared/client-review-01.jpg',
-    '/media/shared/client-review-02.jpg',
-    '/media/shared/client-review-03.jpg',
-    '/media/shared/client-review-04.jpg',
-    '/media/shared/client-review-05.jpg',
-    '/media/shared/client-review-06.jpg',
-    '/media/shared/client-review-07.jpg',
-    '/media/shared/client-review-08.jpg',
-    '/media/shared/client-review-09.jpg',
-    '/media/shared/client-review-10.jpg',
-    '/media/shared/client-review-11.jpg',
+    '/media/shared/client-review-01',
+    '/media/shared/client-review-02',
+    '/media/shared/client-review-03',
+    '/media/shared/client-review-04',
+    '/media/shared/client-review-05',
+    '/media/shared/client-review-06',
+    '/media/shared/client-review-07',
+    '/media/shared/client-review-08',
+    '/media/shared/client-review-09',
+    '/media/shared/client-review-10',
+    '/media/shared/client-review-11',
   ];
 
   const firstRow = baseImages.filter((_, index) => index % 2 === 0);
@@ -174,7 +189,7 @@ export const Reviews: React.FC = () => {
             >
               <X className="h-4 w-4" />
             </button>
-            <img src={modalSrc} alt="Отзыв клиента" className="h-auto w-full object-contain" />
+            <img src={`${modalSrc}-800.webp`} alt="Отзыв клиента" className="h-auto w-full object-contain" width={800} height={601} />
           </div>
         </div>
       )}

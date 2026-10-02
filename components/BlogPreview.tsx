@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, BookOpenText, CalendarDays, Flame } from 'lucide-react';
 import { ArticleData } from '../articles/types';
 import { Section } from './ui/Section';
+import { ResponsiveImage } from './ui/ResponsiveImage';
 
 interface BlogPreviewProps {
   articles: ArticleData[];
@@ -24,10 +25,17 @@ export const BlogPreview: React.FC<BlogPreviewProps> = ({ articles }) => {
     <Section id="blog" className="py-10 md:py-14">
       <div className="mx-auto max-w-5xl rounded-[2rem] border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-dark-card sm:p-7 md:p-10">
         <div className="flex items-center gap-3 md:gap-4">
-          <img
-            src="/media/shared/irina-blog-avatar.png"
+          <ResponsiveImage
+            basePath="/media/shared/irina-blog-avatar"
+            widths={[160, 320, 480]}
+            fallbackType="jpg"
+            sizes="(max-width: 767px) 44px, 56px"
             alt="Ирина Соболева"
             className="h-11 w-11 rounded-full object-cover ring-2 ring-accent/20 md:h-14 md:w-14"
+            width={1254}
+            height={1254}
+            loading="lazy"
+            decoding="async"
           />
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-accent">Блог</p>
@@ -44,7 +52,7 @@ export const BlogPreview: React.FC<BlogPreviewProps> = ({ articles }) => {
             >
               <BookOpenText className="mt-1 h-5 w-5 flex-shrink-0 text-accent" aria-hidden="true" />
               <div className="min-w-0">
-                <h3 className="text-lg font-bold leading-snug text-dark transition-colors group-hover:text-accent dark:text-white md:text-xl">
+                <h3 className="font-sans text-lg font-bold leading-snug text-dark transition-colors group-hover:text-accent dark:text-white md:text-xl">
                   {article.title}
                 </h3>
                 <div className="mt-2 flex flex-wrap items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
@@ -66,7 +74,7 @@ export const BlogPreview: React.FC<BlogPreviewProps> = ({ articles }) => {
 
         <a
           href="/blog"
-          className="mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-dark transition-colors hover:border-accent hover:text-accent dark:border-slate-700 dark:text-white dark:hover:border-accent dark:hover:text-accent"
+          className="radius-exempt mt-6 inline-flex items-center gap-2 rounded-xl border border-slate-200 px-5 py-3 text-sm font-bold text-dark transition-colors hover:border-accent hover:text-accent dark:border-slate-700 dark:text-white dark:hover:border-accent dark:hover:text-accent"
         >
           Читать все материалы
           <ArrowRight className="h-4 w-4" aria-hidden="true" />

@@ -224,7 +224,7 @@ html,body{background:var(--surface-page);font-family:'Manrope',system-ui,sans-se
   .results-grid{max-width:330px;margin:0 auto;}
   .result-item{display:grid;grid-template-columns:6.5rem minmax(0,1fr);align-items:baseline;justify-content:initial;gap:10px;text-align:left!important;}
   .result-item .result-value{font-size:2rem!important;}
-  .result-item .result-value{text-align:center;}
+  .result-item .result-value{text-align:left;font-variant-numeric:tabular-nums;}
   .result-item .result-label{margin-top:0!important;white-space:nowrap;}
   .section-preview{margin:8px 0 0;border-radius:0;}
   .inline-section-preview{width:calc(100% + 40px);margin:0 -20px 20px;border-radius:0;}
@@ -526,9 +526,9 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   <div class="results-dark">
     <h3 style="font-size:2.4rem;font-weight:800;text-align:center;margin:0 0 24px;position:relative;">Результаты</h3>
     <div class="results-grid" style="position:relative;">
-      <div class="result-item" style="text-align:center;"><div class="result-value" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">87%</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">успешных одобрений</div></div>
-      <div class="result-item" style="text-align:center;"><div class="result-value" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">12</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">стран клиентов</div></div>
-      <div class="result-item" style="text-align:center;"><div class="result-value" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">300+</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">благодарных отзывов</div></div>
+      <div class="result-item" style="text-align:center;"><div class="result-value" data-count-to="87" data-count-suffix="%" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">87%</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">успешных одобрений</div></div>
+      <div class="result-item" style="text-align:center;"><div class="result-value" data-count-to="12" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">12</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">стран клиентов</div></div>
+      <div class="result-item" style="text-align:center;"><div class="result-value" data-count-to="300" data-count-suffix="+" style="font-size:3rem;font-weight:900;color:var(--yellow-500);line-height:1;">300+</div><div class="result-label" style="font-size:.95rem;color:rgba(255,255,255,.75);margin-top:8px;">благодарных отзывов</div></div>
     </div>
   </div>
 
@@ -606,7 +606,7 @@ html.dark .sv-art .quiz-shell{background:var(--surface-soft);}
   </div>
 </section>
 
-<section style="max-width:880px;margin:0 auto;padding:56px 24px;">
+<section class="guarantee-clarification" style="max-width:880px;margin:0 auto;padding:56px 24px;">
   <h2 style="font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:800;text-align:center;margin:0 0 32px;line-height:1.2;">«А мне 100% визу другое агентство гарантировало!»</h2>
   <div style="border:2px dashed var(--accent);border-radius:18px;padding:24px 26px;background:var(--accent-soft);text-align:center;margin:0 0 32px;">
     <p style="margin:0;font-size:1rem;font-weight:800;line-height:1.5;color:var(--accent);">Ни одно агентство не может влиять на итоговое решение визового офицера, который рассматривает ваш кейс.</p>

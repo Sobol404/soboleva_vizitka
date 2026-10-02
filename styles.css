@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/manrope-cyrillic-400-800.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-400-800.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+  src: url("/fonts/playfair-display-cyrillic-600-800.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin-600-800.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/playfair-display-cyrillic-italic-700.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: italic;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin-italic-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@theme {
+  --radius-surface: 20px;
+  --radius-media: 20px;
+  --color-accent: #e5484d;
+  --color-accent-hover: #c13d42;
+  --color-primary: #5aaae5;
+  --color-dark: #324f5c;
+  --color-dark-deep: #0f172a;
+  --color-dark-card: #1e293b;
+  --color-light: #f4f7f9;
+  --color-light-200: #f0f7fd;
+  --font-sans: "Manrope", sans-serif;
+  --font-serif: "Playfair Display", Georgia, serif;
+  --animate-fade-in: fade-in 0.3s ease-out;
+  --animate-fade-in-up: fade-in-up 0.45s ease-out both;
+  --animate-zoom-in: zoom-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --animate-float-subtle: float-subtle 3s ease-in-out infinite;
+  --animate-blob: blob 7s infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes blob {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@layer base {
+  html { font-family: var(--font-sans); }
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-serif); }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .animation-delay-2000 { animation-delay: 2s; }
+}
+
+.button-glint { position: relative; overflow: hidden; }
+.button-glint::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 20px;
+  height: 200%;
+  background: linear-gradient(to right, rgb(255 255 255 / 0), rgb(255 255 255 / 0.5), rgb(255 255 255 / 0));
+  transform: rotate(20deg);
+  transition: left 0.6s ease-in-out;
+  opacity: 0;
+}
+.button-glint:hover::after { left: 150%; opacity: 1; transition: left 0.8s ease-in-out; }
+
+.glass-quote {
+  background-color: rgb(255 255 255 / 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(0 0 0 / 0.05);
+  border-radius: 1rem;
+  padding: 1rem;
+  font-style: italic;
+}
+.dark .glass-quote { background-color: rgb(30 41 59 / 0.6); border-color: rgb(255 255 255 / 0.1); }
+
+.timeline-item { position: relative; padding-left: 3.5rem; }
+.timeline-item:not(:last-child) { padding-bottom: 2rem; }
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 27px;
+  top: 50%;
+  bottom: -50%;
+  width: 2px;
+  background-color: #e5e7eb;
+}
+.timeline-item:not(:last-child)::before,
+.timeline-item:not(:last-child) .timeline-icon { top: calc(50% - 1rem); }
+.dark .timeline-item::before { background-color: #334155; }
+.timeline-item:last-child::before { display: none; }
+
+@media (min-width: 768px) {
+  .timeline-item { padding-left: 5rem; }
+  .timeline-item:not(:last-child) { padding-bottom: 2.5rem; }
+  .timeline-item::before { left: 39px; }
+  .timeline-item:not(:last-child)::before,
+  .timeline-item:not(:last-child) .timeline-icon { top: calc(50% - 1.25rem); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-blob,
+  .animate-fade-in,
+  .animate-fade-in-up,
+  .animate-float-subtle,
+  .animate-zoom-in { animation: none !important; }
+  .hero-country-marquee__track { animation: none !important; transform: none !important; }
+}
+
+@keyframes hero-marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.hero-country-marquee__track {
+  animation: hero-marquee-left 90s linear infinite;
+  will-change: transform;
+}
+
+/* Единое скругление карточек и фотографий. Кнопки и CTA намеренно не затронуты. */
+:where(div, section, article, aside, figure, a):not([class*="rounded-full"]):not(.radius-exempt):not([class*="btn"]):not([class*="cta"]):not([class*="button"]):is(
+  [class*="rounded-lg"], [class*="rounded-xl"], [class*="rounded-2xl"], [class*="rounded-3xl"], [class*="rounded-["]
+) {
+  border-radius: var(--radius-surface) !important;
+}
+
+img:not([class*="rounded-full"]):not([data-radius="none"]) {
+  border-radius: var(--radius-media) !important;
+}

@@ -2,6 +2,7 @@ import React from 'react';
 import { Section } from './ui/Section';
 import { AtSign, Instagram, Music2, Youtube, Send } from 'lucide-react';
 import { links } from '../config/links';
+import { ResponsiveImage } from './ui/ResponsiveImage';
 
 export const Socials: React.FC = () => {
   const contentTypes = [
@@ -29,10 +30,15 @@ export const Socials: React.FC = () => {
           <div className="flex flex-col gap-2 pt-4">
              {/* Mobile Image */}
              <div className="block lg:hidden w-full relative pb-[56.25%] rounded-3xl overflow-hidden shadow-lg border border-slate-100 mb-6">
-              <img 
-                src="/media/shared/social-media-mockup.webp"
+              <ResponsiveImage
+                basePath="/media/shared/social-media-mockup"
+                widths={[480, 800, 1200]}
+                fallbackType="jpg"
+                sizes="calc(100vw - 32px)"
                 alt="Social media mockups"
                 className="absolute inset-0 w-full h-full object-cover"
+                width={1561}
+                height={836}
                 loading="lazy"
                 decoding="async"
               />
@@ -75,7 +81,7 @@ export const Socials: React.FC = () => {
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className={`${link.color} ${link.mobileOrder} p-2.5 rounded-2xl text-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center text-center h-[4.75rem] group`}
+                  className={`radius-exempt ${link.color} ${link.mobileOrder} p-2.5 rounded-2xl text-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center text-center h-[4.75rem] group`}
                 >
                   <div className="w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <link.icon className="w-full h-full" />
@@ -90,10 +96,15 @@ export const Socials: React.FC = () => {
 
         <div className="hidden lg:flex flex-1 w-full lg:w-1/2 flex-col items-center justify-center">
            <div className="w-full relative pb-[56.25%] rounded-3xl overflow-hidden shadow-lg border border-slate-100">
-            <img 
-              src="/media/shared/social-media-mockup.webp"
+            <ResponsiveImage
+              basePath="/media/shared/social-media-mockup"
+              widths={[480, 800, 1200]}
+              fallbackType="jpg"
+              sizes="50vw"
               alt="Social media mockups"
               className="absolute inset-0 w-full h-full object-cover"
+              width={1561}
+              height={836}
               loading="lazy"
               decoding="async"
             />
@@ -105,7 +116,7 @@ export const Socials: React.FC = () => {
                   href={link.href} 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className={`${link.color} ${link.mobileOrder} p-2.5 rounded-2xl text-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center text-center h-20 group`}
+                  className={`radius-exempt ${link.color} ${link.mobileOrder} p-2.5 rounded-2xl text-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all flex flex-col items-center justify-center text-center h-20 group`}
                 >
                   <div className="w-7 h-7 flex items-center justify-center group-hover:scale-110 transition-transform">
                     <link.icon className="w-full h-full" />
